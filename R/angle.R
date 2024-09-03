@@ -1,4 +1,4 @@
-deg_to_dms <- function(deg, type, digit = 5) {
+deg_to_dms <- function(deg, type = 'cat', digit = 5) {
 
   DEG <- 1
   MIN <- 60
@@ -37,4 +37,32 @@ deg_to_dms <- function(deg, type, digit = 5) {
     return(df |> dplyr::select(SIGN, DEG, MIN, SEC) |> as.matrix())
   }
 }
+
+dms_to_deg <- function(d, m, s, digit = 5) {
+  sign <- 1
+  deg <- 0
+
+  if (is.character(d) & missing(m) & missing(s)) {
+    d2 <- readr::parse_number(d)
+    m2 <- stringr::str_remove(d, as.character(d2))
+    m <- readr::parse_number(m2)
+    s2 <- stringr::str_remove(m2, as.character(m))
+    s <- readr::parse_number(s2)
+    d <- d2
+  }
+
+  if (d < -90 | d > 90) {
+    stop("All d values should be less than 90 and greater than -90.")
+  }
+  if (m >= 60 | s >= 60) {
+    stop("Minutes and Seconds should be less than 60 and greater than 0.")
+  }
+  df <- tibble::tibble(d, m, s) |>
+    dplyr::mutate(sign = sign(d),
+           deg = abs(d) + (m / 60) + (s / 3600),
+           deg = round(deg, digit) * sign)
+  return(df |> dplyr::pull(deg))
+}
+
+
 
