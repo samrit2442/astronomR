@@ -96,3 +96,21 @@ deg_to_hms <- function(deg, type = 'cat', digit = 5) {
   }
 }
 
+hms_to_deg <- function(h, m, s, digit = 5) {
+  if (is.character(h) & missing(m) & missing(s)) {
+    df <- tibble::tibble(h) |>
+          dplyr::mutate(h = tolower(h)) |>
+          tidyr::separate(h, into = c("H", "M", "S"),
+                          sep = "[hms]", extra = "drop",
+                          convert = T) |>
+      dplyr::mutate(DEG = round((H * 15) + (M * 15 / 60) + (S * 15 / 3600),
+                                digits = digit))
+  }
+  return(df |> dplyr::pull(DEG))
+}
+
+
+
+
+
+

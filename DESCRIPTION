@@ -13,4 +13,5 @@ Imports:
     dplyr,
     readr,
     stringr,
-    tibble
+    tibble,
+    tidyr
