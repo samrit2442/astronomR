@@ -22,7 +22,7 @@ get_gaia_data <- function(vars, condition) {
     FORMAT = "json",
     PHASE = "RUN",
     QUERY = query)
-  print(query)
+
   # Perform the query
   response <- tryCatch({
     httr::POST(base_url, body = body, encode = "form")
