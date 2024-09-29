@@ -97,6 +97,12 @@ deg_to_hms <- function(deg, type = 'cat', digit = 5) {
 }
 
 hms_to_deg <- function(h, m, s, digit = 5) {
+
+  H <- 0
+  M <- 0
+  S <- 0
+  DEG <- 0
+
   if (is.character(h) & missing(m) & missing(s)) {
     df <- tibble::tibble(h) |>
           dplyr::mutate(h = tolower(h)) |>
@@ -109,8 +115,9 @@ hms_to_deg <- function(h, m, s, digit = 5) {
   return(df |> dplyr::pull(DEG))
 }
 
-
-
+options(error = NULL)
+options(browser = NULL)
+# undebug(deg_to_dms)
 
 
 
