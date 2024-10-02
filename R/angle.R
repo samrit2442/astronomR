@@ -97,28 +97,35 @@ deg_to_hms <- function(deg, type = 'cat', digit = 5) {
 }
 
 hms_to_deg <- function(h, m, s, digit = 5) {
-
+  DEG <- 0
   H <- 0
   M <- 0
   S <- 0
-  DEG <- 0
 
   if (is.character(h) & missing(m) & missing(s)) {
     df <- tibble::tibble(h) |>
-          dplyr::mutate(h = tolower(h)) |>
-          tidyr::separate(h, into = c("H", "M", "S"),
-                          sep = "[hms]", extra = "drop",
-                          convert = T) |>
+      dplyr::mutate(h = tolower(h)) |>
+      tidyr::separate(h, into = c("H", "M", "S"),
+                      sep = "[hms]", extra = "drop",
+                      convert = TRUE) |>
+      dplyr::mutate(DEG = round((H * 15) + (M * 15 / 60) + (S * 15 / 3600),
+                                digits = digit))
+  } else {
+    # If numeric h, m, s are provided
+    df <- tibble::tibble(H = h, M = m, S = s) |>
       dplyr::mutate(DEG = round((H * 15) + (M * 15 / 60) + (S * 15 / 3600),
                                 digits = digit))
   }
+
   return(df |> dplyr::pull(DEG))
 }
 
-deg2rad <-function(deg) deg * 0.0174532925
-
-rad2deg <-function(radian) radian * 57.29577951308
-
+deg2rad <- function(deg) {
+  return(deg * pi / 180)
+}
+rad2deg <- function(rad) {
+  return(rad * 180 / pi)
+}
 
 
 options(error = NULL)

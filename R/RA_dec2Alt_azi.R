@@ -3,29 +3,24 @@ julian_day <- function(datetime) {
   month <- as.numeric(format(datetime, "%m"))
   day <- as.numeric(format(datetime, "%d"))
   hour <- as.numeric(format(datetime, "%H")) + as.numeric(format(datetime, "%M")) / 60
-  
+
   if (month <= 2) {
     year <- year - 1
     month <- month + 12
   }
-  
+
   A <- floor(year / 100)
   B <- 2 - A + floor(A / 4)
-  
+
   jd <- floor(365.25 * (year + 4716)) + floor(30.6001 * (month + 1)) + day + B - 1524.5 + (hour / 24)
-  
+
   return(jd)
 }
 
 
 
 RA_dec2Alt_azi <- function(ra, dec, lat, lon, datetime) {
-  deg2rad <- function(deg) {
-    return(deg * pi / 180)
-  }
-  rad2deg <- function(rad) {
-    return(rad * 180 / pi)
-  }
+
   jd <- julian_day(datetime)
   # Calculate sidereal time at Greenwich
   gst <- 18.697374558 + 24.06570982441908 * (jd - 2451545.0)
@@ -39,7 +34,7 @@ RA_dec2Alt_azi <- function(ra, dec, lat, lon, datetime) {
   lat_rad <- deg2rad(lat)
   sin_alt <- sin(dec_rad) * sin(lat_rad) + cos(dec_rad) * cos(lat_rad) * cos(ha_rad)
   alt_rad <- asin(sin_alt)
-  
+
   cos_az <- (sin(dec_rad) - sin(alt_rad) * sin(lat_rad)) / (cos(alt_rad) * cos(lat_rad))
   az_rad <- acos(cos_az)
   if (sin(ha_rad) > 0) {
