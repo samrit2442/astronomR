@@ -16,7 +16,7 @@ OpenLCDM <- function(hubble_constant_fact, curvature_crit, dark_matter_crit, mat
   return(list(hubble_constant_fact = hubble_constant_fact, curvature_crit = curvature_crit, dark_matter_crit = dark_matter_crit, matter_crit = matter_crit, radiation_crit = radiation_crit, type = "OpenLCDM", h_per_s = h_per_s))
 }
 
-osmology_model <- function(hubble_constant_fact=0.6774, curvature_crit = 0, dark_matter_crit = 0.6911, matter_crit = 0.3089, radiation_crit = 0){
+cosmology_model <- function(hubble_constant_fact=0.6774, curvature_crit = 0, dark_matter_crit = 0.6911, matter_crit = 0.3089, radiation_crit = 0){
   if (curvature_crit<0){
     return(ClosedLCDM(hubble_constant_fact, curvature_crit, dark_matter_crit, matter_crit, radiation_crit))
   }
