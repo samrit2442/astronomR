@@ -115,6 +115,12 @@ hms_to_deg <- function(h, m, s, digit = 5) {
   return(df |> dplyr::pull(DEG))
 }
 
+deg2rad <-function(deg) deg * 0.0174532925
+
+rad2deg <-function(radian) radian * 57.29577951308
+
+
+
 options(error = NULL)
 options(browser = NULL)
 # undebug(deg_to_dms)
