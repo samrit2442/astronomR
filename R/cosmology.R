@@ -1,3 +1,4 @@
+km_to_mpc <- function(km) {km / (3.262e6 * 9.461e12)}
 Mpc_to_km <- function(mp_km) { mp_km * 3.262e6 * 9.461e12 }
 sec_to_year <- function(sec_ye) { 3.1709791984e-8 * sec_ye }
 
