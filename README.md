@@ -13,7 +13,6 @@ While R is widely used in data science and statistical computing, there has been
 # Install devtools package if you don't have it
 # install.packages("devtools")
 
-devtools::install_github("samrit2442/a
-stronomR")
+devtools::install_github("samrit2442/astronomR")
 
 ```
