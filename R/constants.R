@@ -1,6 +1,5 @@
 # Create the object
 
-
 const_c0 <- 299792458
 const_mu0 <- 4e-7 * pi
 const_epsilon0 <- 8.854187817e-12
