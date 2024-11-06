@@ -22,25 +22,59 @@ const_eV <- 1.6021766208e-19
 const_u <- 1.660539040e-27
 
 
+constants_df <- tibble::tribble(
+  ~name, ~symbol, ~value_SI, ~unit_SI, ~value_Natural, ~unit_Natural,
+  "Speed of Light", "c0", 299792458, "m/s", 1, "m/s"
 
-save(const_c0, file = "data/const_c0.rda")
-save(const_mu0, file = "data/const_mu0.rda")
-save(const_epsilon0, file = "data/const_epsilon0.rda")
-save(const_G, file = "data/const_G.rda")
-save(const_h, file = "data/const_h.rda")
-save(const_e, file = "data/const_e.rda")
-save(const_phi0, file = "data/const_phi0.rda")
-save(const_G0, file = "data/const_G0.rda")
-save(const_m_e, file = "data/const_m_e.rda")
-save(const_m_p, file = "data/const_m_p.rda")
-# const
-save(const_alpha, file = "data/const_alpha.rda")
-save(const_alpha_inverse, file = "data/const_alpha_inverse.rda")
-save(const_R_infinity, file = "data/const_R_infinity.rda")
-save(const_L, file = "data/const_L.rda")
-save(const_F, file = "data/const_F.rda")
-save(const_R, file = "data/const_R.rda")
-save(cosnt_k, file = "data/cosnt_k.rda")
-save(const_sigma, file = "data/const_sigma.rda")
-save(const_eV, file = "data/const_eV.rda")
-save(const_u, file = "data/const_u.rda")
+)
+
+
+constant_value <- function(constant_name, unit = "SI") {
+  # Filter the tibble to get rows where constant_name contains the user input
+  matching_rows <- constants_df[stringr::str_detect(constants_df$name, constant_name), ]
+
+  # Check if there's an exact match or one matching row
+  if (nrow(matching_rows) == 1) {
+    constant_row <- matching_rows
+  } else if (nrow(matching_rows) == 0) {
+    stop("No constant found matching that name.")
+  } else {
+    stop("Multiple constants match that name. Please specify further.")
+  }
+
+  # Select the value and unit based on the unit argument
+  if (unit == "SI") {
+    value <- constant_row$value_SI
+    unit_value <- constant_row$unit_SI
+  } else if (unit == "Natural") {
+    value <- constant_row$value_natural
+    unit_value <- constant_row$unit_natural
+  } else {
+    stop("Invalid unit. Use 'SI' or 'Natural'.")
+  }
+
+  # Return the result as a list
+  return(list(
+    name = constant_row$name,
+    value = value,
+    unit = unit_value
+  ))
+}
+
+# constant_value("Light")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
