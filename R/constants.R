@@ -1,37 +1,34 @@
 # Create the object
-const_c0 <- 299792458
-const_mu0 <- 4e-7 * pi
-const_epsilon0 <- 8.854187817e-12
-const_G <- 6.67408e-11
-const_h <- 6.626070040e-34
-const_e <- 1.6021766208e-19
-const_phi0 <- 2.067833831e-15
-const_G0 <- 7.7480917310e-5
-const_m_e <- 9.10938356e-31
-const_m_p <- 1.672621898e-27
 # const_m_e_
-const_alpha <- 7.2973525664e-3
-const_alpha_inverse <- 1/const_alpha
-const_R_infinity <- 10973731.568508
-const_L <- 6.022140857e23
-const_F <- 96485.33289
-const_R <- 8.3144598
-cosnt_k <- 1.38064852e-23
-const_sigma <- 5.670367e-8
-const_eV <- 1.6021766208e-19
-const_u <- 1.660539040e-27
 
 
 constants_df <- tibble::tribble(
   ~name, ~symbol, ~value_SI, ~unit_SI, ~value_Natural, ~unit_Natural,
-  "Speed of Light", "c0", 299792458, "m/s", 1, "m/s"
-
+  "Speed of Light",           "c0",       299792458,        "m/s",                1, "-",
+  "Magnetic Constant",        "mu0",      4e-7 * pi,        "N A^(-2)",           1, "-",
+  "Electric Constant",        "epsilon0", 8.854187817e-12,  "F/m",                1, "-",
+  "Gravitational Constant",   "G",        6.67408e-11,      "m^3 kg^(-1) s^(-2)", 1, "-",
+  "Planck Constant",          "h",        6.626070040e-34,  "J s",                1, "-",
+  "Elementary Charge",        "e",        1.6021766208e-19, "C",                  1, "-",
+  "Magnetic Flux Quantum",    "phi0",     2.067833831e-15,  "Wb",                 1, "-",
+  "Conductance Quantum",      "G0",       7.7480917310e-5,  "S",                  1, "-",
+  "Electron Mass",            "m_e",      9.10938356e-31,   "kg",                 1, "-",
+  "Proton Mass",              "m_p",      1.672621898e-27,  "kg",                 1, "-",
+  "Fine-Structure Constant",  "alpha",    7.2973525664e-3,  "-",                  1, "-",
+  "Rydberg Constant",         "R_inf",    10973731.568508,  "m^(-1)",             1, "-",
+  "Avogadro Constant",        "N_A",      6.022140857e23,   "mol^(-1)",           1, "-",
+  "Faraday Constant",         "F",        96485.33289,      "C mol^(-1)",         1, "-",
+  "Molar Gas Constant",       "R",        8.3144598,        "J mol^(-1) K^(-1)",  1, "-",
+  "Boltzman Constant",        "k",        1.38064852e-23,   "J K^(-1)",           1, "-",
+  "Stefan-Boltzman Constant", "sigma",    5.670367e-8,      "W m^(-2) K^(-4)",    1, "-",
+  "Electron Volt",            "eV",       1.6021766208e-19, "J",                  1, "-",
+  "Atomic Mass Unit",         "u",        1.660539040e-27,  "kg",                 1, "-"
 )
 
 
 constant_value <- function(constant_name, unit = "SI") {
   # Filter the tibble to get rows where constant_name contains the user input
-  matching_rows <- constants_df[stringr::str_detect(constants_df$name, constant_name), ]
+  matching_rows <- constants_df[stringr::str_detect(tolower(constants_df$name), tolower(constant_name)), ]
 
   # Check if there's an exact match or one matching row
   if (nrow(matching_rows) == 1) {
@@ -61,7 +58,7 @@ constant_value <- function(constant_name, unit = "SI") {
   ))
 }
 
-# constant_value("Light")
+constant_value("stefan")
 
 
 
