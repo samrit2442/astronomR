@@ -3,7 +3,7 @@
 
 
 constants_df <- tibble::tribble(
-  ~name, ~symbol, ~value_SI, ~unit_SI, ~value_Natural, ~unit_Natural,
+  ~name,                      ~symbol,    ~value_SI,        ~unit_SI,  ~value_Natural, ~unit_Natural,
   "Speed of Light",           "c0",       299792458,        "m/s",                1, "-",
   "Magnetic Constant",        "mu0",      4e-7 * pi,        "N A^(-2)",           1, "-",
   "Electric Constant",        "epsilon0", 8.854187817e-12,  "F/m",                1, "-",
