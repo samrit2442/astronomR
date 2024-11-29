@@ -158,9 +158,14 @@ hms_to_deg <- function(h, m, s, digit = 5) {
   return(df |> dplyr::pull(DEG))
 }
 
+#'@export
+
 deg2rad <- function(deg) {
   return(deg * pi / 180)
 }
+
+#'@export
+
 rad2deg <- function(rad) {
   return(rad * 180 / pi)
 }

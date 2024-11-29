@@ -6,6 +6,8 @@
 # vars <- "source_id, ra, dec, phot_bp_mean_mag, phot_rp_mean_mag, parallax"
 # condition <- "parallax > 40"
 
+#'@export
+
 get_gaia_data <- function(vars, condition) {
   # URL for the Gaia Archive TAP service
   base_url <- "https://gea.esac.esa.int/tap-server/tap/sync"

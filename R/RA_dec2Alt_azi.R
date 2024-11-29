@@ -1,3 +1,5 @@
+#'@export
+
 julian_day <- function(datetime) {
   year <- as.numeric(format(datetime, "%Y"))
   month <- as.numeric(format(datetime, "%m"))
@@ -18,6 +20,7 @@ julian_day <- function(datetime) {
 }
 
 
+#'@export
 
 RA_dec2Alt_azi <- function(ra, dec, lat, lon, datetime) {
 
