@@ -1,10 +1,36 @@
-#'@export
+#' Convert Kilometers to Megaparsecs
+#'
+#' This function converts a distance value from kilometers (km) to megaparsecs (Mpc). 
+#' The conversion factor is based on 1 parsec being equivalent to 3.262 light-years, 
+#' and 1 light-year being approximately \(9.461 \times 10^{12}\) kilometers.
+#'
+#' @param km A numeric value representing the distance in kilometers.
+#'
+#' @return A numeric value representing the equivalent distance in megaparsecs (Mpc).
+#' @export
+#'
+#' @examples
+#' km_to_mpc(3.086e19) # Converts 3.086e19 km (approx. 1 Mpc) to megaparsecs
+km_to_mpc <- function(km) {
+  km / (3.262e6 * 9.461e12)
+}
 
-km_to_mpc <- function(km) {km / (3.262e6 * 9.461e12)}
-
-#'@export
-
-Mpc_to_km <- function(mp_km) { mp_km * 3.262e6 * 9.461e12 }
+#' Convert Megaparsecs to Kilometers
+#'
+#' This function converts a distance value from megaparsecs (Mpc) to kilometers (km). 
+#' The conversion factor is based on 1 parsec being equivalent to 3.262 light-years, 
+#' and 1 light-year being approximately \(9.461 \times 10^{12}\) kilometers.
+#'
+#' @param mpc A numeric value representing the distance in megaparsecs.
+#'
+#' @return A numeric value representing the equivalent distance in kilometers (km).
+#' @export
+#'
+#' @examples
+#' mpc_to_km(1) # Converts 1 Mpc to kilometers
+mpc_to_km <- function(mpc) {
+  mpc * 3.262e6 * 9.461e12
+}
 
 #'@export
 
