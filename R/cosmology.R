@@ -1,37 +1,51 @@
-#'@export
-
+#' Title
+#'
+#' @param km
+#'
+#' @return
+#' @export
+#'
+#' @examples
 km_to_mpc <- function(km) {km / (3.262e6 * 9.461e12)}
 
-#'@export
 
+
+#' Title
+#'
+#' @param mp_km
+#'
+#' @return
+#' @export
+#'
+#' @examples
 Mpc_to_km <- function(mp_km) { mp_km * 3.262e6 * 9.461e12 }
 
-#'@export
+
 
 sec_to_year <- function(sec_ye) { 3.1709791984e-8 * sec_ye }
 
-#'@export
+
 
 FlatLCDM <- function(hubble_constant_fact, dark_matter_crit, matter_crit, radiation_crit) {
   h_per_s <- hubble_constant_fact*1/Mpc_to_km(1.0)
   return(list(hubble_constant_fact = hubble_constant_fact, dark_matter_crit = dark_matter_crit, matter_crit = matter_crit, radiation_crit = radiation_crit, type = "FlatLCDM", h_per_s = h_per_s))
 }
 
-#'@export
+
 
 ClosedLCDM <- function(hubble_constant_fact, curvature_crit, dark_matter_crit, matter_crit, radiation_crit) {
   h_per_s <- hubble_constant_fact*1/Mpc_to_km(1.0)
   return(list(hubble_constant_fact = hubble_constant_fact, curvature_crit = curvature_crit, dark_matter_crit = dark_matter_crit, matter_crit = matter_crit, radiation_crit = radiation_crit, type = "ClosedLCDM", h_per_s = h_per_s))
 }
 
-#'@export
+
 
 OpenLCDM <- function(hubble_constant_fact, curvature_crit, dark_matter_crit, matter_crit, radiation_crit) {
   h_per_s <- hubble_constant_fact*1/Mpc_to_km(1.0)
   return(list(hubble_constant_fact = hubble_constant_fact, curvature_crit = curvature_crit, dark_matter_crit = dark_matter_crit, matter_crit = matter_crit, radiation_crit = radiation_crit, type = "OpenLCDM", h_per_s = h_per_s))
 }
 
-#'@export
+
 
 cosmology_model <- function(hubble_constant_fact=0.6774, curvature_crit = 0, dark_matter_crit = 0.6911, matter_crit = 0.3089, radiation_crit = 0){
   if (curvature_crit<0){
@@ -57,7 +71,7 @@ H_by_H0 <- function(c, a) {
   }
 }
 
-#'@export
+
 
 tH0_as_fn_a <- function(c,a){
   helper_fun <- function(a_b){
@@ -71,20 +85,20 @@ tH0_as_fn_a <- function(c,a){
   return(pracma::quad(helper_fun, 0, a))
 }
 
-#'@export
+
 
 t_as_func_a_in_Year <- function(c,a){
   k <- (100.0*c$h_per_s)/(sec_to_year(1.0))
   return(tH0_as_fn_a(c,a)/k)
 }
 
-#'@export
+
 
 age_of_universe <- function(c){
   return(t_as_func_a_in_Year(c,1.0))
 }
 
-#'@export
+
 
 age_of_universe_GY <- function(c){
   return(age_of_universe(c)/10^9)
@@ -101,7 +115,7 @@ comoving_distance <- function(c,z){
   return(pracma::quad(help_funct, 0, z)*comv_dist(c))
 }
 
-#'@export
+
 
 radius_of_curvature <- function(c){
   if (c$type == "FlatLCDM"){
@@ -119,7 +133,7 @@ radius_of_curvature <- function(c){
   }
 }
 
-#'@export
+
 
 metric_distance <- function(c,z){
   if(c$type == "FlatLCDM"){
@@ -135,13 +149,13 @@ metric_distance <- function(c,z){
   }
 }
 
-#'@export
+
 
 luminosity_distance <- function(c,z){
   return((1+z)*metric_distance(c,z))
 }
 
-#'@export
+
 
 angular_diameter_distance <- function(c,z){
   return(metric_distance(c,z)/(1+z))
