@@ -1,3 +1,19 @@
+<<<<<<< HEAD
+=======
+#' Calculate Julian Day from Datetime
+#'
+#' This function calculates the Julian Day (JD) for a given datetime. 
+#' The Julian Day is a continuous count of days and fractions of a day since January 1, 4713 BC (noon UTC).
+#'
+#' @param datetime A `POSIXct` object representing the datetime for which the Julian Day is calculated.
+#'
+#' @return A numeric value representing the Julian Day (JD).
+#' @export
+#'
+#' @examples
+#' julian_day(as.POSIXct("2024-01-01 12:00:00", tz = "UTC"))
+#' # Returns the Julian Day for January 1, 2024, at noon UTC
+>>>>>>> 1118deefab97818c0e1e67d4c7cbffbe3d4e1e83
 julian_day <- function(datetime) {
   year <- as.numeric(format(datetime, "%Y"))
   month <- as.numeric(format(datetime, "%m"))
@@ -17,7 +33,31 @@ julian_day <- function(datetime) {
   return(jd)
 }
 
+<<<<<<< HEAD
 
+=======
+#' Convert Right Ascension and Declination to Altitude and Azimuth
+#'
+#' This function converts celestial coordinates (Right Ascension and Declination) into 
+#' horizontal coordinates (Altitude and Azimuth) for a given observer's latitude, longitude, and datetime.
+#'
+#' @param ra A numeric value representing the Right Ascension (RA) in hours.
+#' @param dec A numeric value representing the Declination (Dec) in degrees.
+#' @param lat A numeric value representing the observer's latitude in degrees.
+#' @param lon A numeric value representing the observer's longitude in degrees.
+#' @param datetime A `POSIXct` object representing the datetime of observation.
+#'
+#' @return A list with two elements:
+#' \itemize{
+#'   \item \code{altitude}: The Altitude of the object in degrees.
+#'   \item \code{azimuth}: The Azimuth of the object in degrees.
+#' }
+#' @export
+#'
+#' @examples
+#' RA_dec2Alt_azi(ra = 5.0, dec = -5.0, lat = 40.0, lon = -75.0, datetime = as.POSIXct("2024-01-01 00:00:00", tz = "UTC"))
+#' # Returns the Altitude and Azimuth for the given parameters
+>>>>>>> 1118deefab97818c0e1e67d4c7cbffbe3d4e1e83
 RA_dec2Alt_azi <- function(ra, dec, lat, lon, datetime) {
 
   jd <- julian_day(datetime)
