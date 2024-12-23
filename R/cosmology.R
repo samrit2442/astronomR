@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #' Title
 #'
 #' @param km
@@ -20,7 +19,7 @@ km_to_mpc <- function(km) {km / (3.262e6 * 9.461e12)}
 #'
 #' @examples
 Mpc_to_km <- function(mp_km) { mp_km * 3.262e6 * 9.461e12 }
-=======
+
 #' Convert Kilometers to Megaparsecs
 #'
 #' This function converts a distance value from kilometers (km) to megaparsecs (Mpc). 
@@ -54,19 +53,13 @@ km_to_mpc <- function(km) {
 mpc_to_km <- function(mpc) {
   mpc * 3.262e6 * 9.461e12
 }
->>>>>>> 1118deefab97818c0e1e67d4c7cbffbe3d4e1e83
-
-
 
 sec_to_year <- function(sec_ye) { 3.1709791984e-8 * sec_ye }
-
-
 
 FlatLCDM <- function(hubble_constant_fact, dark_matter_crit, matter_crit, radiation_crit) {
   h_per_s <- hubble_constant_fact*1/Mpc_to_km(1.0)
   return(list(hubble_constant_fact = hubble_constant_fact, dark_matter_crit = dark_matter_crit, matter_crit = matter_crit, radiation_crit = radiation_crit, type = "FlatLCDM", h_per_s = h_per_s))
 }
-
 
 
 ClosedLCDM <- function(hubble_constant_fact, curvature_crit, dark_matter_crit, matter_crit, radiation_crit) {
@@ -75,13 +68,10 @@ ClosedLCDM <- function(hubble_constant_fact, curvature_crit, dark_matter_crit, m
 }
 
 
-
 OpenLCDM <- function(hubble_constant_fact, curvature_crit, dark_matter_crit, matter_crit, radiation_crit) {
   h_per_s <- hubble_constant_fact*1/Mpc_to_km(1.0)
   return(list(hubble_constant_fact = hubble_constant_fact, curvature_crit = curvature_crit, dark_matter_crit = dark_matter_crit, matter_crit = matter_crit, radiation_crit = radiation_crit, type = "OpenLCDM", h_per_s = h_per_s))
 }
-
-
 
 cosmology_model <- function(hubble_constant_fact=0.6774, curvature_crit = 0, dark_matter_crit = 0.6911, matter_crit = 0.3089, radiation_crit = 0){
   if (curvature_crit<0){
@@ -107,8 +97,6 @@ H_by_H0 <- function(c, a) {
   }
 }
 
-
-
 tH0_as_fn_a <- function(c,a){
   helper_fun <- function(a_b){
     if (c$type == "FlatLCDM"){
@@ -121,19 +109,15 @@ tH0_as_fn_a <- function(c,a){
   return(pracma::quad(helper_fun, 0, a))
 }
 
-
-
 t_as_func_a_in_Year <- function(c,a){
   k <- (100.0*c$h_per_s)/(sec_to_year(1.0))
   return(tH0_as_fn_a(c,a)/k)
 }
 
 
-
 age_of_universe <- function(c){
   return(t_as_func_a_in_Year(c,1.0))
 }
-
 
 
 age_of_universe_GY <- function(c){
@@ -151,8 +135,6 @@ comoving_distance <- function(c,z){
   return(pracma::quad(help_funct, 0, z)*comv_dist(c))
 }
 
-
-
 radius_of_curvature <- function(c){
   if (c$type == "FlatLCDM"){
     k <- 0
@@ -169,8 +151,6 @@ radius_of_curvature <- function(c){
   }
 }
 
-
-
 metric_distance <- function(c,z){
   if(c$type == "FlatLCDM"){
     return(comoving_distance(c,z))
@@ -185,13 +165,9 @@ metric_distance <- function(c,z){
   }
 }
 
-
-
 luminosity_distance <- function(c,z){
   return((1+z)*metric_distance(c,z))
 }
-
-
 
 angular_diameter_distance <- function(c,z){
   return(metric_distance(c,z)/(1+z))
@@ -203,10 +179,6 @@ a_of_t <- function(c, t) {
   a <- pracma::fzero(f, 1)$x  # Numerical root finding starting from a=1
   return(a)
 }
-
-
-
-
 
 
 
