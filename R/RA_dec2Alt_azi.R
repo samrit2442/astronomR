@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 #' Calculate Julian Day from Datetime
 #'
 #' This function calculates the Julian Day (JD) for a given datetime. 
@@ -13,7 +11,7 @@
 #' @examples
 #' julian_day(as.POSIXct("2024-01-01 12:00:00", tz = "UTC"))
 #' # Returns the Julian Day for January 1, 2024, at noon UTC
->>>>>>> 1118deefab97818c0e1e67d4c7cbffbe3d4e1e83
+
 julian_day <- function(datetime) {
   year <- as.numeric(format(datetime, "%Y"))
   month <- as.numeric(format(datetime, "%m"))
@@ -33,9 +31,6 @@ julian_day <- function(datetime) {
   return(jd)
 }
 
-<<<<<<< HEAD
-
-=======
 #' Convert Right Ascension and Declination to Altitude and Azimuth
 #'
 #' This function converts celestial coordinates (Right Ascension and Declination) into 
@@ -57,7 +52,7 @@ julian_day <- function(datetime) {
 #' @examples
 #' RA_dec2Alt_azi(ra = 5.0, dec = -5.0, lat = 40.0, lon = -75.0, datetime = as.POSIXct("2024-01-01 00:00:00", tz = "UTC"))
 #' # Returns the Altitude and Azimuth for the given parameters
->>>>>>> 1118deefab97818c0e1e67d4c7cbffbe3d4e1e83
+
 RA_dec2Alt_azi <- function(ra, dec, lat, lon, datetime) {
 
   jd <- julian_day(datetime)
