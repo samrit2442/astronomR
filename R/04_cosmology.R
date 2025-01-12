@@ -6,7 +6,7 @@
 #' @export
 #'
 #' @examples
-km_to_mpc <- function(km) {km / (3.262e6 * 9.461e12)}
+km_to_Mpc <- function(km) {km / (3.262e6 * 9.461e12)}
 
 
 
@@ -22,8 +22,8 @@ Mpc_to_km <- function(mp_km) { mp_km * 3.262e6 * 9.461e12 }
 
 #' Convert Kilometers to Megaparsecs
 #'
-#' This function converts a distance value from kilometers (km) to megaparsecs (Mpc). 
-#' The conversion factor is based on 1 parsec being equivalent to 3.262 light-years, 
+#' This function converts a distance value from kilometers (km) to megaparsecs (Mpc).
+#' The conversion factor is based on 1 parsec being equivalent to 3.262 light-years,
 #' and 1 light-year being approximately \(9.461 \times 10^{12}\) kilometers.
 #'
 #' @param km A numeric value representing the distance in kilometers.
@@ -33,14 +33,14 @@ Mpc_to_km <- function(mp_km) { mp_km * 3.262e6 * 9.461e12 }
 #'
 #' @examples
 #' km_to_mpc(3.086e19) # Converts 3.086e19 km (approx. 1 Mpc) to megaparsecs
-km_to_mpc <- function(km) {
+km_to_Mpc <- function(km) {
   km / (3.262e6 * 9.461e12)
 }
 
 #' Convert Megaparsecs to Kilometers
 #'
-#' This function converts a distance value from megaparsecs (Mpc) to kilometers (km). 
-#' The conversion factor is based on 1 parsec being equivalent to 3.262 light-years, 
+#' This function converts a distance value from megaparsecs (Mpc) to kilometers (km).
+#' The conversion factor is based on 1 parsec being equivalent to 3.262 light-years,
 #' and 1 light-year being approximately \(9.461 \times 10^{12}\) kilometers.
 #'
 #' @param mpc A numeric value representing the distance in megaparsecs.
@@ -73,6 +73,8 @@ OpenLCDM <- function(hubble_constant_fact, curvature_crit, dark_matter_crit, mat
   return(list(hubble_constant_fact = hubble_constant_fact, curvature_crit = curvature_crit, dark_matter_crit = dark_matter_crit, matter_crit = matter_crit, radiation_crit = radiation_crit, type = "OpenLCDM", h_per_s = h_per_s))
 }
 
+### Only export the function that the user should interact with
+
 cosmology_model <- function(hubble_constant_fact=0.6774, curvature_crit = 0, dark_matter_crit = 0.6911, matter_crit = 0.3089, radiation_crit = 0){
   if (curvature_crit<0){
     return(ClosedLCDM(hubble_constant_fact, curvature_crit, dark_matter_crit, matter_crit, radiation_crit))
@@ -85,7 +87,7 @@ cosmology_model <- function(hubble_constant_fact=0.6774, curvature_crit = 0, dar
   }
 }
 
-a <- function(z) {1 / (1 + z) }#a= expansion factor; today it's 1
+a <- function(z) {1 / (1 + z) } #a= expansion factor; today it's 1
 redshift <- function(a) {if(a<0){print("error can't be negative")} else{1 / a - 1 }}
 
 H_by_H0 <- function(c, a) {
@@ -115,13 +117,19 @@ t_as_func_a_in_Year <- function(c,a){
 }
 
 
-age_of_universe <- function(c){
-  return(t_as_func_a_in_Year(c,1.0))
-}
+age_of_universe <- function(c, unit = "year"){
 
+  age <- t_as_func_a_in_Year(c,1.0)
 
-age_of_universe_GY <- function(c){
-  return(age_of_universe(c)/10^9)
+  if (unit == "year"){
+    return(age)
+  }
+  else if (unit == "GY"){
+    return(age/10^9)
+  }
+  else{
+    print("Error: unit must be either 'year' or 'GY'")
+  }
 }
 
 comv_dist <- function(c){
