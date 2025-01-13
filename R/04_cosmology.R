@@ -1,25 +1,3 @@
-#' Title
-#'
-#' @param km
-#'
-#' @return
-#' @export
-#'
-#' @examples
-km_to_Mpc <- function(km) {km / (3.262e6 * 9.461e12)}
-
-
-
-#' Title
-#'
-#' @param mp_km
-#'
-#' @return
-#' @export
-#'
-#' @examples
-Mpc_to_km <- function(mp_km) { mp_km * 3.262e6 * 9.461e12 }
-
 #' Convert Kilometers to Megaparsecs
 #'
 #' This function converts a distance value from kilometers (km) to megaparsecs (Mpc).
@@ -32,7 +10,7 @@ Mpc_to_km <- function(mp_km) { mp_km * 3.262e6 * 9.461e12 }
 #' @export
 #'
 #' @examples
-#' km_to_mpc(3.086e19) # Converts 3.086e19 km (approx. 1 Mpc) to megaparsecs
+#' km_to_Mpc(3.086e19) # Converts 3.086e19 km (approx. 1 Mpc) to megaparsecs
 km_to_Mpc <- function(km) {
   km / (3.262e6 * 9.461e12)
 }
@@ -49,8 +27,8 @@ km_to_Mpc <- function(km) {
 #' @export
 #'
 #' @examples
-#' mpc_to_km(1) # Converts 1 Mpc to kilometers
-mpc_to_km <- function(mpc) {
+#' Mpc_to_km(1) # Converts 1 Mpc to kilometers
+Mpc_to_km <- function(mpc) {
   mpc * 3.262e6 * 9.461e12
 }
 
