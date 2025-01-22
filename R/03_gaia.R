@@ -1,12 +1,28 @@
-# query2 <- paste0(
-#   "SELECT source_id, ra, dec, phot_bp_mean_mag, phot_rp_mean_mag, phot_g_mean_mag, parallax ",
-#   "FROM external.gaiaedr3_gcns_main_1 ",
-#   "WHERE parallax >50")
-
-# vars <- "source_id, ra, dec, phot_bp_mean_mag, phot_rp_mean_mag, parallax"
-# condition <- "parallax > 40"
-
-#'@export
+#' Query Gaia Archive Data
+#'
+#' This function queries the Gaia Archive TAP service to retrieve data based on
+#' the specified variables and conditions.
+#'
+#' It uses the Gaia Early Data Release 3 (EDR3) catalog, which contains information
+#'
+#' @param vars A character string specifying the variables to retrieve
+#' (e.g., "source_id, ra, dec").
+#' @param condition A character string specifying the conditions to filter the data
+#'  (e.g., "parallax > 10").
+#' @return A data frame containing the requested data.
+#' @details This function sends a synchronous query to the Gaia Archive TAP service
+#'
+#' @examples
+#' # Define the variables and condition
+#' vars <- "source_id, ra, dec, phot_bp_mean_mag, phot_rp_mean_mag, parallax"
+#' condition <- "parallax > 40"
+#' # Fetch the data from the Gaia Archive
+#' result <- get_gaia_data(vars, condition)
+#' head(result)
+#'
+#' @note This function requires the `httr` and `jsonlite` packages to handle HTTP
+#' requests and parse JSON responses, respectively.
+#' @export
 
 get_gaia_data <- function(vars, condition) {
   # URL for the Gaia Archive TAP service
@@ -58,3 +74,5 @@ get_gaia_data <- function(vars, condition) {
   return(df)
 }
 
+# vars <- "source_id, ra, dec, phot_bp_mean_mag, phot_rp_mean_mag, parallax"
+# condition <- "parallax > 40"
