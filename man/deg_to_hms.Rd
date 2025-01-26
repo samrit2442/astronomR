@@ -2,17 +2,27 @@
 % Please edit documentation in R/01_angle.R
 \name{deg_to_hms}
 \alias{deg_to_hms}
-\title{Position and Motion of Stars Conversion Functions}
+\title{Convert Decimal Degrees to Hours, Minutes, and Seconds (HMS) Format}
 \usage{
 deg_to_hms(deg, type = "cat", digit = 5)
 }
 \arguments{
-\item{deg}{[ADD DESCRIPTION]}
+\item{deg}{Numeric vector of angles in decimal degrees. Values can range from 0° to 360°.}
 
-\item{type}{[ADD DESCRIPTION]}
+\item{type}{Character string specifying the output format. Options are:
+- `'cat'`: Outputs a concatenated string in the format HHhMMmSS.SSs.
+- `'mat'`: Outputs a matrix with columns for hours, minutes, and seconds}
 
-\item{digit}{[ADD DESCRIPTION]}
+\item{digit}{Integer specifying the number of digits to round the output to. Default is `5`.}
 }
 \description{
 Normally in astronomy, different angular systems are used for location of a given planet, star or other phenomena. To deal with different angular systems and their conversions a suite of conversion functions are employed. `deg_to_hms()` ...[TODO]
+}
+\examples{
+# Example 1: Convert 45 degrees to HMS
+deg_to_hms(deg = 45) # Output: "03H00M00S"
+# Example 2: Get HMS as a matrix
+deg_to_hms(deg = 45, type = 'mat')
+# Example 3: Customize the number of decimal places
+deg_to_hms(deg = 45, digit = 2) # Output: "03H00M00.00S"
 }

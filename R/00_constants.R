@@ -1,7 +1,18 @@
-# Create the object
-# const_m_e_
-
-
+#' Fundamental Physical Constants in SI and Natural Units
+#'
+#' A dataset containing commonly used physical constants in both SI units and natural units.
+#' The dataset includes the constant's name, symbol, value in SI units, SI unit,
+#' value in natural units, and natural unit representation.
+#'
+#' @format A tibble with 20 rows and 6 columns:
+#' \describe{
+#'   \item{name}{Character. Name of the physical constant.}
+#'   \item{symbol}{Character. Symbol representing the constant.}
+#'   \item{value_SI}{Numeric. The value of the constant in SI units.}
+#'   \item{unit_SI}{Character. The SI unit for the constant.}
+#'   \item{value_Natural}{Numeric. The value of the constant in natural units}
+#'   \item{unit_Natural}{Character. The unit of the constant in natural units}
+#' }
 constants_df <- tibble::tribble(
   ~name,                      ~symbol,    ~value_SI,        ~unit_SI,  ~value_Natural, ~unit_Natural,
   "Speed of Light",           "c0",       299792458,        "m/s",                1, "-",
@@ -25,7 +36,29 @@ constants_df <- tibble::tribble(
   "Atomic Mass Unit",         "u",        1.660539040e-27,  "kg",                 1, "-"
 )
 
-
+#' Retrieve the Value of a Physical Constant
+#'
+#' This function retrieves the value and unit of a specified physical constant from the `constants_df` dataset.
+#' You can search by the constant's name and choose whether to retrieve the value in SI units or natural units.
+#'
+#' @param constant_name Character. The name (or part of the name) of the constant to search for.
+#'   Case-insensitive and partial matches are allowed.
+#' @param unit Character. The unit system to retrieve the constant in. Options are:
+#'   \itemize{
+#'     \item `"SI"`: Retrieves the value in SI units (default).
+#'     \item `"Natural"`: Retrieves the value in natural units.
+#'   }
+#' @return A list containing:
+#'   \itemize{
+#'     \item `name`: The name of the constant.
+#'     \item `value`: The value of the constant in the selected unit system.
+#'     \item `unit`: The unit of the constant in the selected unit system.
+#'   }
+#'
+#' @examples
+#' # Retrieve the value of the speed of light in SI units
+#' constant_value("speed of light", unit = "SI")
+#' @export
 constant_value <- function(constant_name, unit = "SI") {
   # Filter the tibble to get rows where constant_name contains the user input
   matching_rows <- constants_df[stringr::str_detect(tolower(constants_df$name), tolower(constant_name)), ]
@@ -57,8 +90,6 @@ constant_value <- function(constant_name, unit = "SI") {
     unit = unit_value
   ))
 }
-
-constant_value("stefan")
 
 
 

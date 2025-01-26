@@ -7,7 +7,7 @@ datetime <- as.POSIXct("1998-08-10 23:10:00", tz = "UT")  # Observation time
 
 
 
-star_location <- RA_dec2Alt_azi(ra_hour, dec_deg, lat_obs, lon_obs, datetime)
+star_location <- astronomR:::RA_dec2Alt_azi(ra_hour, dec_deg, lat_obs, lon_obs, datetime)
 print(paste("Altitude:", star_location$altitude, "degrees"))
 print(paste("Azimuth:", star_location$azimuth, "degrees"))
 

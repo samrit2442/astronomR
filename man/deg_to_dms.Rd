@@ -2,14 +2,19 @@
 % Please edit documentation in R/01_angle.R
 \name{deg_to_dms}
 \alias{deg_to_dms}
-\title{Position and Motion of Stars Conversion Functions}
+\title{Convert Decimal Degrees to Degrees, Minutes, and Seconds (DMS) Format}
 \usage{
 deg_to_dms(deg, type = "cat", digit = 5)
 }
 \arguments{
-\item{deg}{[ADD DESCRIPTION]}
+\item{deg}{Numeric vector of angles in decimal degrees. All values must be between -90° and 90°.}
 
-\item{type}{[ADD DESCRIPTION]}
+\item{type}{Character string specifying the output format. Options are:
+- `cat` (default): Output in concatenated format (e.g., 45°30'15").
+- `mat`: Output in matrix with columns for sign, degrees, minutes, and seconds.
+Default is `'cat'`.}
+
+\item{digit}{Integer specifying the number of digits to round the seconds to. Default is `5`.}
 }
 \description{
 Normally in astronomy, different angular systems are used for location of a given planet, star or other phenomena. To deal with different angular systems and their conversions a suite of conversion functions are employed. `deg_to_dms()` ...[TODO]

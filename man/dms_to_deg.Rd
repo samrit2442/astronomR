@@ -2,19 +2,28 @@
 % Please edit documentation in R/01_angle.R
 \name{dms_to_deg}
 \alias{dms_to_deg}
-\title{Position and Motion of Stars Conversion Functions}
+\title{Convert Degrees, Minutes, and Seconds (DMS) to Decimal Degrees}
 \usage{
 dms_to_deg(d, m, s, digit = 5)
 }
 \arguments{
-\item{d}{[ADD DESCRIPTION]}
+\item{d}{Numeric or character. Represents the degrees component of the input.
+If provided as a single character string (e.g., "12°34'56\""), the degrees, minutes, and seconds are automatically parsed.}
 
-\item{m}{[ADD DESCRIPTION]}
+\item{m}{Numeric. Represents the minutes component of the input. Should be less than 60. Optional if `d` is a string.}
 
-\item{s}{[ADD DESCRIPTION]}
+\item{s}{Numeric. Represents the seconds component of the input. Should be less than 60. Optional if `d` is a string.}
 
-\item{digit}{[ADD DESCRIPTION]}
+\item{digit}{Integer specifying the number of digits to round the output to. Default is `5`.}
 }
 \description{
 Normally in astronomy, different angular systems are used for location of a given planet, star or other phenomena. To deal with different angular systems and their conversions a suite of conversion functions are employed. `dms_to_deg()` ...[TODO]
+}
+\examples{
+ # Example 1: Using separate numeric inputs for d, m, and s
+ dms_to_deg(d = 12, m = 34, s = 56) # Output: 12.58222
+
+ # Example 2: Using a single string input in DMS format
+ dms_to_deg(d = "12°34'56\"", digit = 3) # Output: 12.582
+
 }

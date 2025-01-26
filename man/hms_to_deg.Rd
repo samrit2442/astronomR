@@ -2,19 +2,28 @@
 % Please edit documentation in R/01_angle.R
 \name{hms_to_deg}
 \alias{hms_to_deg}
-\title{Position and Motion of Stars Conversion Functions}
+\title{Convert Hours, Minutes, and Seconds (HMS) to Decimal Degrees}
 \usage{
 hms_to_deg(h, m, s, digit = 5)
 }
 \arguments{
-\item{h}{[ADD DESCRIPTION]}
+\item{h}{Numeric or character. Represents the hours component of the input.
+If provided as a single character string (e.g., "03h15m30s"), the hours, minutes, and seconds are automatically parsed.}
 
-\item{m}{[ADD DESCRIPTION]}
+\item{m}{Numeric. Represents the minutes component of the input. Optional if `h` is a single string.}
 
-\item{s}{[ADD DESCRIPTION]}
+\item{s}{Numeric. Represents the seconds component of the input. Optional if `h` is a single string.}
 
-\item{digit}{[ADD DESCRIPTION]}
+\item{digit}{Integer. Specifies the number of decimal places to which the output should be rounded. Default is 5.}
 }
 \description{
 Normally in astronomy, different angular systems are used for location of a given planet, star or other phenomena. To deal with different angular systems and their conversions a suite of conversion functions are employed. `hms_to_deg()` ...[TODO]
+}
+\examples{
+# Example 1: Using separate numeric inputs for h, m, and s
+hms_to_deg(h = 3, m = 15, s = 30) # Output: 48.875
+# Example 2: Handling fractional seconds
+hms_to_deg(h = 3, m = 15, s = 30.123) # Output: 48.87551
+# Example 2: Using a single string input in HMS format
+hms_to_deg(h = "03h15m30s") # Output: 48.875
 }

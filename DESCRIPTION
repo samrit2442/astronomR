@@ -3,7 +3,7 @@ Type: Package
 Title: Cosmic Insights: Statistical Frameworks for Astronomers in R
 Version: 0.1.0
 Author: Samrit Pramanik and Kazi Abu Rousan
-Maintainer: Samrit Pramanik <samrit.2442@gmail.com>, Kazi Abu Rousan <kaziaburousan1999@gmail.com>
+Maintainer: Samrit Pramanik<samrit.2442@gmail.com>, Kazi Abu Rousan<kaziaburousan1999@gmail.com>
 Description: {AstronomR} is a comprehensive R package designed for astronomers, cosmologists, and space science enthusiasts.
     It provides a powerful set of tools to perform key astronomical and cosmological computations, doing research works.
     It also aims to bridge the gap between astronomy and statistics, offering a robust framework for celestial data exploration and theoretical modeling, all within the R ecosystem.

@@ -37,5 +37,4 @@ condition <- "parallax > 40"
 result <- get_gaia_data(vars, condition)
 head(result)
 
-
 }
