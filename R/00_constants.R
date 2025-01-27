@@ -23,7 +23,7 @@ constants_df <- tibble::tribble(
   "Elementary Charge",        "e",        1.6021766208e-19, "C",                  1, "-",
   "Magnetic Flux Quantum",    "phi0",     2.067833831e-15,  "Wb",                 1, "-",
   "Conductance Quantum",      "G0",       7.7480917310e-5,  "S",                  1, "-",
-  "Electron Mass",            "m_e",      9.10938356e-31,   "kg",                 1, "-",
+  "Electron Mass",            "m_e",      9.10938356e-31,   "kg",                 5.10999e5, "eV",
   "Proton Mass",              "m_p",      1.672621898e-27,  "kg",                 1, "-",
   "Fine-Structure Constant",  "alpha",    7.2973525664e-3,  "-",                  1, "-",
   "Rydberg Constant",         "R_inf",    10973731.568508,  "m^(-1)",             1, "-",

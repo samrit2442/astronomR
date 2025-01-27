@@ -34,34 +34,34 @@ Mpc_to_km <- function(mpc) {
 
 sec_to_year <- function(sec_ye) { 3.1709791984e-8 * sec_ye }
 
-FlatLCDM <- function(hubble_constant_fact, dark_matter_crit, matter_crit, radiation_crit) {
+FlatLCDM <- function(hubble_constant_fact, dark_matter_crit, matter_crit, radiation_crit, T_cmb=2.725) {
   h_per_s <- hubble_constant_fact*1/Mpc_to_km(1.0)
-  return(list(hubble_constant_fact = hubble_constant_fact, dark_matter_crit = dark_matter_crit, matter_crit = matter_crit, radiation_crit = radiation_crit, type = "FlatLCDM", h_per_s = h_per_s))
+  return(list(hubble_constant_fact = hubble_constant_fact, dark_matter_crit = dark_matter_crit, matter_crit = matter_crit, radiation_crit = radiation_crit, type = "FlatLCDM", h_per_s = h_per_s, T_cmb=T_cmb))
 }
 
 
-ClosedLCDM <- function(hubble_constant_fact, curvature_crit, dark_matter_crit, matter_crit, radiation_crit) {
+ClosedLCDM <- function(hubble_constant_fact, curvature_crit, dark_matter_crit, matter_crit, radiation_crit, T_cmb=2.725) {
   h_per_s <- hubble_constant_fact*1/Mpc_to_km(1.0)
-  return(list(hubble_constant_fact = hubble_constant_fact, curvature_crit = curvature_crit, dark_matter_crit = dark_matter_crit, matter_crit = matter_crit, radiation_crit = radiation_crit, type = "ClosedLCDM", h_per_s = h_per_s))
+  return(list(hubble_constant_fact = hubble_constant_fact, curvature_crit = curvature_crit, dark_matter_crit = dark_matter_crit, matter_crit = matter_crit, radiation_crit = radiation_crit, type = "ClosedLCDM", h_per_s = h_per_s, T_cmb=2.725))
 }
 
 
-OpenLCDM <- function(hubble_constant_fact, curvature_crit, dark_matter_crit, matter_crit, radiation_crit) {
+OpenLCDM <- function(hubble_constant_fact, curvature_crit, dark_matter_crit, matter_crit, radiation_crit, T_cmb=2.725) {
   h_per_s <- hubble_constant_fact*1/Mpc_to_km(1.0)
-  return(list(hubble_constant_fact = hubble_constant_fact, curvature_crit = curvature_crit, dark_matter_crit = dark_matter_crit, matter_crit = matter_crit, radiation_crit = radiation_crit, type = "OpenLCDM", h_per_s = h_per_s))
+  return(list(hubble_constant_fact = hubble_constant_fact, curvature_crit = curvature_crit, dark_matter_crit = dark_matter_crit, matter_crit = matter_crit, radiation_crit = radiation_crit, type = "OpenLCDM", h_per_s = h_per_s, T_cmb=2.725))
 }
 
 ### Only export the function that the user should interact with
 
-cosmology_model <- function(hubble_constant_fact=0.6774, curvature_crit = 0, dark_matter_crit = 0.6911, matter_crit = 0.3089, radiation_crit = 0){
+cosmology_model <- function(hubble_constant_fact=0.6774, curvature_crit = 0, dark_matter_crit = 0.6911, matter_crit = 0.3089, radiation_crit = 0, T_cmb=2.725){
   if (curvature_crit<0){
-    return(ClosedLCDM(hubble_constant_fact, curvature_crit, dark_matter_crit, matter_crit, radiation_crit))
+    return(ClosedLCDM(hubble_constant_fact, curvature_crit, dark_matter_crit, matter_crit, radiation_crit, T_cmb))
   }
   else if (curvature_crit>0){
-    return(OpenLCDM(hubble_constant_fact, curvature_crit, dark_matter_crit, matter_crit, radiation_crit))
+    return(OpenLCDM(hubble_constant_fact, curvature_crit, dark_matter_crit, matter_crit, radiation_crit, T_cmb))
   }
   else {
-    return(FlatLCDM(hubble_constant_fact, dark_matter_crit, matter_crit, radiation_crit))
+    return(FlatLCDM(hubble_constant_fact, dark_matter_crit, matter_crit, radiation_crit, T_cmb))
   }
 }
 
