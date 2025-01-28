@@ -16,6 +16,7 @@ Imports:
     jsonlite,
     pracma,
     readr,
+    Rmpfr,
     stringr,
     tibble,
     tidyr
