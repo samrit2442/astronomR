@@ -1,20 +1,20 @@
 zeta_3 <- 1.20205690316
-EI <- 13.6  # Hydrogen Binding (eV)
-Me <- 5.10999e5  # Mass of electron use the table
-zeq <- 3395  # Redshift for matter-radiation equality
+EI <- 13.6 # Hydrogen Binding (eV)
+Me <- 5.10999e5 # Mass of electron use the table
+zeq <- 3395 # Redshift for matter-radiation equality
 H0 <- 1.5e-33
 z0 <- 2.725 / (1.160451812e4)
 baryon_to_photon_ratio <- 6e-10
-nb <- 0.76 * baryon_to_photon_ratio*(2*zeta_3) / (pi^2)  # Baryon number density
+nb <- 0.76 * baryon_to_photon_ratio * (2 * zeta_3) / (pi^2) # Baryon number density
 
 # Conversion function from z to T (in eV)
 T <- function(z) {
   z0 <- 2.725 / (1.160451812e4)
-  return(z0 * (1 + z))  # BigFloat equivalent in R is not needed for this calculation
+  return(z0 * (1 + z)) # BigFloat equivalent in R is not needed for this calculation
 }
 
 # Pre-factor for the Saha equation
-pre_fac_saha <- nb * (2 * pi / Me)^(3/2)
+pre_fac_saha <- nb * (2 * pi / Me)^(3 / 2)
 
 
 #' Photon Energy Density as a Function of Temperature
@@ -30,17 +30,14 @@ pre_fac_saha <- nb * (2 * pi / Me)^(3/2)
 #' photon_energy_density_fn_T(1, "eV")
 #' photon_energy_density_fn_T(300, "K")
 #' @export
-photon_energy_density_fn_T <- function(T, unit = "eV"){#T is in eV
-  if(unit=="eV"){
-    a <- (pi^2/15)*T^4
-  }
-  else if(unit=="K"){
-    a <- (pi^2/15)*(8.6173e-5*T)^4
-
-  }
-  else{
+photon_energy_density_fn_T <- function(T, unit = "eV") { # T is in eV
+  if (unit == "eV") {
+    a <- (pi^2 / 15) * T^4
+  } else if (unit == "K") {
+    a <- (pi^2 / 15) * (8.6173e-5 * T)^4
+  } else {
     print("error unit can only take eV or K")
-    a<-NULL
+    a <- NULL
   }
   return(a)
 }
@@ -59,17 +56,14 @@ photon_energy_density_fn_T <- function(T, unit = "eV"){#T is in eV
 #' photon_number_density_fn_T(1, "eV")
 #' photon_number_density_fn_T(300, "K")
 #' @export
-photon_number_density_fn_T <- function(T,unit="eV"){#T is in eV
-  if(unit=="eV"){
-    a <- (2*zeta_3/pi^2)*T^3
-  }
-  else if(unit=="K"){
-    a <- (2*zeta_3/pi^2)*(8.6173e-5*T)^3
-
-  }
-  else{
+photon_number_density_fn_T <- function(T, unit = "eV") { # T is in eV
+  if (unit == "eV") {
+    a <- (2 * zeta_3 / pi^2) * T^3
+  } else if (unit == "K") {
+    a <- (2 * zeta_3 / pi^2) * (8.6173e-5 * T)^3
+  } else {
     print("error unit can only take eV or K")
-    a<-NULL
+    a <- NULL
   }
   return(a)
 }
@@ -86,8 +80,8 @@ photon_number_density_fn_T <- function(T,unit="eV"){#T is in eV
 #' @examples
 #' photon_energy_density_fn_z(1300)
 #' @export
-photon_energy_density_fn_z <- function(z){
-  return((pi^2/15)*T(z)^4)
+photon_energy_density_fn_z <- function(z) {
+  return((pi^2 / 15) * T(z)^4)
 }
 
 
@@ -102,8 +96,8 @@ photon_energy_density_fn_z <- function(z){
 #' @examples
 #' photon_number_density_fn_z(1300)
 #' @export
-photon_number_density_fn_z <- function(z){
-  return((2*zeta_3/pi^2)*T(z)^3)
+photon_number_density_fn_z <- function(z) {
+  return((2 * zeta_3 / pi^2) * T(z)^3)
 }
 
 
@@ -119,7 +113,7 @@ photon_number_density_fn_z <- function(z){
 #' Saha_Xe(1300)
 #' @export
 Saha_Xe <- function(z) {
-  f <- pre_fac_saha * T(z)^(3/2) * exp(EI / T(z))
+  f <- pre_fac_saha * T(z)^(3 / 2) * exp(EI / T(z))
   return((-1 + sqrt(1 + 4 * f)) / (2 * f))
 }
 
@@ -138,5 +132,3 @@ Saha_Xe <- function(z) {
 soln_saha <- function(z) {
   return(Saha_Xe(z) - 0.5)
 }
-
-

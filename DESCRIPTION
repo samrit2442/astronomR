@@ -5,7 +5,7 @@ Version: 0.1.0
 Authors@R: c(
     person("Samrit", "Pramanik", email = "samrit.2442@gmail.com", role = c("aut", "cre"), 
            comment = c(ORCID = "0000-0003-2055-9007")),
-    person("Kazi Abu", "Rousan", email = "kaziaburousan1999@gmail.com", role = c("aut", "cre"), 
+    person("Kazi Abu", "Rousan", email = "kaziaburousan1999@gmail.com", role = c("aut"), 
            comment = c(ORCID = "0000-0002-7906-2030")))
 Maintainer: Samrit Pramanik <samrit.2442@gmail.com>, Kazi Abu Rousan <kaziaburousan1999@gmail.com>
 Description: {astronomR} is a comprehensive R package designed for astronomers, cosmologists, and space science enthusiasts.

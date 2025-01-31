@@ -19,11 +19,10 @@ julian_day <- function(datetime) {
 
 
 RA_dec2Alt_azi <- function(ra, dec, lat, lon, datetime) {
-
   jd <- julian_day(datetime)
   # Calculate sidereal time at Greenwich
   gst <- 18.697374558 + 24.06570982441908 * (jd - 2451545.0)
-  gst <- gst %% 24  # Convert to 0-24 hour range
+  gst <- gst %% 24 # Convert to 0-24 hour range
   # Convert GST to LST
   lst_hours <- gst + lon / 15.0
   ra_deg <- ra * 15.0

@@ -2,21 +2,23 @@
 #'
 #' Normally in astronomy, different angular systems are used for location of a given planet, star or other phenomena. To deal with different angular systems and their conversions a suite of conversion functions are employed. `deg_to_dms()` ...[TODO]
 #'
-#'@param deg  Numeric vector of angles in decimal degrees. All values must be between -90° and 90°.
-#'@param type  Character string specifying the output format. Options are:
+#' @param deg  Numeric vector of angles in decimal degrees. All values must be between -90° and 90°.
+#' @param type  Character string specifying the output format. Options are:
 #'  - `cat` (default): Output in concatenated format (e.g., 45°30'15").
 #'  - `mat`: Output in matrix with columns for sign, degrees, minutes, and seconds.
 #'  Default is `'cat'`.
-#'@param digit  Integer specifying the number of digits to round the seconds to. Default is `5`.
-#'@export
-deg_to_dms <- function(deg, type = 'cat', digit = 5) {
+#' @param digit  Integer specifying the number of digits to round the seconds to. Default is `5`.
+#' @export
+deg_to_dms <- function(deg, type = "cat", digit = 5) {
   DEG <- 1
   MIN <- 60
   SEC <- 3600
-  sign <- function(x)
+  sign <- function(x) {
     ifelse(x >= 0, 1, -1)
-  deg_sign <- function(deg)
+  }
+  deg_sign <- function(deg) {
     ifelse(deg >= 0, "+", "-")
+  }
   SIGN <- " "
 
   if (any(deg < -90 | deg > 90)) {
@@ -39,10 +41,10 @@ deg_to_dms <- function(deg, type = 'cat', digit = 5) {
       output2 = paste0(SIGN, DEG, "\u00B0", MIN, "'", SEC, '"')
     )
 
-  if (type == 'cat') {
+  if (type == "cat") {
     return(cat(df$output2))
   }
-  if (type == 'mat') {
+  if (type == "mat") {
     return(df |> dplyr::select(SIGN, DEG, MIN, SEC) |> as.matrix())
   }
 }
@@ -52,19 +54,19 @@ deg_to_dms <- function(deg, type = 'cat', digit = 5) {
 #'
 #' Normally in astronomy, different angular systems are used for location of a given planet, star or other phenomena. To deal with different angular systems and their conversions a suite of conversion functions are employed. `dms_to_deg()` ...[TODO]
 #'
-#'@param d  Numeric or character. Represents the degrees component of the input.
+#' @param d  Numeric or character. Represents the degrees component of the input.
 #'  If provided as a single character string (e.g., "12°34'56\""), the degrees, minutes, and seconds are automatically parsed.
-#'@param m  Numeric. Represents the minutes component of the input. Should be less than 60. Optional if `d` is a string.
-#'@param s  Numeric. Represents the seconds component of the input. Should be less than 60. Optional if `d` is a string.
-#'@param digit Integer specifying the number of digits to round the output to. Default is `5`.
-#'@examples
-#'  # Example 1: Using separate numeric inputs for d, m, and s
-#'  dms_to_deg(d = 12, m = 34, s = 56) # Output: 12.58222
+#' @param m  Numeric. Represents the minutes component of the input. Should be less than 60. Optional if `d` is a string.
+#' @param s  Numeric. Represents the seconds component of the input. Should be less than 60. Optional if `d` is a string.
+#' @param digit Integer specifying the number of digits to round the output to. Default is `5`.
+#' @examples
+#' # Example 1: Using separate numeric inputs for d, m, and s
+#' dms_to_deg(d = 12, m = 34, s = 56) # Output: 12.58222
 #'
-#'  # Example 2: Using a single string input in DMS format
-#'  dms_to_deg(d = "12°34'56\"", digit = 3) # Output: 12.582
+#' # Example 2: Using a single string input in DMS format
+#' dms_to_deg(d = "12°34'56\"", digit = 3) # Output: 12.582
 #'
-#'@export
+#' @export
 dms_to_deg <- function(d, m, s, digit = 5) {
   sign <- 1
   deg <- 0
@@ -98,20 +100,20 @@ dms_to_deg <- function(d, m, s, digit = 5) {
 #'
 #' Normally in astronomy, different angular systems are used for location of a given planet, star or other phenomena. To deal with different angular systems and their conversions a suite of conversion functions are employed. `deg_to_hms()` ...[TODO]
 #'
-#'@param deg  Numeric vector of angles in decimal degrees. Values can range from 0° to 360°.
-#'@param type  Character string specifying the output format. Options are:
+#' @param deg  Numeric vector of angles in decimal degrees. Values can range from 0° to 360°.
+#' @param type  Character string specifying the output format. Options are:
 #'   - `'cat'`: Outputs a concatenated string in the format HHhMMmSS.SSs.
 #'   - `'mat'`: Outputs a matrix with columns for hours, minutes, and seconds
-#'@param digit  Integer specifying the number of digits to round the output to. Default is `5`.
-#'@examples
-#'# Example 1: Convert 45 degrees to HMS
+#' @param digit  Integer specifying the number of digits to round the output to. Default is `5`.
+#' @examples
+#' # Example 1: Convert 45 degrees to HMS
 #' deg_to_hms(deg = 45) # Output: "03H00M00S"
-#'# Example 2: Get HMS as a matrix
-#' deg_to_hms(deg = 45, type = 'mat')
-#'# Example 3: Customize the number of decimal places
+#' # Example 2: Get HMS as a matrix
+#' deg_to_hms(deg = 45, type = "mat")
+#' # Example 3: Customize the number of decimal places
 #' deg_to_hms(deg = 45, digit = 2) # Output: "03H00M00.00S"
-#'@export
-deg_to_hms <- function(deg, type = 'cat', digit = 5) {
+#' @export
+deg_to_hms <- function(deg, type = "cat", digit = 5) {
   DEG <- 1
   HRS <- 1
   MIN <- 60
@@ -132,10 +134,10 @@ deg_to_hms <- function(deg, type = 'cat', digit = 5) {
       output2 = paste0(HRS, "H", MIN, "M", SEC, "S")
     )
 
-  if (type == 'cat') {
+  if (type == "cat") {
     return(cat(df$output2))
   }
-  if (type == 'mat') {
+  if (type == "mat") {
     return(df |> dplyr::select(HRS, MIN, SEC) |> as.matrix())
   }
 }
@@ -145,19 +147,19 @@ deg_to_hms <- function(deg, type = 'cat', digit = 5) {
 #'
 #' Normally in astronomy, different angular systems are used for location of a given planet, star or other phenomena. To deal with different angular systems and their conversions a suite of conversion functions are employed. `hms_to_deg()` ...[TODO]
 #'
-#'@param h Numeric or character. Represents the hours component of the input.
+#' @param h Numeric or character. Represents the hours component of the input.
 #'   If provided as a single character string (e.g., "03h15m30s"), the hours, minutes, and seconds are automatically parsed.
-#'@param m Numeric. Represents the minutes component of the input. Optional if `h` is a single string.
-#'@param s Numeric. Represents the seconds component of the input. Optional if `h` is a single string.
-#'@param digit Integer. Specifies the number of decimal places to which the output should be rounded. Default is 5.
-#'@examples
+#' @param m Numeric. Represents the minutes component of the input. Optional if `h` is a single string.
+#' @param s Numeric. Represents the seconds component of the input. Optional if `h` is a single string.
+#' @param digit Integer. Specifies the number of decimal places to which the output should be rounded. Default is 5.
+#' @examples
 #' # Example 1: Using separate numeric inputs for h, m, and s
 #' hms_to_deg(h = 3, m = 15, s = 30) # Output: 48.875
-#'# Example 2: Handling fractional seconds
+#' # Example 2: Handling fractional seconds
 #' hms_to_deg(h = 3, m = 15, s = 30.123) # Output: 48.87551
 #' # Example 2: Using a single string input in HMS format
 #' hms_to_deg(h = "03h15m30s") # Output: 48.875
-#'@export
+#' @export
 hms_to_deg <- function(h, m, s, digit = 5) {
   DEG <- 0
   H <- 0
@@ -192,9 +194,9 @@ hms_to_deg <- function(h, m, s, digit = 5) {
 #' @param deg Numeric. The angle(s) in degrees to convert to radians.
 #' @return Numeric. The corresponding angle(s) in radians.
 #' @examples
-#' deg2rad(180)        # Output: 3.141593 (pi)
-#' deg2rad(c(0, 90))   # Output: 0, 1.570796
-#'@export
+#' deg2rad(180) # Output: 3.141593 (pi)
+#' deg2rad(c(0, 90)) # Output: 0, 1.570796
+#' @export
 deg2rad <- function(deg) {
   return(deg * pi / 180)
 }
@@ -206,9 +208,9 @@ deg2rad <- function(deg) {
 #' @param rad Numeric. The angle(s) in radians to convert to degrees.
 #' @return Numeric. The corresponding angle(s) in degrees.
 #' @examples
-#' rad2deg(pi)        # Output: 180
-#' rad2deg(c(0, pi/2)) # Output: 0, 90
-#'@export
+#' rad2deg(pi) # Output: 180
+#' rad2deg(c(0, pi / 2)) # Output: 0, 90
+#' @export
 rad2deg <- function(rad) {
   return(rad * 180 / pi)
 }
