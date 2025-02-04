@@ -22,7 +22,7 @@ Normally in astronomy, different angular systems are used for location of a give
 # Example 1: Convert 45 degrees to HMS
 deg_to_hms(deg = 45) # Output: "03H00M00S"
 # Example 2: Get HMS as a matrix
-deg_to_hms(deg = 45, type = 'mat')
+deg_to_hms(deg = 45, type = "mat")
 # Example 3: Customize the number of decimal places
 deg_to_hms(deg = 45, digit = 2) # Output: "03H00M00.00S"
 }

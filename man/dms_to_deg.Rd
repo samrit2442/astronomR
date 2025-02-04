@@ -20,10 +20,10 @@ If provided as a single character string (e.g., "12°34'56\""), the degrees, min
 Normally in astronomy, different angular systems are used for location of a given planet, star or other phenomena. To deal with different angular systems and their conversions a suite of conversion functions are employed. `dms_to_deg()` ...[TODO]
 }
 \examples{
- # Example 1: Using separate numeric inputs for d, m, and s
- dms_to_deg(d = 12, m = 34, s = 56) # Output: 12.58222
+# Example 1: Using separate numeric inputs for d, m, and s
+dms_to_deg(d = 12, m = 34, s = 56) # Output: 12.58222
 
- # Example 2: Using a single string input in DMS format
- dms_to_deg(d = "12°34'56\"", digit = 3) # Output: 12.582
+# Example 2: Using a single string input in DMS format
+dms_to_deg(d = "12°34'56\"", digit = 3) # Output: 12.582
 
 }

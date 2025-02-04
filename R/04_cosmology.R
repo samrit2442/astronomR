@@ -2,7 +2,7 @@
 #'
 #' This function converts a distance value from kilometers (km) to megaparsecs (Mpc).
 #' The conversion factor is based on 1 parsec being equivalent to 3.262 light-years,
-#' and 1 light-year being approximately \(9.461 \times 10^{12}\) kilometers.
+#' and 1 light-year being approximately \eqn{9.461 \times 10^{12}} kilometers.
 #'
 #' @param km A numeric value representing the distance in kilometers.
 #'
@@ -19,7 +19,7 @@ km_to_Mpc <- function(km) {
 #'
 #' This function converts a distance value from megaparsecs (Mpc) to kilometers (km).
 #' The conversion factor is based on 1 parsec being equivalent to 3.262 light-years,
-#' and 1 light-year being approximately \(9.461 \times 10^{12}\) kilometers.
+#' and 1 light-year being approximately \eqn{9.461 \times 10^{12}} kilometers.
 #'
 #' @param mpc A numeric value representing the distance in megaparsecs.
 #'

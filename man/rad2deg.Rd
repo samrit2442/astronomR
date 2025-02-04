@@ -16,6 +16,6 @@ Numeric. The corresponding angle(s) in degrees.
 This function converts angles from radians to degrees. It supports vectorized input.
 }
 \examples{
-rad2deg(pi)        # Output: 180
-rad2deg(c(0, pi/2)) # Output: 0, 90
+rad2deg(pi) # Output: 180
+rad2deg(c(0, pi / 2)) # Output: 0, 90
 }

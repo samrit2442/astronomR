@@ -15,7 +15,7 @@ A numeric value representing the equivalent distance in megaparsecs (Mpc).
 \description{
 This function converts a distance value from kilometers (km) to megaparsecs (Mpc).
 The conversion factor is based on 1 parsec being equivalent to 3.262 light-years,
-and 1 light-year being approximately \(9.461 \times 10^{12}\) kilometers.
+and 1 light-year being approximately \eqn{9.461 \times 10^{12}} kilometers.
 }
 \examples{
 km_to_Mpc(3.086e19) # Converts 3.086e19 km (approx. 1 Mpc) to megaparsecs
