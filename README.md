@@ -16,3 +16,10 @@ devtools::install_github("samrit2442/astronomR")
 ```
 
 ## Introduction
+
+This package is developed for doing Astrophysics and Cosmological computation and analysis with R.
+
+
+
+
+
