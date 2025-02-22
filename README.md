@@ -207,4 +207,4 @@ radius_of_curvature(cosmo)
 #> [1] 0
 ```
 
-Many more functions are coming soon. Wait for the documentation for more!
+#### *Many more functions are coming soon. Wait for the documentation for more!*
