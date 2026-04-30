@@ -7,22 +7,31 @@
 deg_to_hms(deg, type = "cat", digit = 5)
 }
 \arguments{
-\item{deg}{Numeric vector of angles in decimal degrees. Values can range from 0° to 360°.}
+\item{deg}{Numeric vector of angles in decimal degrees. Values can range
+from 0 to 360.}
 
 \item{type}{Character string specifying the output format. Options are:
-- `'cat'`: Outputs a concatenated string in the format HHhMMmSS.SSs.
-- `'mat'`: Outputs a matrix with columns for hours, minutes, and seconds}
+\itemize{
+  \item \code{"cat"} (default): Prints a formatted string
+    (e.g., \code{3H0M0S}).
+  \item \code{"mat"}: Returns a matrix with columns for hours, minutes,
+    and seconds.
+}}
 
-\item{digit}{Integer specifying the number of digits to round the output to. Default is `5`.}
+\item{digit}{Integer specifying the number of decimal places to round
+seconds to. Default is \code{5}.}
+}
+\value{
+When \code{type = "cat"}, prints the HMS string and returns
+  \code{NULL} invisibly. When \code{type = "mat"}, returns a numeric matrix
+  with columns \code{HRS}, \code{MIN}, and \code{SEC}.
 }
 \description{
-Normally in astronomy, different angular systems are used for location of a given planet, star or other phenomena. To deal with different angular systems and their conversions a suite of conversion functions are employed. `deg_to_hms()` ...[TODO]
+Converts a decimal degree angle to Hours-Minutes-Seconds (HMS) format,
+which is used in astronomy to express Right Ascension (RA).
 }
 \examples{
-# Example 1: Convert 45 degrees to HMS
-deg_to_hms(deg = 45) # Output: "03H00M00S"
-# Example 2: Get HMS as a matrix
+deg_to_hms(deg = 45)
 deg_to_hms(deg = 45, type = "mat")
-# Example 3: Customize the number of decimal places
-deg_to_hms(deg = 45, digit = 2) # Output: "03H00M00.00S"
+deg_to_hms(deg = 177.74208, digit = 3)
 }

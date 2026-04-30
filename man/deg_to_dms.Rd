@@ -7,15 +7,31 @@
 deg_to_dms(deg, type = "cat", digit = 5)
 }
 \arguments{
-\item{deg}{Numeric vector of angles in decimal degrees. All values must be between -90° and 90°.}
+\item{deg}{Numeric vector of angles in decimal degrees. All values must be
+between -90 and 90.}
 
 \item{type}{Character string specifying the output format. Options are:
-- `cat` (default): Output in concatenated format (e.g., 45°30'15").
-- `mat`: Output in matrix with columns for sign, degrees, minutes, and seconds.
-Default is `'cat'`.}
+\itemize{
+  \item \code{"cat"} (default): Prints the angle as a formatted string
+    in DMS notation.
+  \item \code{"mat"}: Returns a matrix with columns for sign, degrees,
+    minutes, and seconds.
+}}
 
-\item{digit}{Integer specifying the number of digits to round the seconds to. Default is `5`.}
+\item{digit}{Integer specifying the number of digits to round the seconds
+to. Default is \code{5}.}
+}
+\value{
+When \code{type = "cat"}, prints the DMS string and returns
+  \code{NULL} invisibly. When \code{type = "mat"}, returns a character
+  matrix with columns \code{SIGN}, \code{DEG}, \code{MIN}, and \code{SEC}.
 }
 \description{
-Normally in astronomy, different angular systems are used for location of a given planet, star or other phenomena. To deal with different angular systems and their conversions a suite of conversion functions are employed. `deg_to_dms()` ...[TODO]
+Converts a decimal degree angle to the Degrees-Minutes-Seconds (DMS) format
+commonly used in astronomy for expressing declination and other angles.
+}
+\examples{
+deg_to_dms(45.5042)
+deg_to_dms(-12.5, type = "mat")
+deg_to_dms(c(10.25, 45.5), type = "mat")
 }

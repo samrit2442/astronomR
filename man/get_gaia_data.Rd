@@ -7,34 +7,31 @@
 get_gaia_data(vars, condition)
 }
 \arguments{
-\item{vars}{A character string specifying the variables to retrieve
-(e.g., "source_id, ra, dec").}
+\item{vars}{A character string specifying the variables (columns) to
+retrieve, separated by commas (e.g., \code{"source_id, ra, dec"}).}
 
-\item{condition}{A character string specifying the conditions to filter the data
-(e.g., "parallax > 10").}
+\item{condition}{A character string specifying the SQL WHERE clause used to
+filter rows (e.g., \code{"parallax > 10"}).}
 }
 \value{
-A data frame containing the requested data.
+A data frame containing the requested columns for all rows matching
+  \code{condition}.
 }
 \description{
-This function queries the Gaia Archive TAP service to retrieve data based on
-the specified variables and conditions.
+Queries the Gaia Archive TAP service to retrieve stellar data based on
+specified variables and filter conditions. Uses the Gaia Early Data Release
+3 (EDR3) catalog.
 }
 \details{
-It uses the Gaia Early Data Release 3 (EDR3) catalog, which contains information
-
-This function sends a synchronous query to the Gaia Archive TAP service
-}
-\note{
-This function requires the `httr` and `jsonlite` packages to handle HTTP
-requests and parse JSON responses, respectively.
+This function sends a synchronous ADQL query to the Gaia Archive
+  TAP service at \url{https://gea.esac.esa.int/tap-server/tap/sync}. An
+  internet connection is required.
 }
 \examples{
-# Define the variables and condition
+\dontrun{
 vars <- "source_id, ra, dec, phot_bp_mean_mag, phot_rp_mean_mag, parallax"
 condition <- "parallax > 40"
-# Fetch the data from the Gaia Archive
 result <- get_gaia_data(vars, condition)
 head(result)
-
+}
 }

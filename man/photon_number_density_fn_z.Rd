@@ -10,10 +10,11 @@ photon_number_density_fn_z(z)
 \item{z}{Numeric. The redshift value.}
 }
 \value{
-Numeric. The photon number density.
+Numeric. The photon number density in natural units.
 }
 \description{
-This function calculates the photon number density for a given redshift \(z\).
+Calculates the photon number density at a given cosmological redshift
+\eqn{z} by first converting to temperature in eV.
 }
 \examples{
 photon_number_density_fn_z(1300)

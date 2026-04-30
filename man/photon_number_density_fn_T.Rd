@@ -9,13 +9,15 @@ photon_number_density_fn_T(T, unit = "eV")
 \arguments{
 \item{T}{Numeric. Temperature in either eV or Kelvin.}
 
-\item{unit}{Character. The unit of temperature, either "eV" or "K". Defaults to "eV".}
+\item{unit}{Character. The unit of the temperature input. Either
+\code{"eV"} (default) or \code{"K"}.}
 }
 \value{
-Numeric. The photon number density.
+Numeric. The photon number density in natural units.
 }
 \description{
-This function calculates the photon number density for a given temperature \(T\).
+Calculates the photon number density for a given temperature \eqn{T},
+using \eqn{n_\gamma = \frac{2\zeta(3)}{\pi^2} T^3}.
 }
 \examples{
 photon_number_density_fn_T(1, "eV")

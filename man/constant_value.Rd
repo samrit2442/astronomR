@@ -7,28 +7,31 @@
 constant_value(constant_name, unit = "SI")
 }
 \arguments{
-\item{constant_name}{Character. The name (or part of the name) of the constant to search for.
-Case-insensitive and partial matches are allowed.}
+\item{constant_name}{Character. The name (or part of the name) of the
+constant to search for. Case-insensitive and partial matches are allowed.}
 
-\item{unit}{Character. The unit system to retrieve the constant in. Options are:
+\item{unit}{Character. The unit system to retrieve the constant in. Options
+are:
 \itemize{
-  \item `"SI"`: Retrieves the value in SI units (default).
-  \item `"Natural"`: Retrieves the value in natural units.
+  \item \code{"SI"}: Retrieves the value in SI units (default).
+  \item \code{"Natural"}: Retrieves the value in natural units.
 }}
 }
 \value{
 A list containing:
   \itemize{
-    \item `name`: The name of the constant.
-    \item `value`: The value of the constant in the selected unit system.
-    \item `unit`: The unit of the constant in the selected unit system.
+    \item \code{name}: The full name of the constant.
+    \item \code{value}: The numeric value of the constant.
+    \item \code{unit}: The unit string for the selected unit system.
   }
 }
 \description{
-This function retrieves the value and unit of a specified physical constant from the `constants_df` dataset.
-You can search by the constant's name and choose whether to retrieve the value in SI units or natural units.
+Retrieves the value and unit of a specified physical constant from the
+\code{constants_df} dataset. You can search by the constant's name and
+choose whether to retrieve the value in SI units or natural units.
 }
 \examples{
-# Retrieve the value of the speed of light in SI units
 constant_value("speed of light", unit = "SI")
+constant_value("planck", unit = "SI")
+constant_value("electron mass", unit = "Natural")
 }

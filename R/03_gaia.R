@@ -1,31 +1,27 @@
 #' Query Gaia Archive Data
 #'
-#' This function queries the Gaia Archive TAP service to retrieve data based on
-#' the specified variables and conditions.
+#' Queries the Gaia Archive TAP service to retrieve stellar data based on
+#' specified variables and filter conditions. Uses the Gaia Early Data Release
+#' 3 (EDR3) catalog.
 #'
-#' It uses the Gaia Early Data Release 3 (EDR3) catalog, which contains information
-#'
-#' @param vars A character string specifying the variables to retrieve
-#' (e.g., "source_id, ra, dec").
-#' @param condition A character string specifying the conditions to filter the data
-#'  (e.g., "parallax > 10").
-#' @return A data frame containing the requested data.
-#' @details This function sends a synchronous query to the Gaia Archive TAP service
-#'
+#' @param vars A character string specifying the variables (columns) to
+#'   retrieve, separated by commas (e.g., \code{"source_id, ra, dec"}).
+#' @param condition A character string specifying the SQL WHERE clause used to
+#'   filter rows (e.g., \code{"parallax > 10"}).
+#' @return A data frame containing the requested columns for all rows matching
+#'   \code{condition}.
+#' @details This function sends a synchronous ADQL query to the Gaia Archive
+#'   TAP service at \url{https://gea.esac.esa.int/tap-server/tap/sync}. An
+#'   internet connection is required.
 #' @examples
-#' # Define the variables and condition
+#' \dontrun{
 #' vars <- "source_id, ra, dec, phot_bp_mean_mag, phot_rp_mean_mag, parallax"
 #' condition <- "parallax > 40"
-#' # Fetch the data from the Gaia Archive
 #' result <- get_gaia_data(vars, condition)
 #' head(result)
-#'
-#' @note This function requires the `httr` and `jsonlite` packages to handle HTTP
-#' requests and parse JSON responses, respectively.
+#' }
 #' @export
-
 get_gaia_data <- function(vars, condition) {
-  # URL for the Gaia Archive TAP service
   base_url <- "https://gea.esac.esa.int/tap-server/tap/sync"
 
   query <- paste0(
@@ -44,44 +40,35 @@ get_gaia_data <- function(vars, condition) {
     QUERY = query
   )
 
-  # Perform the query
   response <- tryCatch(
-    {
-      httr::POST(base_url, body = body, encode = "form")
-    },
+    httr::POST(base_url, body = body, encode = "form"),
     error = function(e) {
-      stop("Failed to connect to Gaia Archive. Error: ", e$message)
+      stop("Failed to connect to Gaia Archive: ", e$message)
     }
   )
 
-  # Check if the request was successful
   if (httr::status_code(response) != 200) {
-    stop(paste("Failed to query Gaia Archive. HTTP status code:", httr::status_code(response)))
+    stop(
+      "Failed to query Gaia Archive. HTTP status code: ",
+      httr::status_code(response)
+    )
   }
 
-  # Parse the response content
   content <- httr::content(response, "text", encoding = "UTF-8")
   data <- tryCatch(
-    {
-      jsonlite::fromJSON(content, flatten = TRUE)
-    },
+    jsonlite::fromJSON(content, flatten = TRUE),
     error = function(e) {
-      stop("Failed to parse JSON response.")
+      stop("Failed to parse JSON response from Gaia Archive.")
     }
   )
 
-  # Check if the response contains data
   if (length(data$data) == 0) {
     stop("No results found for the query.")
   }
 
-  # Convert to data frame and set correct column names
   df <- as.data.frame(data$data)
   colnames(df) <- stringr::str_split_1(vars, ",") |>
     stringr::str_squish()
 
-  return(df)
+  df
 }
-
-# vars <- "source_id, ra, dec, phot_bp_mean_mag, phot_rp_mean_mag, parallax"
-# condition <- "parallax > 40"

@@ -10,11 +10,13 @@ Saha_Xe(z)
 \item{z}{Numeric. The redshift value.}
 }
 \value{
-Numeric. The ionization fraction \(X_e\).
+Numeric. The ionization fraction \eqn{X_e} (between 0 and 1).
 }
 \description{
-This function calculates the ionization fraction \(X_e\) as a function of redshift \(z\) using the Saha equation.
+Calculates the ionization fraction \eqn{X_e} as a function of redshift
+\eqn{z} using the Saha equation for hydrogen recombination.
 }
 \examples{
 Saha_Xe(1300)
+Saha_Xe(1100)
 }

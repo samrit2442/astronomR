@@ -7,23 +7,29 @@
 dms_to_deg(d, m, s, digit = 5)
 }
 \arguments{
-\item{d}{Numeric or character. Represents the degrees component of the input.
-If provided as a single character string (e.g., "12°34'56\""), the degrees, minutes, and seconds are automatically parsed.}
+\item{d}{Numeric or character. The degrees component. If a single character
+string is provided (e.g., \code{"12\u00B034'56\""}), the degrees, minutes,
+and seconds are parsed automatically, and \code{m} and \code{s} should be
+omitted.}
 
-\item{m}{Numeric. Represents the minutes component of the input. Should be less than 60. Optional if `d` is a string.}
+\item{m}{Numeric. The minutes component. Must be less than 60. Optional when
+\code{d} is a string.}
 
-\item{s}{Numeric. Represents the seconds component of the input. Should be less than 60. Optional if `d` is a string.}
+\item{s}{Numeric. The seconds component. Must be less than 60. Optional when
+\code{d} is a string.}
 
-\item{digit}{Integer specifying the number of digits to round the output to. Default is `5`.}
+\item{digit}{Integer. Number of decimal places to round the result to.
+Default is \code{5}.}
+}
+\value{
+Numeric. The angle in decimal degrees.
 }
 \description{
-Normally in astronomy, different angular systems are used for location of a given planet, star or other phenomena. To deal with different angular systems and their conversions a suite of conversion functions are employed. `dms_to_deg()` ...[TODO]
+Converts an angle expressed in Degrees-Minutes-Seconds (DMS) format to
+decimal degrees. Accepts either separate numeric arguments or a single
+formatted string.
 }
 \examples{
-# Example 1: Using separate numeric inputs for d, m, and s
-dms_to_deg(d = 12, m = 34, s = 56) # Output: 12.58222
-
-# Example 2: Using a single string input in DMS format
-dms_to_deg(d = "12°34'56\"", digit = 3) # Output: 12.582
-
+dms_to_deg(d = 12, m = 34, s = 56)
+dms_to_deg(d = "12\u00B034'56\"", digit = 3)
 }

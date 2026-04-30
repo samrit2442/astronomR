@@ -70,10 +70,9 @@ a <- function(z) {
 } # a= expansion factor; today it's 1
 redshift <- function(a) {
   if (a < 0) {
-    print("error can't be negative")
-  } else {
-    1 / a - 1
+    stop("Scale factor 'a' cannot be negative.")
   }
+  1 / a - 1
 }
 
 H_by_H0 <- function(c, a) {
@@ -109,7 +108,7 @@ age_of_universe <- function(c, unit = "year") {
   } else if (unit == "GY") {
     return(age / 10^9)
   } else {
-    print("Error: unit must be either 'year' or 'GY'")
+    stop("'unit' must be either 'year' or 'GY'.")
   }
 }
 

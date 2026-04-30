@@ -2,7 +2,7 @@
 % Please edit documentation in R/06_thermo2.R
 \name{soln_saha}
 \alias{soln_saha}
-\title{Solution for Ionization Fraction \(X_e = 0.5\)}
+\title{Deviation of Ionization Fraction from 0.5}
 \usage{
 soln_saha(z)
 }
@@ -10,10 +10,11 @@ soln_saha(z)
 \item{z}{Numeric. The redshift value.}
 }
 \value{
-Numeric. The result of the equation \(X_e - 0.5\).
+Numeric. \eqn{X_e - 0.5}.
 }
 \description{
-This function solves the equation \(X_e - 0.5 = 0\) for the redshift \(z\).
+Returns \eqn{X_e(z) - 0.5}, useful for finding the redshift at which the
+ionization fraction equals 0.5 (e.g., via root-finding).
 }
 \examples{
 soln_saha(1350)
