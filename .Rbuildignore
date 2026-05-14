@@ -4,3 +4,5 @@
 ^\.positai$
 ^\.claude$
 ^cran-comments\.md$
+^AGENTS\.md$
+^CRAN-SUBMISSION$

@@ -17,7 +17,7 @@ devtools::install_github("samrit2442/astronomR")
 
 ## Introduction
 
-This package was developed for astronomy, cosmological computation, and analysis with R. The source code can be found here <https://github.com/samrit2442/astronomR.git>
+This package was developed for astronomy, cosmological computation, and analysis with R. The source code can be found here <https://github.com/samrit2442/astronomR>
 
 ## Some Usage and Example Codes
 

@@ -12,7 +12,7 @@ Description: A comprehensive toolkit for astronomical and cosmological
     (degrees, hours-minutes-seconds, degrees-minutes-seconds, and radians),
     access to fundamental physical constants, queries to the Gaia Archive TAP
     service, cosmological distance calculations, and early-universe thermal
-    physics including photon density and Saha equation solutions.
+    physics including photon density and 'Saha' equation solutions.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Language: en-US
@@ -32,4 +32,4 @@ Depends:
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-RoxygenNote: 7.3.3
+Config/roxygen2/version: 8.0.0
