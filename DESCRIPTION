@@ -8,7 +8,7 @@ Authors@R: c(
     person("Kazi Abu", "Rousan", email = "kaziaburousan1999@gmail.com", role = c("aut"),
            comment = c(ORCID = "0000-0002-7906-2030")))
 Description: A comprehensive toolkit for astronomical and cosmological
-    computations in R. Provides functions for angular coordinate conversions
+    computations. Provides functions for angular coordinate conversions
     (degrees, hours-minutes-seconds, degrees-minutes-seconds, and radians),
     access to fundamental physical constants, queries to the Gaia Archive TAP
     (Table Access Protocol) service, cosmological distance calculations, and
