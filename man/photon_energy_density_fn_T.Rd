@@ -4,10 +4,10 @@
 \alias{photon_energy_density_fn_T}
 \title{Photon Energy Density as a Function of Temperature}
 \usage{
-photon_energy_density_fn_T(T, unit = "eV")
+photon_energy_density_fn_T(temp, unit = "eV")
 }
 \arguments{
-\item{T}{Numeric. Temperature in either eV or Kelvin.}
+\item{temp}{Numeric. Temperature in either eV or Kelvin.}
 
 \item{unit}{Character. The unit of the temperature input. Either
 \code{"eV"} (default) or \code{"K"}.}

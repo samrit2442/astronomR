@@ -28,7 +28,7 @@ This function sends a synchronous ADQL query to the Gaia Archive
   internet connection is required.
 }
 \examples{
-\dontrun{
+\donttest{
 vars <- "source_id, ra, dec, phot_bp_mean_mag, phot_rp_mean_mag, parallax"
 condition <- "parallax > 40"
 result <- get_gaia_data(vars, condition)

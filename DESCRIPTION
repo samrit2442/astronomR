@@ -1,6 +1,6 @@
 Package: astronomR
 Type: Package
-Title: Cosmic Insights: Statistical Frameworks for Astronomers in R
+Title: Cosmic Insights: Statistical Frameworks for Astronomers
 Version: 0.1.0
 Authors@R: c(
     person("Samrit", "Pramanik", email = "samrit.2442@gmail.com", role = c("aut", "cre"),
@@ -11,7 +11,8 @@ Description: A comprehensive toolkit for astronomical and cosmological
     computations in R. Provides functions for angular coordinate conversions
     (degrees, hours-minutes-seconds, degrees-minutes-seconds, and radians),
     access to fundamental physical constants, queries to the Gaia Archive TAP
-    service, cosmological distance calculations, and early-universe thermal
+    (Table Access Protocol) service, cosmological distance calculations, and
+    early-universe thermal
     physics including photon density and 'Saha' equation solutions.
 License: MIT + file LICENSE
 Encoding: UTF-8

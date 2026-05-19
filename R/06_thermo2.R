@@ -18,7 +18,7 @@ pre_fac_saha <- nb * (2 * pi / Me)^(3 / 2)
 #' Calculates the photon energy density for a given temperature \eqn{T},
 #' using \eqn{\rho_\gamma = \frac{\pi^2}{15} T^4}.
 #'
-#' @param T Numeric. Temperature in either eV or Kelvin.
+#' @param temp Numeric. Temperature in either eV or Kelvin.
 #' @param unit Character. The unit of the temperature input. Either
 #'   \code{"eV"} (default) or \code{"K"}.
 #' @return Numeric. The photon energy density in natural units.
@@ -26,11 +26,11 @@ pre_fac_saha <- nb * (2 * pi / Me)^(3 / 2)
 #' photon_energy_density_fn_T(1, "eV")
 #' photon_energy_density_fn_T(300, "K")
 #' @export
-photon_energy_density_fn_T <- function(T, unit = "eV") {
+photon_energy_density_fn_T <- function(temp, unit = "eV") {
   if (unit == "eV") {
-    (pi^2 / 15) * T^4
+    (pi^2 / 15) * temp^4
   } else if (unit == "K") {
-    (pi^2 / 15) * (8.6173e-5 * T)^4
+    (pi^2 / 15) * (8.6173e-5 * temp)^4
   } else {
     stop("'unit' must be either 'eV' or 'K'.")
   }
@@ -42,7 +42,7 @@ photon_energy_density_fn_T <- function(T, unit = "eV") {
 #' Calculates the photon number density for a given temperature \eqn{T},
 #' using \eqn{n_\gamma = \frac{2\zeta(3)}{\pi^2} T^3}.
 #'
-#' @param T Numeric. Temperature in either eV or Kelvin.
+#' @param temp Numeric. Temperature in either eV or Kelvin.
 #' @param unit Character. The unit of the temperature input. Either
 #'   \code{"eV"} (default) or \code{"K"}.
 #' @return Numeric. The photon number density in natural units.
@@ -50,11 +50,11 @@ photon_energy_density_fn_T <- function(T, unit = "eV") {
 #' photon_number_density_fn_T(1, "eV")
 #' photon_number_density_fn_T(300, "K")
 #' @export
-photon_number_density_fn_T <- function(T, unit = "eV") {
+photon_number_density_fn_T <- function(temp, unit = "eV") {
   if (unit == "eV") {
-    (2 * zeta_3 / pi^2) * T^3
+    (2 * zeta_3 / pi^2) * temp^3
   } else if (unit == "K") {
-    (2 * zeta_3 / pi^2) * (8.6173e-5 * T)^3
+    (2 * zeta_3 / pi^2) * (8.6173e-5 * temp)^3
   } else {
     stop("'unit' must be either 'eV' or 'K'.")
   }
