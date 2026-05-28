@@ -36,8 +36,10 @@ This package was developed for astronomy, cosmological computation, and analysis
 Normally in astronomy, we use a different sort of angular system for location. We can easily do that in our package. Let’s see how. Suppose, we have an angular value of `d = 177.74208°` We want to convert it into an hour-minute-second. There is a very simple function.
 
 ``` r
+library(astronomR)
+
 deg_to_hms(177.74208)
-#> 11H50M58.0992S
+#> [1] 11H50M58.0992S
 hms_to_deg(11, 50, 58.09925)
 #> [1] 177.7421
 ```
@@ -51,7 +53,7 @@ ra_hour <- 16.695  # RA in hours
 dec_deg <- 36.466667  # Dec in degrees
 lat_obs <- 52.5  # Observer's latitude
 lon_obs <- -1.9166667  # Observer's longitude
-datetime <- as.POSIXct("1998-08-10 23:10:00", tz = "UT")  # Observation time
+datetime <- as.POSIXct("1998-08-10 23:10:00", tz = "UTC")  # Observation time
 ```
 
 Now, create the star location as seen from that location on the time mentioned. This returns Altitude and Azimuth as normally used.
@@ -68,6 +70,8 @@ print(paste("Azimuth:", star_location$azimuth, "degrees"))
 This tells us from some location, what is the position of the star so that we can use a telescope to watch it! Using this simple function, we can trace out the path any star travels. Let’s see how and also maybe plot it. For that, let’s first make a time range, for which we want to see the location.
 
 ``` r
+library(ggplot2)
+
 # Plotting Rigel's Motion
 start_datetime <- as.POSIXct("2024-10-02 00:00:00", tz = "UTC")
 end_datetime <- as.POSIXct("2024-10-03 00:00:00", tz = "UTC")
@@ -96,7 +100,6 @@ for (i in seq_along(timestamps)) {
 rigel_positions <- data.frame(datetime = timestamps, altitude = altitude, azimuth = azimuth)
 
 # 2D Plot for Altitude over Time
-library(ggplot2)
 ggplot(rigel_positions, aes(x = datetime, y = altitude)) +
   geom_line() +
   labs(x = "Time", y = "Altitude (degrees)", title = "Altitude of Rigel over 24 hours")
@@ -144,7 +147,10 @@ Nice! Isn’t it? Let’s use this for some analysis. Why not create an H-R diag
 For this first, let’s convert parallax to absolute magnitude.
 
 ``` r
+library(ggplot2)
 library(dplyr)
+
+# Helper function to convert parallax (mas) and apparent magnitude to absolute magnitude
 calculate_absolute_magnitude <- function(parallax, g_mag) {
   distance_pc <- 1 / (parallax / 1000)
   abs_mag <- g_mag - 5 * (log10(distance_pc) - 1)
@@ -154,7 +160,7 @@ calculate_absolute_magnitude <- function(parallax, g_mag) {
 # Let's import the data
 df <- get_gaia_data(vars = "ra, dec, parallax, phot_g_mean_mag, phot_bp_mean_mag, phot_rp_mean_mag", 
                     condition = "parallax > 50")
-#data processing
+# Data processing
 df <- df %>%
   mutate(color_index = phot_bp_mean_mag - phot_rp_mean_mag,
          abs_mag = calculate_absolute_magnitude(parallax, phot_g_mean_mag))
@@ -219,4 +225,4 @@ radius_of_curvature(cosmo)
 #> [1] 0
 ```
 
-#### *Many more functions are coming soon. Wait for the documentation for more!*
+#### *Many more functions are coming soon!*
