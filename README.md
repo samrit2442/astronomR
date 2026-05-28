@@ -1,5 +1,9 @@
 # astronomR: Astronomy and Cosmology Analysis in R 🌌✨
 
+[![CRAN version](https://www.r-pkg.org/badges/version/astronomR)](https://cran.r-project.org/package=astronomR)
+[![CRAN downloads (grand total)](https://cranlogs.r-pkg.org/badges/grand-total/astronomR)](https://cran.r-project.org/package=astronomR)
+[![CRAN downloads (last month)](https://cranlogs.r-pkg.org/badges/last-month/astronomR)](https://cran.r-project.org/package=astronomR)
+
 An R package designed to bridge the gap between data science and the cosmos!
 
 ## Why {astronomR}?
@@ -7,6 +11,14 @@ An R package designed to bridge the gap between data science and the cosmos!
 While R is widely used in data science and statistical computing, there has been a lack of tools specifically tailored for astronomical data. {astronomR} aims to fill this gap, offering easy-to-use functions and tools for anyone looking to explore space and cosmology through data. Whether you’re an astrophysicist or just a data enthusiast, {astronomR} is here to help you navigate the universe.
 
 ## Installing this Package
+
+Install the stable release from CRAN:
+
+``` r
+install.packages("astronomR")
+```
+
+Or install the development version from GitHub:
 
 ``` r
 # Install devtools package if you don't have it
