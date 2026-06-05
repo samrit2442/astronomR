@@ -4,9 +4,9 @@
 [![CRAN version](https://www.r-pkg.org/badges/version/astronomR)](https://cran.r-project.org/package=astronomR)
 [![Dev version](https://img.shields.io/badge/dev%20version-0.2.0-blue?logo=github)](https://github.com/samrit2442/astronomR)
 [![CRAN checks](https://badges.cranchecks.info/summary/astronomR.svg)](https://cran.r-project.org/web/checks/check_results_astronomR.html)
-[![R-CMD-check](https://github.com/samrit2442/astronomR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/samrit2442/astronomR/actions/workflows/R-CMD-check.yaml)
+`[![R-CMD-check](https://github.com/samrit2442/astronomR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/samrit2442/astronomR/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/samrit2442/astronomR/graph/badge.svg)](https://app.codecov.io/gh/samrit2442/astronomR)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)`
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CRAN downloads (grand total)](https://cranlogs.r-pkg.org/badges/grand-total/astronomR)](https://cran.r-project.org/package=astronomR)
 [![CRAN downloads (last month)](https://cranlogs.r-pkg.org/badges/last-month/astronomR)](https://cran.r-project.org/package=astronomR)
