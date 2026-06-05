@@ -3,6 +3,7 @@
 [![CRAN version](https://www.r-pkg.org/badges/version/astronomR)](https://cran.r-project.org/package=astronomR)
 [![CRAN downloads (grand total)](https://cranlogs.r-pkg.org/badges/grand-total/astronomR)](https://cran.r-project.org/package=astronomR)
 [![CRAN downloads (last month)](https://cranlogs.r-pkg.org/badges/last-month/astronomR)](https://cran.r-project.org/package=astronomR)
+[![Dev version](https://img.shields.io/badge/dev%20version-0.2.0-blue?logo=github)](https://github.com/samrit2442/astronomR)
 
 An R package designed to bridge the gap between data science and the cosmos!
 
