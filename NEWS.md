@@ -1,3 +1,22 @@
+# astronomR 0.2.0
+
+## New features
+
+* Added `drake_equation()` — computes **N**, the estimated number of active,
+  communicating civilisations in the Milky Way, from the seven classic Drake
+  equation parameters (`R_star`, `fp`, `ne`, `fl`, `fi`, `fc`, `L`).
+  Returns a named list with the numeric result, a substituted equation string,
+  all input values, and a qualitative six-tier **interpretation** of N ranging
+  from *"effectively zero"* (N < 0.001) to *"galaxy teeming with life"*
+  (N ≥ 10 000).
+
+## Minor changes
+
+* `DESCRIPTION` updated to mention the Drake equation capability.
+* Version bumped to **0.2.0**.
+
+---
+
 # astronomR 0.1.0
 
 * Initial release of astronomR.

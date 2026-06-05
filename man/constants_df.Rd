@@ -22,17 +22,6 @@ A dataset containing commonly used physical constants in both SI units and
 natural units. The dataset includes the constant's name, symbol, value in
 SI units, SI unit, value in natural units, and natural unit representation.
 }
-\value{
-A \code{tibble} (data frame) with 19 rows and 6 columns:
-\describe{
-  \item{name}{Character. Full name of the physical constant.}
-  \item{symbol}{Character. Symbol representing the constant.}
-  \item{value_SI}{Numeric. Value of the constant in SI units.}
-  \item{unit_SI}{Character. The SI unit string for the constant.}
-  \item{value_Natural}{Numeric. Value of the constant in natural units.}
-  \item{unit_Natural}{Character. The natural unit string for the constant.}
-}
-}
 \examples{
 constants_df
 }
