@@ -6,3 +6,5 @@
 ^cran-comments\.md$
 ^AGENTS\.md$
 ^CRAN-SUBMISSION$
+^\.github$
+^codecov\.yml$
