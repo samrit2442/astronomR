@@ -59,10 +59,10 @@ What else can be done? Let’s say we want to find the path of some star in a pa
 To do that, first, we need to define the RA and Dec value of the star. Let’s see to do this. Also, let’s define the time of observation and its location.
 
 ``` r
-ra_hour <- 16.695  # RA in hours
-dec_deg <- 36.466667  # Dec in degrees
-lat_obs <- 52.5  # Observer's latitude
-lon_obs <- -1.9166667  # Observer's longitude
+ra_hour  <- 16.695  # RA in hours
+dec_deg  <- 36.466667  # Dec in degrees
+lat_obs  <- 52.5  # Observer's latitude
+lon_obs  <- -1.9166667  # Observer's longitude
 datetime <- as.POSIXct("1998-08-10 23:10:00", tz = "UTC")  # Observation time
 ```
 
@@ -84,26 +84,26 @@ library(ggplot2)
 
 # Plotting Rigel's Motion
 start_datetime <- as.POSIXct("2024-10-02 00:00:00", tz = "UTC")
-end_datetime <- as.POSIXct("2024-10-03 00:00:00", tz = "UTC")
+end_datetime   <- as.POSIXct("2024-10-03 00:00:00", tz = "UTC")
 
 # Generate timestamps at 20-minute intervals
 timestamps <- seq(from = start_datetime, to = end_datetime, by = "20 mins")
-altitude <- numeric(length(timestamps))
-azimuth <- numeric(length(timestamps))
+altitude   <- numeric(length(timestamps))
+azimuth    <- numeric(length(timestamps))
 
 observer_lat <- 43.1566  # Latitude in degrees
 observer_lon <- -77.6088  # Longitude in degrees
 
 # RA and Dec for Rigel (converted RA to hours)
-rigel_ra <- 78.634467 / 15  # RA in hours
+rigel_ra  <- 78.634467 / 15  # RA in hours
 rigel_dec <- -8.20164  # Dec in degrees
 
 # Calculate altitude and azimuth for each timestamp
 for (i in seq_along(timestamps)) {
-  datetime <- timestamps[i]
-  result <- RA_dec2Alt_azi(rigel_ra, rigel_dec, observer_lat, observer_lon, datetime)
+  datetime    <- timestamps[i]
+  result      <- RA_dec2Alt_azi(rigel_ra, rigel_dec, observer_lat, observer_lon, datetime)
   altitude[i] <- result$altitude
-  azimuth[i] <- result$azimuth
+  azimuth[i]  <- result$azimuth
 }
 
 # Create a data frame with results
@@ -163,7 +163,7 @@ library(dplyr)
 # Helper function to convert parallax (mas) and apparent magnitude to absolute magnitude
 calculate_absolute_magnitude <- function(parallax, g_mag) {
   distance_pc <- 1 / (parallax / 1000)
-  abs_mag <- g_mag - 5 * (log10(distance_pc) - 1)
+  abs_mag     <- g_mag - 5 * (log10(distance_pc) - 1)
   return(abs_mag)
 }
 
