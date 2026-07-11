@@ -104,37 +104,37 @@ drake_equation <- function(
 
   interpretation <- if (N < 0.001) {
     paste0(
-      "N ≈ ", signif(N, 3), ": Effectively zero. Under these parameters, the ",
+      "N \u2248 ", signif(N, 3), ": Effectively zero. Under these parameters, the ",
       "chance of even one communicating civilisation existing in the Milky Way ",
       "at any given moment is vanishingly small. We are, in all likelihood, alone."
     )
   } else if (N < 1) {
     paste0(
-      "N ≈ ", signif(N, 3), ": Less than one expected civilisation. Intelligent, ",
+      "N \u2248 ", signif(N, 3), ": Less than one expected civilisation. Intelligent, ",
       "communicating life is exceedingly rare; any civilisation that does arise ",
       "is probably isolated by enormous distances or time."
     )
   } else if (N < 10) {
     paste0(
-      "N ≈ ", signif(N, 3), ": Only a handful of civilisations may exist ",
+      "N \u2248 ", signif(N, 3), ": Only a handful of civilisations may exist ",
       "simultaneously across the galaxy. Contact is theoretically possible but ",
       "the vast distances make it extraordinarily difficult."
     )
   } else if (N < 1000) {
     paste0(
-      "N ≈ ", signif(N, 3), ": A modest number of civilisations. The galaxy ",
+      "N \u2248 ", signif(N, 3), ": A modest number of civilisations. The galaxy ",
       "could harbour detectable signals, but they remain rare enough that ",
       "targeted searches would be needed to find them."
     )
   } else if (N < 10000) {
     paste0(
-      "N ≈ ", signif(N, 3), ": Thousands of civilisations. The galaxy is ",
+      "N \u2248 ", signif(N, 3), ": Thousands of civilisations. The galaxy is ",
       "reasonably well-populated with intelligent life; persistent, wide-sky ",
       "surveys have a realistic chance of detecting a signal."
     )
   } else {
     paste0(
-      "N ≈ ", signif(N, 3), ": The galaxy is teeming with communicating ",
+      "N \u2248 ", signif(N, 3), ": The galaxy is teeming with communicating ",
       "civilisations. Under these optimistic parameters, interstellar contact ",
       "may be almost inevitable given sufficient technology and patience."
     )

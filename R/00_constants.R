@@ -13,7 +13,7 @@
 #'   \item{value_Natural}{Numeric. The value of the constant in natural units.}
 #'   \item{unit_Natural}{Character. The unit of the constant in natural units.}
 #' }
-#' @value A \code{tibble} (data frame) with 19 rows and 6 columns:
+#' @return A \code{tibble} (data frame) with 19 rows and 6 columns:
 #' \describe{
 #'   \item{name}{Character. Full name of the physical constant.}
 #'   \item{symbol}{Character. Symbol representing the constant.}

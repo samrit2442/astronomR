@@ -1,4 +1,43 @@
+# astronomR 0.3.0
+
+## New features
+
+* Added a full **thermal cosmology module** (`08_thermal_cosmology.R`) with
+  nine new exported functions covering the complete early-universe thermal
+  history:
+
+  - `hubble_radiation()` — Hubble rate H(T) in the radiation-dominated era
+    via the Friedmann equation (natural units, GeV).
+  - `g_star_eff()` — step-function approximation of effective relativistic
+    degrees of freedom g★(T) across Standard Model epochs.
+  - `entropy_density()` — entropy density s(T) = (2π²/45) g★_S T³.
+  - `equilibrium_number_density()` — Maxwell-Boltzmann equilibrium number
+    density n_eq(T).
+  - `equilibrium_yield()` — equilibrium yield Y_eq(x) = n_eq / s using
+    the modified Bessel function K₂.
+  - `boltzmann_pebble_rhs()` — the Boltzmann relic-abundance **pebble
+    equation** dY/dx governing WIMP thermal freeze-out.
+  - `solve_relic_abundance()` — full ODE integration of the pebble equation
+    (via `deSolve`) returning Y(x) and Ω h². Uses a log(Y) substitution to
+    handle stiffness.
+  - `freeze_out_xf()` — iterative solver for the freeze-out parameter
+    x_f = m/T_f.
+  - `peebles_rhs()` — Peebles equation for hydrogen recombination: returns
+    dx_e/d(ln a), the Peebles C-factor, and the Lyman-alpha escape rate
+    (SI units).
+
+## Minor changes
+
+* `DESCRIPTION` updated to document the new thermal-cosmology and
+  recombination capabilities; `deSolve` added to `Suggests`.
+* `NAMESPACE` regenerated via `devtools::document()` to export all nine
+  new functions.
+* Version bumped to **0.3.0**.
+
+---
+
 # astronomR 0.2.0
+
 
 ## New features
 

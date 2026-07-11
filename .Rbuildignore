@@ -8,3 +8,5 @@
 ^CRAN-SUBMISSION$
 ^\.github$
 ^codecov\.yml$
+^\.posit$
+^\.vscode$
