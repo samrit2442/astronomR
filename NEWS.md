@@ -2,7 +2,7 @@
 
 ## New features
 
-* Added a full **thermal cosmology module** (`08_thermal_cosmology.R`) with
+* Added a full **thermal cosmology module** with
   nine new exported functions covering the complete early-universe thermal
   history:
 
