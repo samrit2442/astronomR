@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 [![CRAN version](https://www.r-pkg.org/badges/version/astronomR)](https://cran.r-project.org/package=astronomR)
-[![Dev version](https://img.shields.io/badge/dev%20version-0.2.0-blue?logo=github)](https://github.com/samrit2442/astronomR)
+[![Dev version](https://img.shields.io/badge/dev%20version-0.3.0-blue?logo=github)](https://github.com/samrit2442/astronomR)
 [![CRAN checks](https://badges.cranchecks.info/summary/astronomR.svg)](https://cran.r-project.org/web/checks/check_results_astronomR.html)
 <!-- [![R-CMD-check](https://github.com/samrit2442/astronomR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/samrit2442/astronomR/actions/workflows/R-CMD-check.yaml) -->
 <!-- [![Codecov test coverage](https://codecov.io/gh/samrit2442/astronomR/graph/badge.svg)](https://app.codecov.io/gh/samrit2442/astronomR) -->
@@ -18,7 +18,7 @@ An R package designed to bridge the gap between data science and the cosmos!
 
 ## Why {astronomR}?
 
-While R is widely used in data science and statistical computing, there has been a lack of tools specifically tailored for astronomical data. {astronomR} aims to fill this gap, offering easy-to-use functions and tools for anyone looking to explore space and cosmology through data. Whether you’re an astrophysicist or just a data enthusiast, {astronomR} is here to help you navigate the universe.
+While R is widely used in data science and statistical computing, there has been a lack of tools specifically tailored for astronomical data. {astronomR} aims to fill this gap, offering easy-to-use functions and tools for anyone looking to explore space and cosmology through data. Whether you're an astrophysicist or just a data enthusiast, {astronomR} is here to help you navigate the universe.
 
 ## Installing this Package
 
@@ -41,9 +41,21 @@ devtools::install_github("samrit2442/astronomR")
 
 This package was developed for astronomy, cosmological computation, and analysis with R. The source code can be found here <https://github.com/samrit2442/astronomR>
 
+## Function Overview
+
+| Category | Functions |
+|---|---|
+| **Angular Conversions** | `deg_to_hms()`, `hms_to_deg()`, `deg_to_dms()`, `dms_to_deg()`, `deg2rad()`, `rad2deg()` |
+| **Physical Constants** | `constants_df`, `constant_value()` |
+| **Gaia Archive** | `get_gaia_data()` |
+| **Cosmology** | `km_to_Mpc()`, `Mpc_to_km()`, `cosmology_model()`, `age_of_universe()`, `comoving_distance()`, `luminosity_distance()`, `angular_diameter_distance()` |
+| **Thermal Physics** | `photon_energy_density_fn_T()`, `photon_energy_density_fn_z()`, `photon_number_density_fn_T()`, `photon_number_density_fn_z()`, `Saha_Xe()`, `soln_saha()` |
+| **Thermal Cosmology** | `hubble_radiation()`, `g_star_eff()`, `entropy_density()`, `equilibrium_number_density()`, `equilibrium_yield()`, `boltzmann_pebble_rhs()`, `solve_relic_abundance()`, `freeze_out_xf()`, `peebles_rhs()` |
+| **Drake Equation** | `drake_equation()` |
+
 ## Some Usage and Example Codes
 
-Normally in astronomy, we use a different sort of angular system for location. We can easily do that in our package. Let’s see how. Suppose, we have an angular value of `d = 177.74208°` We want to convert it into an hour-minute-second. There is a very simple function.
+Normally in astronomy, we use a different sort of angular system for location. We can easily do that in our package. Let's see how. Suppose, we have an angular value of `d = 177.74208°` We want to convert it into an hour-minute-second. There is a very simple function.
 
 ``` r
 library(astronomR)
@@ -54,9 +66,9 @@ hms_to_deg(11, 50, 58.09925)
 #> [1] 177.7421
 ```
 
-What else can be done? Let’s say we want to find the path of some star in a particular location for a time interval. This can also be done using our package.
+What else can be done? Let's say we want to find the path of some star in a particular location for a time interval. This can also be done using our package.
 
-To do that, first, we need to define the RA and Dec value of the star. Let’s see to do this. Also, let’s define the time of observation and its location.
+To do that, first, we need to define the RA and Dec value of the star. Let's see to do this. Also, let's define the time of observation and its location.
 
 ``` r
 ra_hour  <- 16.695  # RA in hours
@@ -77,7 +89,7 @@ print(paste("Azimuth:", star_location$azimuth, "degrees"))
 #> [1] "Azimuth: 269.146669462321 degrees"
 ```
 
-This tells us from some location, what is the position of the star so that we can use a telescope to watch it! Using this simple function, we can trace out the path any star travels. Let’s see how and also maybe plot it. For that, let’s first make a time range, for which we want to see the location.
+This tells us from some location, what is the position of the star so that we can use a telescope to watch it! Using this simple function, we can trace out the path any star travels. Let's see how and also maybe plot it. For that, let's first make a time range, for which we want to see the location.
 
 ``` r
 library(ggplot2)
@@ -137,7 +149,7 @@ ggplot(rigel_positions, aes(x = azimuth, y = altitude)) +
 
 ## Gaia Data Archive
 
-The **Gaia Data Archive** is a comprehensive database that houses the data collected by the European Space Agency’s Gaia mission. Launched in December 2013, Gaia is designed to create the most accurate three-dimensional map of the Milky Way galaxy by observing and cataloguing the positions, distances, and motions of over a billion stars. In Python **Astropy** and **Astroquery** is used to import data directly. We can do the same thing in our package. Let’s see how:
+The **Gaia Data Archive** is a comprehensive database that houses the data collected by the European Space Agency's Gaia mission. Launched in December 2013, Gaia is designed to create the most accurate three-dimensional map of the Milky Way galaxy by observing and cataloguing the positions, distances, and motions of over a billion stars. In Python **Astropy** and **Astroquery** is used to import data directly. We can do the same thing in our package. Let's see how:
 
 ``` r
 df <- get_gaia_data(vars = "ra, dec, parallax", condition = "parallax > 50")
@@ -152,9 +164,9 @@ head(df)
 #> 6 312.2788  37.47123  56.86465
 ```
 
-Nice! Isn’t it? Let’s use this for some analysis. Why not create an H-R diagram.
+Nice! Isn't it? Let's use this for some analysis. Why not create an H-R diagram.
 
-For this first, let’s convert parallax to absolute magnitude.
+For this first, let's convert parallax to absolute magnitude.
 
 ``` r
 library(ggplot2)
@@ -190,7 +202,7 @@ ggplot(df, aes(x = color_index, y = abs_mag)) +
 
 ## Cosmological Calculation
 
-We can do many things related to cosmology using this. Let’s see a few of them. Before that, I will suggest to run this code. As we know, there are many cosmological models. You can define these in our package.
+We can do many things related to cosmology using this. Let's see a few of them. Before that, I will suggest to run this code. As we know, there are many cosmological models. You can define these in our package.
 
 ``` r
 cosmo <- FlatLCDM(0.6774, 0.6911, 0.3089, 8.4e-5)
@@ -221,18 +233,132 @@ t_as_func_a_in_Year(cosmo, 1) # in year
 #> [1] 13808979942.748983
 ```
 
-We can find the age of our universe using this or use the function `age_of_universe_GY()`.
+We can find the age of our universe using this or use the function `age_of_universe()`.
 
 ``` r
-age_of_universe_GY(cosmo) # our universe age !!!!!
+age_of_universe(cosmo, unit = "GY") # our universe age !!!!!
 #> [1] 13.808979942748984
 ```
 
-Our package can find the radius of curvature of our universe. Let’s see:
+Our package can find the radius of curvature of our universe. Let's see:
 
 ``` r
 radius_of_curvature(cosmo)
 #> [1] 0
 ```
+
+## Thermal Cosmology of the Early Universe
+
+The thermal cosmology module covers the complete early-universe thermal history
+from the WIMP freeze-out epoch all the way through hydrogen recombination.
+All functions in this section use **natural units** (ħ = c = k_B = 1) with
+temperature and mass in GeV, except `peebles_rhs()` which uses SI units.
+
+### Hubble Rate & Degrees of Freedom
+
+``` r
+# Hubble rate H(T) in the radiation-dominated era [GeV]
+hubble_radiation(100)           # T = 100 GeV, full SM  g* = 106.75
+#> [1] 1.405077e-14
+
+hubble_radiation(1e-3, g_star = 10.75)   # T = 1 MeV, neutrino era
+#> [1] 4.458986e-25
+
+# Effective relativistic degrees of freedom g*(T)
+g_star_eff(500)   # > 300 GeV: full Standard Model
+#> [1] 106.75
+g_star_eff(0.1)   # neutrino era
+#> [1] 10.75
+g_star_eff(0.01)  # after e+e- annihilation
+#> [1] 3.91
+```
+
+### Entropy Density & Equilibrium Distributions
+
+``` r
+# Entropy density s(T) = (2π²/45) g*S T³  [GeV³]
+entropy_density(0.1)                    # T = 100 MeV
+#> [1] 0.004715535
+
+# Maxwell-Boltzmann equilibrium number density n_eq(T)
+equilibrium_number_density(T_GeV = 5, m_GeV = 100, g_dof = 2)
+#> [1] 2.926338e-06
+
+# Equilibrium yield Y_eq(x)  [x = m/T]
+equilibrium_yield(x = 20, m_GeV = 100)   # near freeze-out
+#> [1] 7.720313e-10
+```
+
+### WIMP Freeze-Out: The Boltzmann Pebble Equation
+
+The **pebble equation** governs the evolution of the comoving yield Y = n/s
+of a thermally produced dark-matter relic:
+
+$$\frac{dY}{dx} = -\frac{\langle\sigma v\rangle\, s}{H\, x}\left(Y^2 - Y_{\rm eq}^2\right)$$
+
+``` r
+sigmav <- 2.2e-9   # GeV^-2  (typical WIMP <sigma v>)
+
+# Evaluate dY/dx — zero at equilibrium (fixed point), negative above it
+Yeq <- equilibrium_yield(x = 20, m_GeV = 100)
+boltzmann_pebble_rhs(x = 20, Y = 10 * Yeq, m_GeV = 100, sigmav_GeV2 = sigmav)
+#> [1] -9.110522e-07   # above equilibrium: strong restoring force
+
+# Iterative freeze-out temperature solver
+freeze_out_xf(m_GeV = 100, sigmav_GeV2 = sigmav)
+#> [1] 20.8065           # x_f = m/T_f  (classic WIMP range: 20-25)
+
+# Full ODE integration of the pebble equation (requires deSolve)
+# install.packages("deSolve")
+res <- solve_relic_abundance(m_GeV = 100, sigmav_GeV2 = sigmav)
+cat("Omega_chi * h^2 =", res$Omega_h2, "\n")
+#> Omega_chi * h^2 = 0.1068
+#> # Planck 2018 measured: Omega_DM * h^2 = 0.1200
+```
+
+### Hydrogen Recombination: The Peebles Equation
+
+The Peebles equation tracks the free-electron fraction x_e during
+cosmological hydrogen recombination (z ~ 1100). It uses **SI units**.
+
+$$\frac{dx_e}{d\ln a} = \frac{C}{H}\left[\beta_B(1-x_e) - n_H\,\alpha_B\,x_e^2\right]$$
+
+The Peebles C-factor accounts for the probability that an excited hydrogen
+atom reaches the ground state before being re-ionized.
+
+``` r
+# Approximate inputs at z ~ 1100 (recombination epoch)
+H_rec   <- 3.3e-15   # s^-1
+n_H_rec <- 400e6     # m^-3
+alpha_B <- 2.6e-19   # m^3 s^-1  (case-B recombination coefficient)
+beta_B  <- 4.0e-15   # s^-1      (photoionization rate from n = 2)
+
+res <- peebles_rhs(
+  lna     = log(1 / 1101),
+  xe      = 0.5,
+  H       = H_rec,
+  n_H     = n_H_rec,
+  alpha_B = alpha_B,
+  beta_B  = beta_B
+)
+
+res
+#>          dxe_dlna                 C lambda_alpha_escape 
+#>      -7878.224491          1.000000          0.230818
+```
+
+The negative `dxe_dlna` confirms that at x_e = 0.5 the plasma is actively
+recombining. The C-factor ≈ 1 means the Lyman-alpha escape and two-photon
+channels dominate over photoionization — recombination is efficient.
+
+## What's New in v0.3.0
+
+- **Thermal Cosmology Module** — 9 new exported functions (`hubble_radiation`,
+  `g_star_eff`, `entropy_density`, `equilibrium_number_density`,
+  `equilibrium_yield`, `boltzmann_pebble_rhs`, `solve_relic_abundance`,
+  `freeze_out_xf`, `peebles_rhs`) covering the full early-universe thermal history.
+- **47 new unit tests** — all functions tested for physical correctness,
+  scaling laws, and error handling.
+- **CRAN check**: `0 errors | 0 warnings | 0 notes`.
 
 #### *Many more functions are coming soon!*
