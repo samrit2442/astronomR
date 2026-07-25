@@ -20,7 +20,7 @@
 # ---- Physical constants in natural units -------------------
 # Reduced Planck mass  M_Pl = 1 / sqrt(8 pi G)  [GeV]
 M_Pl_reduced <- 2.435e18   # GeV  (M_Pl = 1.221e19 / sqrt(8 pi))
-GeV_to_inv_s  <- 1.519e24  # 1 GeV  = 1.519e24  s^{-1}  (hbar = 1)
+GeV_to_inv_s <- 1.519e24   # 1 GeV  = 1.519e24  s^{-1}  (hbar = 1)
 
 
 # ============================================================
@@ -55,7 +55,7 @@ GeV_to_inv_s  <- 1.519e24  # 1 GeV  = 1.519e24  s^{-1}  (hbar = 1)
 #' hubble_radiation(1e-3, g_star = 10.75)
 #' @export
 hubble_radiation <- function(T_GeV, g_star = 106.75) {
-  if (any(T_GeV <= 0)) stop("'T_GeV' must be positive.")
+  if (any(T_GeV  <= 0)) stop("'T_GeV' must be positive.")
   if (any(g_star <= 0)) stop("'g_star' must be positive.")
   sqrt((pi^2 / 90) * g_star) * T_GeV^2 / M_Pl_reduced
 }
