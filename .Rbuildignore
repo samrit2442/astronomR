@@ -10,3 +10,4 @@
 ^codecov\.yml$
 ^\.posit$
 ^\.vscode$
+^\.posit/assistant$

@@ -46,7 +46,7 @@
   equation parameters (`R_star`, `fp`, `ne`, `fl`, `fi`, `fc`, `L`).
   Returns a named list with the numeric result, a substituted equation string,
   all input values, and a qualitative six-tier **interpretation** of N ranging
-  from *"effectively zero"* (N < 0.001) to *"galaxy teeming with life"*
+  from *"effectively zero"* (N < 0.001) to *"galaxy teeming with life"
   (N ≥ 10 000).
 
 ## Minor changes
@@ -63,4 +63,4 @@
 * Physical constants dataset `constants_df` and retrieval function `constant_value()`.
 * Gaia Archive query function `get_gaia_data()`.
 * Distance conversion functions `km_to_Mpc()` and `Mpc_to_km()`.
-* Early-universe thermal physics functions: `photon_energy_density_fn_T()`, `photon_energy_density_fn_z()`, `photon_number_density_fn_T()`, `photon_number_density_fn_z()`, `Saha_Xe()`, and `soln_saha()`.
+* Early-universe thermal physics functions: `photon_energy_density_fn_T()`, `photon_energy_density_fn_z()`, `photon_number_density_fn_T()`, `photon_number_density_fn_z()`, `Saha_Xe()`, and `soln_saha()`

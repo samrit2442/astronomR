@@ -10,7 +10,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CRAN downloads (grand total)](https://cranlogs.r-pkg.org/badges/grand-total/astronomR)](https://cran.r-project.org/package=astronomR)
 [![CRAN downloads (last month)](https://cranlogs.r-pkg.org/badges/last-month/astronomR)](https://cran.r-project.org/package=astronomR)
-[![GitHub stars](https://img.shields.io/github/stars/samrit2442/astronomR?style=social)](https://github.com/samrit2442/astronomR/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/samrit2442/astronomR?style=social)](https://github.com/samrit2442/astronomR)
 [![Last commit](https://img.shields.io/github/last-commit/samrit2442/astronomR)](https://github.com/samrit2442/astronomR/commits/master)
 <!-- badges: end -->
 
