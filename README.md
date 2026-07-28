@@ -1,7 +1,7 @@
 # astronomR: Astronomy and Cosmology Analysis in R 🌌✨
 
 [![CRAN status](https://www.r-pkg.org/badges/version/astronomR)](https://cran.r-project.org/package=astronomR)
-[![R-CMD-check](https://github.com/samrit2442/astronomR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/samrit2442/astronomR/actions/workflows/R-CMD-check.yaml)
+[![Dev version](https://img.shields.io/badge/dev%20version-0.3.0-blue?logo=github)](https://github.com/samrit2442/astronomR)
 [![CRAN checks](https://badges.cranchecks.info/summary/astronomR.svg)](https://cran.r-project.org/web/checks/check_results_astronomR.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
