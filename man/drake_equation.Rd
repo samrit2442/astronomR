@@ -16,24 +16,24 @@ drake_equation(
 }
 \arguments{
 \item{R_star}{Numeric. Average rate of star formation per year in the Milky
-Way (stars yr\eqn{^{-1}}). Default: \code{1.5}.}
+Way (stars yr\eqn{^{-1}}{^-1}). Default: \code{1.5}.}
 
 \item{fp}{Numeric. Fraction of stars that have planetary systems.
-Must be in \eqn{[0, 1]}. Default: \code{1.0} (current exoplanet surveys
-suggest nearly all Sun-like stars host planets).}
+Must be in \eqn{[0, 1]}{[0, 1]}. Default: \code{1.0} (current exoplanet
+surveys suggest nearly all Sun-like stars host planets).}
 
 \item{ne}{Numeric. Mean number of planets per planetary system that
 could potentially support life (Earth-like / habitable-zone planets).
 Default: \code{0.4}.}
 
 \item{fl}{Numeric. Fraction of suitable planets on which life actually
-appears. Must be in \eqn{[0, 1]}. Default: \code{1.0}.}
+appears. Must be in \eqn{[0, 1]}{[0, 1]}. Default: \code{1.0}.}
 
 \item{fi}{Numeric. Fraction of life-bearing planets on which intelligent
-life evolves. Must be in \eqn{[0, 1]}. Default: \code{1.0}.}
+life evolves. Must be in \eqn{[0, 1]}{[0, 1]}. Default: \code{1.0}.}
 
 \item{fc}{Numeric. Fraction of intelligent civilizations that develop
-detectable communication technology. Must be in \eqn{[0, 1]}.
+detectable communication technology. Must be in \eqn{[0, 1]}{[0, 1]}.
 Default: \code{0.1}.}
 
 \item{L}{Numeric. Mean longevity (years) of a communicating
@@ -45,22 +45,25 @@ A named list with the following elements:
     \item{\code{N}}{Numeric. Estimated number of communicating civilizations.}
     \item{\code{inputs}}{Named numeric vector of all seven input parameters.}
     \item{\code{equation}}{Character. Human-readable form of the equation with
-      values substituted.}
+      values substituted, with embedded line breaks; print it with
+      \code{cat()}.}
     \item{\code{interpretation}}{Character. A qualitative interpretation of \code{N}
-      spanning six tiers from \emph{effectively zero} (\eqn{N < 0.001}) to
-      \emph{galaxy teeming with life} (\eqn{N \geq 10{,}000}).}
+      spanning six tiers from \emph{effectively zero}
+      (\eqn{N < 0.001}{N < 0.001}) to \emph{galaxy teeming with life}
+      (\eqn{N \geq 10\,000}{N >= 10000}).}
   }
 }
 \description{
-Computes **N**, the estimated number of active, technologically advanced
-civilizations capable of interstellar communication in the Milky Way, using
-the Drake equation:
+Computes \strong{N}, the estimated number of active, technologically
+advanced civilizations capable of interstellar communication in the Milky
+Way, using the Drake equation:
+
+\deqn{N = R_* \times f_p \times n_e \times f_l \times f_i \times f_c
+  \times L}{N = R* x fp x ne x fl x fi x fc x L}
 }
 \details{
-\deqn{N = R_* \times f_p \times n_e \times f_l \times f_i \times f_c \times L}
-
 Default values reflect widely cited contemporary estimates (see References).
-All fraction parameters must lie in \eqn{[0, 1]}.
+All fraction parameters must lie in \eqn{[0, 1]}{[0, 1]}.
 }
 \examples{
 # Using all defaults (optimistic estimate)
@@ -74,6 +77,10 @@ drake_equation(R_star = 1.5, fp = 1.0, ne = 0.4,
 result <- drake_equation(R_star = 3, fp = 0.9, ne = 0.5,
                          fl = 0.5, fi = 0.1, fc = 0.1, L = 10000)
 result$N
+
+# cat() renders the equation string with real line breaks
+cat(result$equation, "\n", sep = "")
+result$interpretation
 }
 \references{
 Drake, F. D. (1961). Discussion at the first SETI conference, Green Bank,

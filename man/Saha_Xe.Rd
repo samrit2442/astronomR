@@ -2,21 +2,55 @@
 % Please edit documentation in R/06_thermo2.R
 \name{Saha_Xe}
 \alias{Saha_Xe}
-\title{Ionization Fraction Using the Saha Equation}
+\alias{soln_saha}
+\title{Hydrogen Ionization Fraction from the Saha Equation}
 \usage{
 Saha_Xe(z)
+
+soln_saha(z)
 }
 \arguments{
-\item{z}{Numeric. The redshift value.}
+\item{z}{Numeric vector of redshifts, \eqn{z > -1}.}
 }
 \value{
-Numeric. The ionization fraction \eqn{X_e} (between 0 and 1).
+For \code{Saha_Xe()}, a numeric vector the same length as
+  \code{z}: the dimensionless ionization fraction \eqn{X_e}, between 0
+  and 1. For \code{soln_saha()}, the numeric vector \eqn{X_e - 0.5}.
 }
 \description{
-Calculates the ionization fraction \eqn{X_e} as a function of redshift
-\eqn{z} using the Saha equation for hydrogen recombination.
+\code{Saha_Xe()} calculates the equilibrium ionization fraction
+\eqn{X_e} of hydrogen at redshift \eqn{z} from the Saha equation.
+\code{soln_saha()} returns \eqn{X_e - 0.5}, whose root (for example via
+\code{\link[stats]{uniroot}}) is the redshift at which hydrogen is half
+ionized.
+}
+\details{
+In natural units the Saha equation for hydrogen reads
+\deqn{\frac{X_e^2}{1 - X_e} = \frac{1}{n_H}
+  \left(\frac{m_e T}{2\pi}\right)^{3/2} e^{-E_I/T}}{X_e^2 / (1 - X_e) =
+  (m_e T / (2 pi))^(3/2) exp(-E_I / T) / n_H}
+with \eqn{T = T_0 (1 + z)}{T = T_0 (1 + z)}, \eqn{T_0 = 2.7255} K,
+\eqn{E_I = 13.598434} eV (NIST), \eqn{m_e = 0.51099895} MeV and the
+hydrogen density \eqn{n_H = 0.76\, \eta\, n_\gamma(T)}{n_H = 0.76 eta
+n_gamma(T)}, where the baryon-to-photon ratio is
+\eqn{\eta = 6 \times 10^{-10}}{eta = 6e-10}. Writing the right-hand side
+as \eqn{1/f}, the physical root of \eqn{f X_e^2 + X_e - 1 = 0} is
+evaluated in the cancellation-free form
+\deqn{X_e = \frac{2}{1 + \sqrt{1 + 4f}}}{X_e = 2 / (1 + sqrt(1 + 4 f))}
+so \eqn{X_e} stays in \eqn{[0, 1]}: it tends to 1 at high redshift and is
+exactly 0 once \eqn{f} overflows (below \eqn{z \approx 80}{z ~ 80}).
+
+Saha equilibrium describes the start of recombination but predicts it to
+finish too early; see \code{\link{peebles_rhs}} for the
+out-of-equilibrium Peebles equation.
 }
 \examples{
 Saha_Xe(1300)
-Saha_Xe(1100)
+Saha_Xe(c(1100, 1300, 1500))
+soln_saha(1350)
+# Redshift at which hydrogen is half ionized in Saha equilibrium
+uniroot(soln_saha, c(1000, 2000))$root
+}
+\seealso{
+\code{\link{peebles_rhs}}, \code{\link{photon_number_density_fn_z}}
 }

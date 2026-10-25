@@ -7,15 +7,29 @@
 photon_number_density_fn_z(z)
 }
 \arguments{
-\item{z}{Numeric. The redshift value.}
+\item{z}{Numeric vector of redshifts, \eqn{z > -1}.}
 }
 \value{
-Numeric. The photon number density in natural units.
+Numeric vector, the same length as \code{z}. The photon number
+  density in natural units, \eqn{\mathrm{eV}^3}{eV^3}; see
+  \code{\link{photon_number_density_fn_T}} for the conversion to
+  cm\eqn{^{-3}}{^-3}.
 }
 \description{
-Calculates the photon number density at a given cosmological redshift
-\eqn{z} by first converting to temperature in eV.
+Calculates the number density of the cosmic microwave background photons
+at redshift \eqn{z}, with temperature \eqn{T = T_0 (1 + z)}{T = T_0 (1 + z)}
+and \eqn{T_0 = 2.7255} K (Fixsen 2009), using
+\eqn{n_\gamma = 2\zeta(3) T^3 / \pi^2}{n_gamma = 2 zeta(3) T^3 / pi^2}.
 }
 \examples{
 photon_number_density_fn_z(1300)
+photon_number_density_fn_z(c(0, 1100))
+}
+\references{
+Fixsen, D. J. (2009). The Temperature of the Cosmic Microwave
+  Background. Astrophysical Journal, 707, 916.
+}
+\seealso{
+\code{\link{photon_number_density_fn_T}},
+  \code{\link{photon_energy_density_fn_z}}
 }

@@ -11,7 +11,8 @@ hubble_radiation(T_GeV, g_star = 106.75)
 
 \item{g_star}{Numeric.  Effective relativistic degrees of freedom
 \eqn{g_*(T)}.  Defaults to 106.75 (Standard Model value above
-the electroweak scale).}
+the electroweak scale); see \code{\link{g_star_eff}} for other
+temperatures.}
 }
 \value{
 Numeric.  Hubble rate \eqn{H} in GeV (natural units).
@@ -20,10 +21,11 @@ Numeric.  Hubble rate \eqn{H} in GeV (natural units).
 Computes the Hubble expansion rate \eqn{H(T)} during the
 radiation-dominated epoch using the Friedmann equation:
 \deqn{H(T) = \sqrt{\frac{\pi^2}{90}\, g_*(T)}\;
-             \frac{T^2}{M_{\mathrm{Pl}}}}
-where \eqn{M_{\mathrm{Pl}} = 2.435 \times 10^{18}\ \mathrm{GeV}} is
-the reduced Planck mass and \eqn{g_*(T)} is the effective number of
-relativistic degrees of freedom.
+             \frac{T^2}{M_{\mathrm{Pl}}}}{H(T) = sqrt(pi^2 g_*(T) / 90)
+             T^2 / M_Pl}
+where \eqn{M_{\mathrm{Pl}} = 2.435 \times 10^{18}\ \mathrm{GeV}}{M_Pl =
+2.435e18 GeV} is the reduced Planck mass and \eqn{g_*(T)} is the
+effective number of relativistic degrees of freedom.
 }
 \examples{
 # H at T = 100 GeV with SM degrees of freedom
@@ -33,5 +35,9 @@ hubble_radiation(100)
 hubble_radiation(1e-3, g_star = 10.75)
 }
 \references{
-Kolb & Turner, *The Early Universe* (1990), Eq. (3.46).
+Kolb, E. W. & Turner, M. S. (1990). \emph{The Early Universe}.
+  Addison-Wesley, Eq. (3.46).
+}
+\seealso{
+\code{\link{g_star_eff}}, \code{\link{boltzmann_pebble_rhs}}
 }

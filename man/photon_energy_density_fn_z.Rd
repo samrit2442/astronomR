@@ -7,15 +7,29 @@
 photon_energy_density_fn_z(z)
 }
 \arguments{
-\item{z}{Numeric. The redshift value.}
+\item{z}{Numeric vector of redshifts, \eqn{z > -1}.}
 }
 \value{
-Numeric. The photon energy density in natural units.
+Numeric vector, the same length as \code{z}. The photon energy
+  density in natural units, \eqn{\mathrm{eV}^4}{eV^4}; see
+  \code{\link{photon_energy_density_fn_T}} for the conversion to
+  eV cm\eqn{^{-3}}{^-3}.
 }
 \description{
-Calculates the photon energy density at a given cosmological redshift
-\eqn{z} by first converting to temperature in eV.
+Calculates the energy density of the cosmic microwave background photons
+at redshift \eqn{z}, with temperature \eqn{T = T_0 (1 + z)}{T = T_0 (1 + z)}
+and \eqn{T_0 = 2.7255} K (Fixsen 2009), using
+\eqn{\rho_\gamma = \pi^2 T^4 / 15}{rho_gamma = pi^2 T^4 / 15}.
 }
 \examples{
 photon_energy_density_fn_z(1300)
+photon_energy_density_fn_z(c(0, 1100))
+}
+\references{
+Fixsen, D. J. (2009). The Temperature of the Cosmic Microwave
+  Background. Astrophysical Journal, 707, 916.
+}
+\seealso{
+\code{\link{photon_energy_density_fn_T}},
+  \code{\link{photon_number_density_fn_z}}
 }

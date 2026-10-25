@@ -7,16 +7,25 @@
 Mpc_to_km(mpc)
 }
 \arguments{
-\item{mpc}{A numeric value representing the distance in megaparsecs.}
+\item{mpc}{Numeric vector of distances in megaparsecs.}
 }
 \value{
-A numeric value representing the equivalent distance in kilometers (km).
+Numeric vector of the same length as \code{mpc}: the distances in
+  kilometers (km).
 }
 \description{
-This function converts a distance value from megaparsecs (Mpc) to kilometers (km).
-The conversion factor is based on 1 parsec being equivalent to 3.262 light-years,
-and 1 light-year being approximately \eqn{9.461 \times 10^{12}} kilometers.
+Converts distances from megaparsecs (Mpc) to kilometers (km) using the exact
+IAU definitions of the astronomical unit, 1 au = 149597870.7 km (IAU 2012
+Resolution B2), and of the parsec, 1 pc = \eqn{648000 / \pi}{648000 / pi} au
+(IAU 2015 Resolution B2):
+\deqn{1\ \mathrm{Mpc} = 10^6 \times \frac{648000}{\pi} \times
+  149597870.7\ \mathrm{km} = 3.0856775814913673 \times 10^{19}\ \mathrm{km}.}{
+1 Mpc = 1e6 * (648000 / pi) * 149597870.7 km = 3.0856775814913673e19 km.}
 }
 \examples{
-Mpc_to_km(1) # Converts 1 Mpc to kilometers
+Mpc_to_km(1) # 3.0856775814913673e19 km
+Mpc_to_km(c(0.5, 1, 4425.6))
+}
+\seealso{
+\code{\link{km_to_Mpc}} for the inverse conversion.
 }

@@ -10,17 +10,19 @@ entropy_density(T_GeV, g_star_S = NULL)
 \item{T_GeV}{Numeric.  Temperature in GeV.}
 
 \item{g_star_S}{Numeric.  Effective entropy degrees of freedom
-\eqn{g_{*S}(T)}.  If \code{NULL} (default), computed from
-\code{\link{g_star_eff}}.}
+\eqn{g_{*S}(T)}{g_*S(T)}.  If \code{NULL} (default), computed with
+\code{\link{g_star_eff}(T_GeV, type = "entropy")}.}
 }
 \value{
-Numeric.  Entropy density \eqn{s} in \eqn{\mathrm{GeV}^3}.
+Numeric.  Entropy density \eqn{s} in
+  \eqn{\mathrm{GeV}^3}{GeV^3}.
 }
 \description{
 Returns the entropy density \eqn{s(T)} of the cosmological
 radiation bath:
-\deqn{s(T) = \frac{2\pi^2}{45}\, g_{*S}(T)\, T^3}
-where \eqn{g_{*S}} is the effective number of entropy degrees of
+\deqn{s(T) = \frac{2\pi^2}{45}\, g_{*S}(T)\, T^3}{s(T) = (2 pi^2 / 45)
+  g_*S(T) T^3}
+where \eqn{g_{*S}}{g_*S} is the effective number of entropy degrees of
 freedom.
 }
 \examples{
@@ -29,4 +31,7 @@ entropy_density(1, g_star_S = 106.75)
 }
 \references{
 Kolb & Turner (1990), Eq. (3.65).
+}
+\seealso{
+\code{\link{g_star_eff}}, \code{\link{equilibrium_yield}}
 }

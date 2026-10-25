@@ -14,17 +14,22 @@ equilibrium_number_density(T_GeV, m_GeV, g_dof = 2)
 \item{g_dof}{Integer.  Internal degrees of freedom. Default 2.}
 }
 \value{
-Numeric.  Equilibrium number density in \eqn{\mathrm{GeV}^3}.
+Numeric.  Equilibrium number density in
+  \eqn{\mathrm{GeV}^3}{GeV^3}.
 }
 \description{
-Computes the equilibrium number density \eqn{n^{\rm eq}(T)} for a
-non-relativistic species in the Maxwell-Boltzmann limit:
+Computes the equilibrium number density \eqn{n^{\rm eq}(T)}{n_eq(T)}
+for a non-relativistic species in the Maxwell-Boltzmann limit:
 \deqn{n^{\rm eq}(T) = g\,\left(\frac{mT}{2\pi}\right)^{3/2}
-                       e^{-m/T}}
+                       e^{-m/T}}{n_eq(T) = g (m T / (2 pi))^(3/2)
+                       exp(-m / T)}
 }
 \examples{
 equilibrium_number_density(T_GeV = 0.01, m_GeV = 0.1, g_dof = 2)
 }
 \references{
 Kolb & Turner (1990), Eq. (5.25).
+}
+\seealso{
+\code{\link{equilibrium_yield}}
 }

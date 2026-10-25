@@ -7,19 +7,37 @@
 photon_number_density_fn_T(temp, unit = "eV")
 }
 \arguments{
-\item{temp}{Numeric. Temperature in either eV or Kelvin.}
+\item{temp}{Numeric vector of non-negative temperatures, in eV or Kelvin.}
 
 \item{unit}{Character. The unit of the temperature input. Either
 \code{"eV"} (default) or \code{"K"}.}
 }
 \value{
-Numeric. The photon number density in natural units.
+Numeric vector, the same length as \code{temp}. The photon number
+  density in natural units, \eqn{\mathrm{eV}^3}{eV^3} (with \eqn{T} in
+  eV).
 }
 \description{
-Calculates the photon number density for a given temperature \eqn{T},
-using \eqn{n_\gamma = \frac{2\zeta(3)}{\pi^2} T^3}.
+Calculates the number density of blackbody photons at temperature
+\eqn{T}, using
+\deqn{n_\gamma = \frac{2\zeta(3)}{\pi^2} T^3}{n_gamma = (2 zeta(3) / pi^2) T^3}
+in natural units (\eqn{\hbar = c = k_B = 1}{hbar = c = k_B = 1}).
+}
+\details{
+A temperature given in Kelvin is first converted to eV with the exact
+Boltzmann constant \eqn{k_B = 8.617333 \times 10^{-5}}{k_B = 8.617333e-5}
+eV/K. To obtain a number per volume, divide the result by
+\eqn{(\hbar c)^3}{(hbar c)^3}, with \eqn{\hbar c = 1.973270 \times
+10^{-5}}{hbar c = 1.973270e-5} eV cm: for the CMB today (2.7255 K) this
+gives about 410.7 photons cm\eqn{^{-3}}{^-3}.
 }
 \examples{
 photon_number_density_fn_T(1, "eV")
 photon_number_density_fn_T(300, "K")
+# CMB today in photons per cm^3
+photon_number_density_fn_T(2.7255, "K") / 1.973270e-5^3
+}
+\seealso{
+\code{\link{photon_number_density_fn_z}},
+  \code{\link{photon_energy_density_fn_T}}
 }

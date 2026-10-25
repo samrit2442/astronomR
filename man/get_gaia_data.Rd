@@ -4,28 +4,65 @@
 \alias{get_gaia_data}
 \title{Query Gaia Archive Data}
 \usage{
-get_gaia_data(vars, condition)
+get_gaia_data(vars, condition, timeout = 60)
 }
 \arguments{
-\item{vars}{A character string specifying the variables (columns) to
-retrieve, separated by commas (e.g., \code{"source_id, ra, dec"}).}
+\item{vars}{A single character string giving the columns to retrieve,
+separated by commas (e.g., \code{"source_id, ra, dec"}).}
 
-\item{condition}{A character string specifying the SQL WHERE clause used to
-filter rows (e.g., \code{"parallax > 10"}).}
+\item{condition}{A single character string giving the ADQL \code{WHERE}
+clause used to filter rows (e.g., \code{"parallax > 10"}).}
+
+\item{timeout}{A single number, at least \code{0.001}: the maximum time, in
+seconds, to wait for the whole request, including the time the archive
+spends running the query. Default is \code{60}.}
 }
 \value{
-A data frame containing the requested columns for all rows matching
-  \code{condition}.
+A data frame with one row per matching star and one column per
+  entry of \code{vars}, named as written there. Values are in the units of
+  the GCNS table (e.g., \code{ra} and \code{dec} in degrees,
+  \code{parallax} in mas).
+
+  If the query runs but no rows match, a data frame with zero rows and the
+  same column names (all numeric) is returned, with a message.
+
+  If the Gaia Archive cannot be reached, does not answer in time, returns an
+  HTTP error status, or sends a response that is not valid JSON or does not
+  hold a table of results with a column for every entry of \code{vars}, a
+  message gives the reason and \code{NULL} is returned invisibly.
 }
 \description{
-Queries the Gaia Archive TAP service to retrieve stellar data based on
-specified variables and filter conditions. Uses the Gaia Early Data Release
-3 (EDR3) catalog.
+Queries the Gaia Archive TAP service for stars in the Gaia Catalogue of
+Nearby Stars (GCNS), the census of objects within 100 pc of the Sun built
+from Gaia Early Data Release 3 (EDR3) and served as the table
+\code{external.gaiaedr3_gcns_main_1}. Returns the requested columns for the
+rows that match a filter condition.
 }
 \details{
-This function sends a synchronous ADQL query to the Gaia Archive
-  TAP service at \url{https://gea.esac.esa.int/tap-server/tap/sync}. An
-  internet connection is required.
+This function sends the synchronous ADQL query
+  \code{SELECT vars FROM external.gaiaedr3_gcns_main_1 WHERE condition} to
+  the Gaia Archive TAP service at
+  \url{https://gea.esac.esa.int/tap-server/tap/sync}. An internet
+  connection is required.
+
+  The function fails gracefully: problems on the remote side (no
+  connection, a timeout, an HTTP error status such as a rejected query, or
+  a malformed response) never raise an error or a warning. Instead a
+  message explains what went wrong, including the HTTP status and the
+  archive's error text when there is one, and \code{NULL} is returned
+  invisibly, so check the result with \code{is.null()} before using it.
+  Invalid arguments are still errors.
+
+  The columns of the result are named by splitting \code{vars} at its
+  commas. If the archive returns fewer columns than this gives names, for
+  example because an entry of \code{vars} is a function call with several
+  arguments, the result is also \code{NULL} with a message.
+
+  \code{timeout} caps how long the function can block. Queries that return
+  many rows can need more than the default 60 seconds; increase
+  \code{timeout} for them. Opening the connection is also limited,
+  separately, by the curl package, and a larger \code{timeout} does not
+  extend that limit.
 }
 \examples{
 \donttest{
@@ -34,4 +71,8 @@ condition <- "parallax > 40"
 result <- get_gaia_data(vars, condition)
 head(result)
 }
+}
+\seealso{
+\code{\link{deg_to_hms}} and \code{\link{deg_to_dms}} to express
+  the returned \code{ra} and \code{dec} in sexagesimal form.
 }

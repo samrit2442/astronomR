@@ -4,24 +4,82 @@
 \alias{g_star_eff}
 \title{Effective Relativistic Degrees of Freedom g_*(T)}
 \usage{
-g_star_eff(T_GeV)
+g_star_eff(T_GeV, type = c("energy", "entropy"))
 }
 \arguments{
-\item{T_GeV}{Numeric.  Temperature in GeV.}
+\item{T_GeV}{Numeric vector of positive temperatures in GeV, without
+missing values.}
+
+\item{type}{Character. \code{"energy"} (default) for \eqn{g_*}{g_*}, the
+degrees of freedom in the energy density, or \code{"entropy"} for
+\eqn{g_{*S}}{g_*S}, those in the entropy density.}
 }
 \value{
-Numeric.  Effective relativistic degrees of freedom \eqn{g_*}.
+Numeric vector, the same length as \code{T_GeV}: the
+  dimensionless \eqn{g_*}{g_*} or \eqn{g_{*S}}{g_*S}.
 }
 \description{
-Returns a step-function approximation of \eqn{g_*(T)}, the effective
-number of relativistic degrees of freedom as a function of
-temperature, based on Standard Model particle content.
+Returns a step-function approximation of the Standard Model effective
+number of relativistic degrees of freedom as a function of temperature:
+\eqn{g_*(T)}{g_*(T)}, which sets the radiation energy density
+\eqn{\rho = (\pi^2/30)\, g_* T^4}{rho = (pi^2 / 30) g_* T^4}, or
+\eqn{g_{*S}(T)}{g_*S(T)}, which sets the entropy density
+\eqn{s = (2\pi^2/45)\, g_{*S} T^3}{s = (2 pi^2 / 45) g_*S T^3}.
+}
+\details{
+Each relativistic species \eqn{i} with \eqn{g_i} internal degrees of
+freedom and temperature \eqn{T_i} contributes
+\deqn{g_* = \sum_{\rm bosons} g_i \left(\frac{T_i}{T}\right)^4 +
+  \frac{7}{8} \sum_{\rm fermions} g_i \left(\frac{T_i}{T}\right)^4}{g_* =
+  sum_bosons g_i (T_i / T)^4 + (7/8) sum_fermions g_i (T_i / T)^4}
+and likewise for \eqn{g_{*S}}{g_*S} with the third power of
+\eqn{T_i/T}. This function uses the instantaneous-decoupling step
+approximation: a species counts fully while \eqn{T} is above its mass
+threshold and not at all below it. The bins are half-open,
+\eqn{T_{\rm low} < T \le T_{\rm high}}{T_low < T <= T_high}, with
+\eqn{T} in GeV:
+\tabular{lrrl}{
+  T (GeV) \tab g_* \tab g_*S \tab removed relative to the row above \cr
+  above 173 \tab 106.75 \tab 106.75 \tab none (all SM particles) \cr
+  125 to 173 \tab 96.25 \tab 96.25 \tab top quark (173 GeV) \cr
+  80.4 to 125 \tab 95.25 \tab 95.25 \tab Higgs boson (125 GeV) \cr
+  4.18 to 80.4 \tab 86.25 \tab 86.25 \tab W and Z bosons (both at 80.4 GeV) \cr
+  1.777 to 4.18 \tab 75.75 \tab 75.75 \tab bottom quark (4.18 GeV) \cr
+  1.27 to 1.777 \tab 72.25 \tab 72.25 \tab tau lepton (1.777 GeV) \cr
+  0.15 to 1.27 \tab 61.75 \tab 61.75 \tab charm quark (1.27 GeV) \cr
+  0.1396 to 0.15 \tab 17.25 \tab 17.25 \tab QCD transition (150 MeV) \cr
+  0.1057 to 0.1396 \tab 14.25 \tab 14.25 \tab pions (139.6 MeV) \cr
+  5.11e-4 to 0.1057 \tab 10.75 \tab 10.75 \tab muon (105.7 MeV) \cr
+  up to 5.11e-4 \tab 3.36 \tab 3.91 \tab electron and positron (511 keV)
+}
+At the QCD transition the u, d and s quarks and the gluons are replaced
+by the three pions.
+The last row counts photons and three neutrino species that decoupled
+before e+e- annihilation and are colder by \eqn{(4/11)^{1/3}}{(4/11)^(1/3)}:
+\eqn{g_* = 2 + \frac{7}{8} \cdot 6 \cdot (4/11)^{4/3} = 3.36}{g_* = 2 +
+(7/8) 6 (4/11)^(4/3) = 3.36} and
+\eqn{g_{*S} = 2 + \frac{7}{8} \cdot 6 \cdot \frac{4}{11} = 3.91}{g_*S =
+2 + (7/8) 6 (4/11) = 3.91}. At higher temperatures all species share one
+temperature and \eqn{g_{*S} = g_*}{g_*S = g_*}. The step values agree
+with the instantaneous-decoupling values of Husdal (2016); the true
+\eqn{g_*(T)} is smooth across each threshold, most visibly around the
+QCD transition.
 }
 \examples{
-g_star_eff(100)   # ~ 86.25 (above QCD transition)
-g_star_eff(1e-3)  # ~ 10.75 (neutrino era)
-g_star_eff(1e-4)  # ~ 3.91  (after e+e- annihilation)
+g_star_eff(100)                     # 95.25: below the Higgs, above W/Z
+g_star_eff(1e-3)                    # 10.75: photons, e+-, 3 neutrinos
+g_star_eff(1e-4)                    # 3.36: after e+e- annihilation
+g_star_eff(1e-4, type = "entropy")  # 3.91
+g_star_eff(c(500, 1, 0.01))         # 106.75 61.75 10.75
 }
 \references{
-Husdal (2016), arXiv:1609.04979.
+Husdal, L. (2016). On Effective Degrees of Freedom in the Early
+  Universe. Galaxies, 4, 78. arXiv:1609.04979.
+
+  Kolb, E. W. & Turner, M. S. (1990). \emph{The Early Universe}.
+  Addison-Wesley, Chapter 3.
+}
+\seealso{
+\code{\link{hubble_radiation}}, \code{\link{entropy_density}},
+  \code{\link{equilibrium_yield}}, \code{\link{boltzmann_pebble_rhs}}
 }

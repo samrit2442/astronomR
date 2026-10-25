@@ -14,15 +14,18 @@ equilibrium_yield(x, m_GeV, g_dof = 2, g_star_S = NULL)
 \item{g_dof}{Integer.  Internal degrees of freedom. Default 2.}
 
 \item{g_star_S}{Numeric.  Entropy degrees of freedom.  If
-\code{NULL} (default), computed from \code{\link{g_star_eff}}.}
+\code{NULL} (default), computed with
+\code{\link{g_star_eff}(m_GeV / x, type = "entropy")}.}
 }
 \value{
-Numeric.  Equilibrium yield \eqn{Y^{\rm eq}}.
+Numeric.  Dimensionless equilibrium yield
+  \eqn{Y^{\rm eq}}{Y_eq}.
 }
 \description{
-The yield \eqn{Y \equiv n / s} is the comoving number density
+The yield \eqn{Y \equiv n / s}{Y = n / s} is the comoving number density
 (number per comoving entropy).  In equilibrium:
-\deqn{Y^{\rm eq}(x) = \frac{45\, g}{4\pi^4\, g_{*S}}\; x^2\, K_2(x)}
+\deqn{Y^{\rm eq}(x) = \frac{45\, g}{4\pi^4\, g_{*S}}\; x^2\, K_2(x)}{Y_eq(x)
+  = 45 g / (4 pi^4 g_*S) x^2 K_2(x)}
 where \eqn{x = m/T} and \eqn{K_2} is the modified Bessel function
 of the second kind of order 2.
 }
@@ -33,4 +36,8 @@ equilibrium_yield(x = 25, m_GeV = 100)
 \references{
 Kolb & Turner (1990), Eq. (5.34).
   Gondolo & Gelmini, Nucl. Phys. B 360 (1991) 145.
+}
+\seealso{
+\code{\link{equilibrium_number_density}},
+  \code{\link{entropy_density}}, \code{\link{boltzmann_pebble_rhs}}
 }

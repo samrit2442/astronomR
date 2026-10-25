@@ -1,4 +1,4 @@
-CRAN submission checklist for astronomR v0.3.0
+CRAN submission checklist for astronomR v0.4.0
 
 1. Run full package checks
    - devtools::document()
@@ -21,8 +21,8 @@ CRAN submission checklist for astronomR v0.3.0
    - Update pkgdown site if present (pkgdown::build_site()).
 
 5. NEWS and version
-   - NEWS.md contains entry for 0.3.0 (done).
-   - Version in DESCRIPTION matches NEWS (0.3.0).
+   - NEWS.md contains entry for 0.4.0 (done).
+   - Version in DESCRIPTION matches NEWS (0.4.0).
 
 6. Data and inst/
    - Remove unused large data files; document any data in man/.

@@ -4,34 +4,56 @@
 \alias{deg_to_hms}
 \title{Convert Decimal Degrees to Hours, Minutes, and Seconds (HMS) Format}
 \usage{
-deg_to_hms(deg, type = "cat", digit = 5)
+deg_to_hms(deg, type = c("cat", "mat"), digit = 5)
 }
 \arguments{
-\item{deg}{Numeric vector of angles in decimal degrees. Values can range
-from 0 to 360.}
+\item{deg}{Numeric vector of angles in decimal degrees. Any finite value is
+accepted and wrapped into \eqn{[0, 360)}{[0, 360)}. \code{NA} values give
+\code{NA} in the output.}
 
 \item{type}{Character string specifying the output format. Options are:
 \itemize{
   \item \code{"cat"} (default): Prints a formatted string
-    (e.g., \code{3H0M0S}).
+    (e.g., \code{3H0M0S}), separated by spaces for several angles and
+    followed by a newline.
   \item \code{"mat"}: Returns a matrix with columns for hours, minutes,
     and seconds.
 }}
 
-\item{digit}{Integer specifying the number of decimal places to round
-seconds to. Default is \code{5}.}
+\item{digit}{Whole number from 0 to 10: the number of decimal places of
+the seconds. Default is \code{5}.}
 }
 \value{
 When \code{type = "cat"}, prints the HMS string and returns
   \code{NULL} invisibly. When \code{type = "mat"}, returns a numeric matrix
-  with columns \code{HRS}, \code{MIN}, and \code{SEC}.
+  with one row per angle and columns \code{HRS} (hours, 0 to 23),
+  \code{MIN} (minutes of time, 0 to 59) and \code{SEC} (seconds of time,
+  below 60). The row for an \code{NA} angle is all \code{NA}.
 }
 \description{
 Converts a decimal degree angle to Hours-Minutes-Seconds (HMS) format,
 which is used in astronomy to express Right Ascension (RA).
 }
+\details{
+Any finite angle is first wrapped into \eqn{[0, 360)}{[0, 360)} degrees, so
+\code{-15} gives 23 hours and \code{375} gives 1 hour (one hour is 15
+degrees). The angle is then rounded once, to the nearest
+\eqn{10^{-digit}}{10^-digit} second of time, and split exactly, so the
+minutes and seconds are always below 60 and the hours run from 0 to 23 (an
+angle that rounds up to 24 hours is shown as 0 hours). Seconds are written
+in fixed notation without trailing zeros.
+}
 \examples{
 deg_to_hms(deg = 45)
 deg_to_hms(deg = 45, type = "mat")
 deg_to_hms(deg = 177.74208, digit = 3)
+deg_to_hms(c(-15, 20, 375))
+
+# The "mat" columns convert straight back
+x <- deg_to_hms(177.74208, type = "mat")
+hms_to_deg(x[, "HRS"], x[, "MIN"], x[, "SEC"])
+}
+\seealso{
+\code{\link{hms_to_deg}} for the reverse conversion,
+  \code{\link{deg_to_dms}} for declination, and \code{\link{deg_to_rad}}.
 }

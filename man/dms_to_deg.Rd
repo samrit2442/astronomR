@@ -4,32 +4,70 @@
 \alias{dms_to_deg}
 \title{Convert Degrees, Minutes, and Seconds (DMS) to Decimal Degrees}
 \usage{
-dms_to_deg(d, m, s, digit = 5)
+dms_to_deg(d, m = 0, s = 0, digit = 5)
 }
 \arguments{
-\item{d}{Numeric or character. The degrees component. If a single character
-string is provided (e.g., \code{"12\u00B034'56\""}), the degrees, minutes,
-and seconds are parsed automatically, and \code{m} and \code{s} should be
-omitted.}
+\item{d}{Numeric or character vector. The degrees component, whose sign is
+the sign of the angle, or DMS strings such as \code{"12\u00B034'56\""}
+(see Details), in which case \code{m} and \code{s} must not be supplied.}
 
-\item{m}{Numeric. The minutes component. Must be less than 60. Optional when
-\code{d} is a string.}
+\item{m}{Numeric vector. The minutes component, from 0 to less than 60.
+Default is \code{0}.}
 
-\item{s}{Numeric. The seconds component. Must be less than 60. Optional when
-\code{d} is a string.}
+\item{s}{Numeric vector. The seconds component, from 0 to less than 60.
+Default is \code{0}.}
 
-\item{digit}{Integer. Number of decimal places to round the result to.
-Default is \code{5}.}
+\item{digit}{Whole number from 0 to 10: the number of decimal places to
+round the result to. Default is \code{5}.}
 }
 \value{
-Numeric. The angle in decimal degrees.
+Numeric vector of angles in decimal degrees (between -90 and 90),
+  rounded to \code{digit} decimal places.
 }
 \description{
 Converts an angle expressed in Degrees-Minutes-Seconds (DMS) format to
 decimal degrees. Accepts either separate numeric arguments or a single
 formatted string.
 }
+\details{
+With numeric input, \code{d}, \code{m} and \code{s} are recycled to a
+common length and the result is
+\eqn{\pm(|d| + m/60 + s/3600)}{+/-(|d| + m/60 + s/3600)}, with the sign
+taken from \code{d}. For a negative angle smaller than one degree, use R's
+negative zero: \code{dms_to_deg(-0, 30)} is \code{-0.5}, while
+\code{dms_to_deg(0, 30)} is \code{0.5}.
+
+A character \code{d} is parsed element by element. Each string holds an
+optional sign (\code{"+"}, \code{"-"} or the Unicode minus sign U+2212),
+the degrees, and optionally the minutes and then the seconds. The degrees
+may be followed by the degree sign \code{"\u00B0"}, \code{"d"}, \code{"D"}
+or \code{":"}; the minutes by \code{"'"}, the Unicode prime U+2032,
+\code{"m"}, \code{"M"} or \code{":"}; and the seconds by \code{"\""}, the
+Unicode double prime U+2033, \code{"s"} or \code{"S"}. Spaces alone may
+also separate the fields. Only the last field may have a decimal part.
+Accepted strings include \code{"12\u00B034'56\""}, \code{"-0\u00B030'00\""},
+\code{"+12\u00B034'56.7\""}, \code{"12d34m56s"}, \code{"12:34:56"},
+\code{"12 34 56"}, \code{"12\u00B034'"} and \code{"12.5\u00B0"}. A string
+that cannot be parsed gives \code{NA} with a warning; \code{NA} gives
+\code{NA} silently.
+
+For both kinds of input the minutes and seconds must be in
+\eqn{[0, 60)}{[0, 60)} and the angle in \eqn{[-90, 90]}{[-90, 90]} degrees
+(the declination range, as in \code{\link{deg_to_dms}}); other values are
+an error.
+}
 \examples{
 dms_to_deg(d = 12, m = 34, s = 56)
 dms_to_deg(d = "12\u00B034'56\"", digit = 3)
+
+# The sign comes from 'd'; use -0 for angles between -1 and 0 degrees
+dms_to_deg(c(-12, -0, 0), m = 30)
+
+# Several string formats, and an NA
+dms_to_deg(c("12d34m56s", "12:34:56", "-0\u00B030'", "12.5\u00B0", NA))
+}
+\seealso{
+\code{\link{deg_to_dms}} for the reverse conversion,
+  \code{\link{hms_to_deg}} for right ascension, and
+  \code{\link{deg_to_rad}}.
 }

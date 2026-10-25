@@ -1,32 +1,44 @@
-## R CMD check results (astronomR 0.3.0)
+## R CMD check results (astronomR 0.4.0)
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note
 
-* Checked on Windows 11 x64 (local R 4.6.0 ucrt, `devtools::check(cran = TRUE)`).
-* All 47 unit tests pass (`FAIL 0 | WARN 0 | SKIP 0 | PASS 47`).
-* The `get_gaia_data()` function requires an internet connection; its example
-  is wrapped in `\donttest{}`.
-* `solve_relic_abundance()` optionally uses the `deSolve` package (listed in
-  `Suggests`); the function gracefully stops with an informative message if
-  `deSolve` is not installed.
+* Possibly misspelled words in DESCRIPTION: "comoving". This is the
+  standard cosmology term (as in "comoving distance") and is spelled
+  correctly.
 
-## Changes since last submission (0.2.0 -> 0.3.0)
+## Test environments
 
-### New features
-* Added `08_thermal_cosmology.R` with nine new exported functions covering the
-  thermal history of the early universe:
-  `hubble_radiation()`, `g_star_eff()`, `entropy_density()`,
-  `equilibrium_number_density()`, `equilibrium_yield()`,
-  `boltzmann_pebble_rhs()`, `solve_relic_abundance()`, `freeze_out_xf()`,
-  and `peebles_rhs()`.
+* win-builder, R-devel (2026-10-24 r90762 ucrt), Windows Server 2022 x64.
+* local Windows 11 x64, R 4.6.1 ucrt, with `R CMD check --as-cran` and all
+  Suggests installed.
 
-### Bug fixes / policy compliance
-* Fixed pre-existing `@value` roxygen2 tag (now `@return`) in `constants_df`
-  documentation (`00_constants.R`).
-* Replaced non-ASCII `≈` characters in `07_drake_equation.R` with the
-  portable `\u2248` R unicode escape.
-* Added `.posit` and `.vscode` to `.Rbuildignore` to exclude IDE configuration
-  directories from the package bundle.
-* Added `deSolve` to `Suggests` for the `solve_relic_abundance()` ODE solver.
-* `NAMESPACE` regenerated via `devtools::document()` to export all nine new
-  functions.
+## Notes
+
+* All tests pass (`FAIL 0 | WARN 0 | SKIP 0 | PASS 1518`).
+* `get_gaia_data()` needs an internet connection; its example is wrapped in
+  `\donttest{}`. If the Gaia Archive is unavailable, the function now gives an
+  informative message and returns `NULL` instead of an error, as the CRAN
+  policy for Internet resources requires. Its tests never use the network.
+* `solve_relic_abundance()` uses deSolve, which is in Suggests. Its example
+  runs only when deSolve is installed (`@examplesIf`) and its tests use
+  `skip_if_not_installed("deSolve")`.
+
+## Reverse dependencies
+
+There are no reverse dependencies on CRAN
+(`tools::package_dependencies("astronomR", reverse = TRUE, which = "all")`).
+
+## Changes since last submission (0.3.0 -> 0.4.0)
+
+* Breaking change: `deg2rad()` and `rad2deg()` were renamed to `deg_to_rad()`
+  and `rad_to_deg()`, and the old names were removed.
+* New exported functions: `julian_day()` and `radec_to_altaz()` for
+  coordinates; `cosmology_model()`, `age_of_universe()`, `cosmic_time()`,
+  `comoving_distance()`, `transverse_comoving_distance()`,
+  `luminosity_distance()`, `angular_diameter_distance()`,
+  `radius_of_curvature()`, `hubble_distance()`, `hubble_ratio()`,
+  `redshift_to_scale_factor()` and `scale_factor_to_redshift()` for cosmology.
+* Bug fixes in the angle conversions, `freeze_out_xf()`, `g_star_eff()`,
+  `peebles_rhs()`, `Saha_Xe()` and `constant_value()`; physical constants
+  updated to CODATA 2018. Some documented results change; NEWS.md lists them.
+* Imports: dropped dplyr, pracma, readr and tidyr; added stats.

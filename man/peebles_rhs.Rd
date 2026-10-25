@@ -13,61 +13,80 @@ peebles_rhs(
   beta_B,
   lambda_alpha = 1.21567e-07,
   Lambda_2s1s = 8.22458,
-  neutral_floor = 1e-30
+  neutral_floor = 1e-30,
+  T0 = 2.7255
 )
 }
 \arguments{
-\item{lna}{Natural logarithm of the scale factor, \code{log(a)}.}
+\item{lna}{Natural logarithm of the scale factor,
+\code{log(a) = -log(1 + z)}: a single finite number. It sets the
+radiation temperature \eqn{T = T_0 e^{-\ln a}}{T = T0 exp(-lna)}.}
 
 \item{xe}{Free-electron fraction per hydrogen nucleus,
-\eqn{0 \le x_e \le 1}.}
+\eqn{0 \le x_e \le 1}{0 <= x_e <= 1}.}
 
-\item{H}{Hubble expansion rate in s\eqn{^{-1}}.}
+\item{H}{Hubble expansion rate at \code{lna}, in s\eqn{^{-1}}{^-1}.}
 
-\item{n_H}{Total hydrogen-nuclei number density in m\eqn{^{-3}}.}
+\item{n_H}{Total hydrogen-nuclei number density at \code{lna}, in
+m\eqn{^{-3}}{^-3}.}
 
-\item{alpha_B}{Case-B recombination coefficient in m\eqn{^3} s\eqn{^{-1}}.}
+\item{alpha_B}{Case-B recombination coefficient at temperature \eqn{T},
+in m\eqn{^3}{^3} s\eqn{^{-1}}{^-1}.}
 
-\item{beta_B}{Photoionization coefficient from the \eqn{n = 2} state
-in s\eqn{^{-1}}.}
+\item{beta_B}{Photoionization rate from the \eqn{n = 2} state at
+temperature \eqn{T}, in s\eqn{^{-1}}{^-1}.}
 
-\item{lambda_alpha}{Lyman-alpha wavelength in metres.
-Default is 121.567 nm (\code{121.567e-9} m).}
+\item{lambda_alpha}{Lyman-alpha wavelength in metres; it also sets the
+\eqn{n = 2} excitation energy \eqn{E_{21} = hc/\lambda_\alpha}{E_21 =
+h c / lambda_alpha}. Default is 121.567 nm (\code{121.567e-9} m).}
 
-\item{Lambda_2s1s}{Hydrogen \eqn{2s \to 1s} two-photon decay rate
-in s\eqn{^{-1}}.  The standard value is approximately 8.22458 s\eqn{^{-1}}.}
+\item{Lambda_2s1s}{Hydrogen \eqn{2s \to 1s}{2s -> 1s} two-photon decay rate
+in s\eqn{^{-1}}{^-1}.  The standard value is approximately 8.22458
+s\eqn{^{-1}}{^-1}.}
 
 \item{neutral_floor}{Small lower limit for neutral-hydrogen density,
 used only to avoid division by zero at \eqn{x_e = 1}.
 Default \code{1e-30}.}
+
+\item{T0}{Radiation (CMB) temperature today in K. Default 2.7255
+(Fixsen 2009).}
 }
 \value{
 A named numeric vector containing:
 \describe{
   \item{\code{dxe_dlna}}{Derivative of \eqn{x_e} with respect to
-    \eqn{\ln a}.}
-  \item{\code{C}}{Peebles C-factor (probability that an excited atom
-    reaches the ground state before being re-ionized).}
+    \eqn{\ln a}{ln a} (dimensionless).}
+  \item{\code{C}}{Peebles C-factor (dimensionless probability that an
+    excited atom reaches the ground state before being re-ionized).}
   \item{\code{lambda_alpha_escape}}{Effective Lyman-alpha escape rate
-    in s\eqn{^{-1}}.}
+    in s\eqn{^{-1}}{^-1}.}
 }
 }
 \description{
 Computes the derivative of the free-electron fraction during
-cosmological hydrogen recombination using the Peebles C-factor.
+cosmological hydrogen recombination from the Peebles (1968) equation,
+with the Peebles C-factor in the form used by RECFAST (Seager, Sasselov
+& Scott 1999).
 }
 \details{
 The Peebles equation for the evolution of the free-electron fraction is
 \deqn{
   \frac{d x_e}{d \ln a} =
-  \frac{C}{H}\left[\beta_B(1 - x_e) - n_H \alpha_B x_e^2\right].
-}
+  \frac{C}{H}\left[\beta_B (1 - x_e)\, e^{-E_{21}/(k_B T)}
+  - n_H \alpha_B x_e^2\right]
+}{dx_e/dln(a) = (C / H) [beta_B (1 - x_e) exp(-E_21 / (k_B T)) -
+  n_H alpha_B x_e^2]}
+where \eqn{T = T_0 e^{-\ln a} = T_0 (1 + z)}{T = T0 exp(-lna) = T0 (1 + z)}
+and \eqn{E_{21} = hc/\lambda_\alpha \approx 10.2}{E_21 = h c /
+lambda_alpha ~ 10.2} eV. The Boltzmann factor gives the population of
+the \eqn{n = 2} level, from which \eqn{\beta_B}{beta_B} photoionizes,
+relative to the ground state.
 
 The Peebles C-factor
 \deqn{
   C = \frac{\Lambda_{2s1s} + \lambda_\alpha^{\rm esc}}
             {\Lambda_{2s1s} + \lambda_\alpha^{\rm esc} + \beta_B}
-}
+}{C = (Lambda_2s1s + lambda_esc) / (Lambda_2s1s + lambda_esc + beta_B)}
 accounts for the fact that a hydrogen atom formed in an excited state
 can be photoionized again before reaching the stable ground state via
 the two-photon or Lyman-alpha escape channels.
@@ -75,30 +94,56 @@ the two-photon or Lyman-alpha escape channels.
 The Lyman-alpha escape rate is
 \deqn{
   \lambda_\alpha^{\rm esc} = \frac{8\pi H}{\lambda_\alpha^3 \, n_{1s}}
-}
-where \eqn{n_{1s} \approx n_H (1 - x_e)} is the ground-state hydrogen
-density.
+}{lambda_esc = 8 pi H / (lambda_alpha^3 n_1s)}
+where \eqn{n_{1s} \approx n_H (1 - x_e)}{n_1s ~ n_H (1 - x_e)} is the
+ground-state hydrogen density.
 
-All quantities are in SI units (metres, seconds).  Note that \eqn{H}
-here is in s\eqn{^{-1}}, not GeV as in the rest of this file.
+The matter temperature is assumed equal to the radiation temperature,
+which holds while Compton scattering keeps them coupled (\eqn{z \gtrsim
+200}{z >~ 200}); \code{alpha_B} and \code{beta_B} should be evaluated at
+that \eqn{T}. All inputs are single numbers in SI units (metres,
+seconds, Kelvin). Note that \eqn{H} here is in s\eqn{^{-1}}{^-1},
+whereas \code{\link{hubble_radiation}} returns it in GeV.
+
+The example uses inputs at \eqn{z = 1100} (\eqn{T = 3001} K) for a
+flat cosmology with \eqn{H_0 = 67.66}{H0 = 67.66} km s\eqn{^{-1}}{^-1}
+Mpc\eqn{^{-1}}{^-1}, \eqn{\Omega_m = 0.3111}{Omega_m = 0.3111},
+\eqn{\Omega_r = 9.14 \times 10^{-5}}{Omega_r = 9.14e-5},
+\eqn{\Omega_b h^2 = 0.02242}{Omega_b h^2 = 0.02242} and helium mass
+fraction \eqn{Y_p = 0.2454} (Planck 2018): \eqn{H = H_0 \sqrt{\Omega_m
+(1+z)^3 + \Omega_r (1+z)^4}}{H = H0 sqrt(Omega_m (1+z)^3 + Omega_r
+(1+z)^4)}, \eqn{n_H = (1 - Y_p) \rho_{b,0} (1+z)^3 / m_H}{n_H = (1 -
+Y_p) rho_b0 (1+z)^3 / m_H}, \eqn{\alpha_B}{alpha_B} from the case-B fit
+of Pequignot, Petitjean & Boisson (1991) times the RECFAST fudge factor
+1.14, and \eqn{\beta_B = \alpha_B (2\pi m_e k_B T/h^2)^{3/2}
+e^{-E_I/(4 k_B T)}}{beta_B = alpha_B (2 pi m_e k_B T / h^2)^(3/2)
+exp(-E_I / (4 k_B T))} with \eqn{E_I = 13.598} eV.
 }
 \examples{
-# Evaluate at z ~ 1100 (recombination epoch)
-# Approximate inputs at z = 1100:
-H_rec      <- 3.3e-15   # s^-1  (Hubble rate at recombination)
-n_H_rec    <- 400e6     # m^-3  (hydrogen number density)
-alpha_B    <- 2.6e-19   # m^3 s^-1  (case-B recombination coeff)
-beta_B     <- 4e-15     # s^-1  (photoionization rate)
+# Physically consistent inputs at z = 1100 (see Details)
+z <- 1100
 peebles_rhs(
-  lna          = log(1 / 1101),
-  xe           = 0.5,
-  H            = H_rec,
-  n_H          = n_H_rec,
-  alpha_B      = alpha_B,
-  beta_B       = beta_B
+  lna     = -log(1 + z),
+  xe      = 0.5,
+  H       = 5.14e-14,  # s^-1
+  n_H     = 2.53e8,    # m^-3
+  alpha_B = 7.62e-19,  # m^3 s^-1
+  beta_B  = 590        # s^-1
 )
 }
 \references{
 Peebles, P. J. E. (1968). Recombination of the Primeval Plasma.
   Astrophysical Journal, 153, 1.
+
+  Seager, S., Sasselov, D. D. & Scott, D. (1999). A New Calculation of
+  the Recombination Epoch. Astrophysical Journal Letters, 523, L1
+  (RECFAST).
+
+  Pequignot, D., Petitjean, P. & Boisson, C. (1991). Total and effective
+  radiative recombination coefficients. Astronomy and Astrophysics, 251,
+  680.
+}
+\seealso{
+\code{\link{Saha_Xe}} for the equilibrium (Saha) ionization
+  fraction.
 }

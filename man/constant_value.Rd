@@ -4,34 +4,58 @@
 \alias{constant_value}
 \title{Retrieve the Value of a Physical Constant}
 \usage{
-constant_value(constant_name, unit = "SI")
+constant_value(constant_name, unit = c("SI", "Natural"))
 }
 \arguments{
-\item{constant_name}{Character. The name (or part of the name) of the
-constant to search for. Case-insensitive and partial matches are allowed.}
+\item{constant_name}{Character string. Name, symbol or part of the name of
+the constant, e.g. \code{"Planck Constant"}, \code{"h"} or
+\code{"planck"}. Case and leading or trailing white space are ignored.}
 
-\item{unit}{Character. The unit system to retrieve the constant in. Options
-are:
-\itemize{
-  \item \code{"SI"}: Retrieves the value in SI units (default).
-  \item \code{"Natural"}: Retrieves the value in natural units.
-}}
+\item{unit}{Character. Unit system of the result: \code{"SI"} (default) or
+\code{"Natural"}.}
 }
 \value{
-A list containing:
-  \itemize{
-    \item \code{name}: The full name of the constant.
-    \item \code{value}: The numeric value of the constant.
-    \item \code{unit}: The unit string for the selected unit system.
-  }
+A list with elements \code{name} (character, full name of the
+  constant), \code{value} (numeric) and \code{unit} (character, unit of
+  \code{value}; \code{"-"} if dimensionless). \code{value} and \code{unit}
+  are \code{NA}, with a warning, when the constant has no value in the
+  requested unit system.
 }
 \description{
-Retrieves the value and unit of a specified physical constant from the
-\code{constants_df} dataset. You can search by the constant's name and
-choose whether to retrieve the value in SI units or natural units.
+Looks up a physical constant in \code{\link{constants_df}} by name or
+symbol and returns its value and unit in SI or natural units.
+}
+\details{
+Matching ignores case and leading or trailing white space, and is tried
+in three steps: an exact match on the full name (e.g.
+\code{"Boltzmann Constant"}), then an exact match on the symbol (e.g.
+\code{"k"}), then a partial match on the name (e.g. \code{"planck"}). The
+first step that finds anything decides the result: a single match is
+returned, and several matches are an error that lists them. The partial
+match looks for \code{constant_name} as a fixed string, not a regular
+expression, so characters such as \code{"."}, \code{"+"} or \code{"("}
+have no special meaning. The spelling \code{"Boltzman"} used for two
+constants before astronomR 0.4.0 is still accepted.
+
+Natural units are
+\eqn{\hbar = c = k_B = \epsilon_0 = 1}{hbar = c = k_B = epsilon0 = 1}
+with energies in eV (see \code{\link{constants_df}}). The Avogadro
+constant, the Faraday constant and the molar gas constant have no
+natural-unit value: for these, \code{unit = "Natural"} gives \code{NA} for
+both \code{value} and \code{unit}, with a warning.
 }
 \examples{
-constant_value("speed of light", unit = "SI")
-constant_value("planck", unit = "SI")
+constant_value("speed of light")
+constant_value("k")                          # by symbol
+constant_value("planck", unit = "Natural")   # h = 2 pi
 constant_value("electron mass", unit = "Natural")
+
+# Several partial matches are an error that lists them
+try(constant_value("electron"))
+
+# Mole-based constants have no natural-unit value (NA, with a warning)
+constant_value("Avogadro", unit = "Natural")
+}
+\seealso{
+\code{\link{constants_df}} for the full table.
 }

@@ -14,45 +14,66 @@ solve_relic_abundance(
 )
 }
 \arguments{
-\item{m_GeV}{Numeric.  Particle mass in GeV.}
+\item{m_GeV}{Numeric.  Particle mass in GeV (a single positive
+number).}
 
-\item{sigmav_GeV2}{Numeric.  \eqn{\langle\sigma v\rangle} in GeV\eqn{^{-2}}.}
+\item{sigmav_GeV2}{Numeric.  \eqn{\langle\sigma v\rangle}{<sigma v>} in
+GeV\eqn{^{-2}}{^-2} (a single positive number).}
 
 \item{g_dof}{Integer.  Internal DOF. Default 2.}
 
-\item{x_ini}{Numeric.  Initial \eqn{x = m/T}. Default 1.}
+\item{x_ini}{Numeric.  Initial \eqn{x = m/T}, where the yield
+starts at its equilibrium value; must be positive. Default 5.}
 
-\item{x_fin}{Numeric.  Final \eqn{x = m/T}. Default 1000.}
+\item{x_fin}{Numeric.  Final \eqn{x = m/T}; must be greater than
+\code{x_ini}. Default 1000.}
 
-\item{n_steps}{Integer.  Number of output grid points. Default 2000.}
+\item{n_steps}{Integer.  Number of output grid points, at least 2.
+Default 2000.}
 }
 \value{
 A list with:
   \describe{
     \item{\code{x}}{Numeric vector of \eqn{x} values.}
     \item{\code{Y}}{Numeric vector of yield \eqn{Y(x)}.}
-    \item{\code{Y_eq}}{Numeric vector of equilibrium yield \eqn{Y^{\rm eq}(x)}.}
-    \item{\code{Omega_h2}}{Numeric. Relic density \eqn{\Omega_\chi h^2}.}
+    \item{\code{Y_eq}}{Numeric vector of equilibrium yield
+      \eqn{Y^{\rm eq}(x)}{Y_eq(x)}.}
+    \item{\code{Omega_h2}}{Numeric. Relic density
+      \eqn{\Omega_\chi h^2}{Omega_chi h^2}.}
   }
 }
 \description{
-Numerically integrates the thermal relic Boltzmann equation from
-\eqn{x_{\rm ini}} to \eqn{x_{\rm fin}} using \pkg{deSolve}.
+Numerically integrates the thermal relic Boltzmann equation
+(\code{\link{boltzmann_pebble_rhs}}) from \eqn{x_{\rm ini}}{x_ini} to
+\eqn{x_{\rm fin}}{x_fin} using \pkg{deSolve}, starting in equilibrium,
+\eqn{Y(x_{\rm ini}) = Y_{\rm eq}(x_{\rm ini})}{Y(x_ini) = Y_eq(x_ini)}.
 Returns the comoving yield \eqn{Y(x)} and the final relic density
-parameter \eqn{\Omega h^2}.
+parameter \eqn{\Omega h^2}{Omega h^2}.
 }
 \details{
 The relic abundance today is:
 \deqn{\Omega_{\chi} h^2 \approx
-       2.755 \times 10^{8}\; \frac{m}{\mathrm{GeV}}\; Y_{\infty}}
+       2.755 \times 10^{8}\; \frac{m}{\mathrm{GeV}}\;
+       Y_{\infty}}{Omega_chi h^2 ~ 2.755e8 (m / GeV) Y_inf}
+where \eqn{Y_{\infty}}{Y_inf} is the yield at \eqn{x_{\rm fin}}{x_fin}.
 
-Requires the \pkg{deSolve} package.
+Requires the \pkg{deSolve} package. The equation is solved for
+  \eqn{W = \log Y}{W = log(Y)} with the \code{"lsoda"} method
+  (\code{rtol = 1e-8}, \code{atol = 1e-10}), using
+  \code{\link{g_star_eff}} for \eqn{g_*}{g_*} and \eqn{g_{*S}}{g_*S}.
+  An error is raised if the integration stops before \code{x_fin}.
 }
 \examples{
+\dontshow{if (requireNamespace("deSolve", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 sigmav <- 2.2e-9  # GeV^-2
 result <- solve_relic_abundance(m_GeV = 100, sigmav_GeV2 = sigmav)
 cat("Omega h^2 =", result$Omega_h2, "\n")
+\dontshow{\}) # examplesIf}
 }
 \references{
 Kolb & Turner (1990), Chapter 5.
+}
+\seealso{
+\code{\link{boltzmann_pebble_rhs}}, \code{\link{freeze_out_xf}},
+  \code{\link{equilibrium_yield}}
 }

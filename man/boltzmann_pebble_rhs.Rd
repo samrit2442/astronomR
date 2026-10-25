@@ -2,7 +2,7 @@
 % Please edit documentation in R/08_thermal_cosmology.R
 \name{boltzmann_pebble_rhs}
 \alias{boltzmann_pebble_rhs}
-\title{Boltzmann Relic-Abundance (Pebble) Equation  dY/dx}
+\title{Boltzmann Relic-Abundance (Pebble) Equation dY/dx}
 \usage{
 boltzmann_pebble_rhs(
   x,
@@ -23,44 +23,56 @@ boltzmann_pebble_rhs(
 \item{m_GeV}{Numeric.  Particle mass in GeV.}
 
 \item{sigmav_GeV2}{Numeric.  Thermally averaged annihilation cross
-section \eqn{\langle\sigma v\rangle} in \eqn{\mathrm{GeV}^{-2}}.
-A typical WIMP value is \eqn{\approx 2.2 \times 10^{-9}}
-GeV\eqn{^{-2}}.}
+section \eqn{\langle\sigma v\rangle}{<sigma v>} in
+\eqn{\mathrm{GeV}^{-2}}{GeV^-2}, non-negative.
+A typical WIMP value is \eqn{\approx 2.2 \times 10^{-9}}{~2.2e-9}
+GeV\eqn{^{-2}}{^-2}.}
 
 \item{g_dof}{Integer.  Internal degrees of freedom. Default 2.}
 
 \item{g_star_val}{Numeric.  \eqn{g_*} at \eqn{T=m/x}.
-If \code{NULL}, computed from \code{\link{g_star_eff}}.}
+If \code{NULL}, computed with \code{\link{g_star_eff}(m_GeV / x)}.}
 
-\item{g_star_S_val}{Numeric.  \eqn{g_{*S}} at \eqn{T=m/x}.
-If \code{NULL}, set equal to \code{g_star_val}.}
+\item{g_star_S_val}{Numeric.  \eqn{g_{*S}}{g_*S} at \eqn{T=m/x}.
+If \code{NULL}, computed with
+\code{\link{g_star_eff}(m_GeV / x, type = "entropy")}.}
 }
 \value{
-Numeric.  \eqn{dY/dx}.
+Numeric.  \eqn{dY/dx} (dimensionless).
 }
 \description{
 Returns \eqn{dY/dx}, the right-hand side of the Boltzmann equation
 governing the evolution of the comoving yield \eqn{Y = n/s} of a
 thermally produced relic species:
 \deqn{\frac{dY}{dx} = -\frac{\langle\sigma v\rangle\, s}{H\, x}
-                        \left(Y^2 - Y_{\rm eq}^2\right)}
+                        \left(Y^2 - Y_{\rm eq}^2\right)}{dY/dx = -(<sigma
+                        v> s / (H x)) (Y^2 - Y_eq^2)}
 }
 \details{
 This equation is commonly called the \strong{"pebble equation"} in
 thermal dark-matter / freeze-out literature because the relic
 density drops away from equilibrium like a stone and then plateaus.
 
-The variable \eqn{x \equiv m/T} is used as the time variable so
+The variable \eqn{x \equiv m/T}{x = m/T} is used as the time variable so
 that the equation is well-behaved through freeze-out
-(\eqn{x \sim 20\text{--}30}).
+(\eqn{x \sim 20\text{--}30}{x ~ 20-30}). \eqn{H} is evaluated with
+\eqn{g_*}{g_*} and both \eqn{s} and \eqn{Y_{\rm eq}}{Y_eq} with
+\eqn{g_{*S}}{g_*S}.
 }
 \examples{
 sigmav <- 2.2e-9  # GeV^-2 (typical WIMP value)
 Y_eq   <- equilibrium_yield(x = 20, m_GeV = 100)
 boltzmann_pebble_rhs(x = 20, Y = Y_eq, m_GeV = 100,
                      sigmav_GeV2 = sigmav)
+# Above equilibrium the yield is driven back down
+boltzmann_pebble_rhs(x = 20, Y = 10 * Y_eq, m_GeV = 100,
+                     sigmav_GeV2 = sigmav)
 }
 \references{
 Kolb & Turner (1990), Eq. (5.42).
   Gondolo & Gelmini, Nucl. Phys. B 360 (1991) 145.
+}
+\seealso{
+\code{\link{solve_relic_abundance}}, \code{\link{freeze_out_xf}},
+  \code{\link{equilibrium_yield}}, \code{\link{g_star_eff}}
 }

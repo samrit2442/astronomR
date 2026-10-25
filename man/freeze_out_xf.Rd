@@ -17,11 +17,12 @@ freeze_out_xf(
 \arguments{
 \item{m_GeV}{Numeric.  Particle mass in GeV.}
 
-\item{sigmav_GeV2}{Numeric.  \eqn{\langle\sigma v\rangle} in GeV\eqn{^{-2}}.}
+\item{sigmav_GeV2}{Numeric.  \eqn{\langle\sigma v\rangle}{<sigma v>} in
+GeV\eqn{^{-2}}{^-2}.}
 
 \item{g_dof}{Integer.  Internal degrees of freedom. Default 2.}
 
-\item{c_coeff}{Numeric.  Order-unity coefficient (\eqn{c \approx 0.5}
+\item{c_coeff}{Numeric.  Order-unity coefficient (\eqn{c \approx 0.5}{c ~ 0.5}
 for \eqn{s}-wave). Default 0.5.}
 
 \item{g_star}{Numeric.  \eqn{g_*} at freeze-out. Default 106.75.}
@@ -31,25 +32,53 @@ for \eqn{s}-wave). Default 0.5.}
 \item{max_iter}{Integer.  Maximum iterations. Default 100.}
 }
 \value{
-Numeric.  Freeze-out parameter \eqn{x_f}.
+Numeric vector of the dimensionless freeze-out parameter
+  \eqn{x_f}, recycled to the common length of \code{m_GeV},
+  \code{sigmav_GeV2}, \code{g_dof}, \code{c_coeff} and \code{g_star}.
+  A warning is given if the iteration has not converged after
+  \code{max_iter} steps.
 }
 \description{
 Estimates the freeze-out inverse temperature \eqn{x_f = m/T_f}
-using the iterative approximation from the condition \eqn{\Gamma \sim H}:
+using the iterative approximation from the condition
+\eqn{\Gamma \sim H}{Gamma ~ H} (Kolb & Turner 1990):
 \deqn{x_f = \ln\!\left(
-  c(c+2)\;\sqrt{\frac{45}{8}}\;\frac{g\,m\,M_{\rm Pl}\,
+  c(c+2)\;\sqrt{\frac{45}{8}}\;\frac{g\,m\,m_{\rm Pl}\,
   \langle\sigma v\rangle}{2\pi^3\,\sqrt{g_*}\,x_f^{1/2}}
-\right)}
+\right)}{x_f = ln( c (c + 2) sqrt(45/8) g m m_Pl <sigma v> /
+  (2 pi^3 sqrt(g_*) sqrt(x_f)) )}
 }
 \details{
-Typical WIMP values lie in the range \eqn{x_f \approx 20\text{--}30}.
+Here \eqn{m_{\rm Pl} = G^{-1/2} = \sqrt{8\pi}\, M_{\rm Pl} \approx
+1.2207 \times 10^{19}}{m_Pl = G^(-1/2) = sqrt(8 pi) M_Pl ~ 1.2207e19}
+GeV is the full (non-reduced) Planck mass, for which the coefficient
+\eqn{\sqrt{45/8}/(2\pi^3)}{sqrt(45/8) / (2 pi^3)} is defined;
+\eqn{M_{\rm Pl} = 2.435 \times 10^{18}}{M_Pl = 2.435e18} GeV is the
+reduced Planck mass used by \code{\link{hubble_radiation}}.
+
+The equation is solved by fixed-point iteration, starting from the
+logarithm of the argument without the \eqn{x_f^{-1/2}}{x_f^(-1/2)}
+factor. The approximation describes non-relativistic freeze-out and
+needs a log argument well above \eqn{e} (\eqn{x_f \gg 1}{x_f >> 1}); an
+error is raised if the argument would be \eqn{\le 1}{<= 1}, which happens
+for very small masses or cross sections. Typical WIMP values lie in the
+range \eqn{x_f \approx 20\text{--}30}{x_f ~ 20-30}: with the defaults,
+\eqn{m = 100} GeV and
+\eqn{\langle\sigma v\rangle = 2.2 \times 10^{-9}}{<sigma v> = 2.2e-9}
+GeV\eqn{^{-2}}{^-2} give \eqn{x_f \approx 22.38}{x_f ~ 22.38}, i.e.
+\eqn{T_f \approx 4.47}{T_f ~ 4.47} GeV.
 }
 \examples{
 sigmav <- 2.2e-9  # GeV^-2
 x_f <- freeze_out_xf(m_GeV = 100, sigmav_GeV2 = sigmav)
 cat("x_f =", x_f, "  T_f =", 100 / x_f, "GeV\n")
+freeze_out_xf(m_GeV = c(10, 100, 1000), sigmav_GeV2 = sigmav)
 }
 \references{
 Kolb & Turner (1990), Eq. (5.44).
   Jungman, Kamionkowski & Griest, Phys. Rep. 267 (1996) 195.
+}
+\seealso{
+\code{\link{solve_relic_abundance}},
+  \code{\link{boltzmann_pebble_rhs}}
 }

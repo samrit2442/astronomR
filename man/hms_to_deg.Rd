@@ -4,33 +4,54 @@
 \alias{hms_to_deg}
 \title{Convert Hours, Minutes, and Seconds (HMS) to Decimal Degrees}
 \usage{
-hms_to_deg(h, m, s, digit = 5)
+hms_to_deg(h, m = 0, s = 0, digit = 5)
 }
 \arguments{
-\item{h}{Numeric or character. The hours component. If a single character
-string is provided (e.g., \code{"03h15m30s"}), the hours, minutes, and
-seconds are parsed automatically, and \code{m} and \code{s} should be
-omitted.}
+\item{h}{Numeric or character vector. The hours component, or HMS strings
+such as \code{"03h15m30s"} (see Details), in which case \code{m} and
+\code{s} must not be supplied.}
 
-\item{m}{Numeric. The minutes component. Optional when \code{h} is a
-string.}
+\item{m}{Numeric vector. The minutes component, from 0 to less than 60.
+Default is \code{0}.}
 
-\item{s}{Numeric. The seconds component. Optional when \code{h} is a
-string.}
+\item{s}{Numeric vector. The seconds component, from 0 to less than 60.
+Default is \code{0}.}
 
-\item{digit}{Integer. Number of decimal places to round the result to.
-Default is \code{5}.}
+\item{digit}{Whole number from 0 to 10: the number of decimal places to
+round the result to. Default is \code{5}.}
 }
 \value{
-Numeric. The angle in decimal degrees.
+Numeric vector of angles in decimal degrees (between 0 and 360),
+  rounded to \code{digit} decimal places.
 }
 \description{
 Converts an angle expressed in Hours-Minutes-Seconds (HMS) format to
 decimal degrees. Accepts either separate numeric arguments or a single
 formatted string.
 }
+\details{
+With numeric input, \code{h}, \code{m} and \code{s} are recycled to a
+common length and the result is
+\eqn{15 (h + m/60 + s/3600)}{15 * (h + m/60 + s/3600)} degrees. \code{h}
+must be in \eqn{[0, 24]}{[0, 24]}, \code{m} and \code{s} in
+\eqn{[0, 60)}{[0, 60)}, and the total may not exceed 24 hours.
+
+A character \code{h} is parsed element by element, ignoring case: the
+hours, then optionally the minutes and then the seconds, as in
+\code{"03h15m30s"}, \code{"3h 15m 30s"}, \code{"3H15M30S"},
+\code{"03:15:30"}, \code{"3 15 30"}, \code{"3h15m30.5s"}, \code{"3h15m"}
+or \code{"3h"}. Only the last field may have a decimal part, and a leading
+\code{"+"} is allowed. The parsed values must lie in the same ranges as
+numeric input (so a negative value is an error). A string that cannot be
+parsed gives \code{NA} with a warning; \code{NA} gives \code{NA} silently.
+}
 \examples{
 hms_to_deg(h = 3, m = 15, s = 30)
 hms_to_deg(h = 3, m = 15, s = 30.123)
 hms_to_deg(h = "03h15m30s")
+hms_to_deg(c("3h 15m 30s", "03:15:30", "3h15m", "3h", NA))
+}
+\seealso{
+\code{\link{deg_to_hms}} for the reverse conversion,
+  \code{\link{dms_to_deg}} for declination, and \code{\link{deg_to_rad}}.
 }

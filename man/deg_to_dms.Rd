@@ -4,34 +4,59 @@
 \alias{deg_to_dms}
 \title{Convert Decimal Degrees to Degrees, Minutes, and Seconds (DMS) Format}
 \usage{
-deg_to_dms(deg, type = "cat", digit = 5)
+deg_to_dms(deg, type = c("cat", "mat"), digit = 5)
 }
 \arguments{
 \item{deg}{Numeric vector of angles in decimal degrees. All values must be
-between -90 and 90.}
+between -90 and 90 (the declination range). \code{NA} values give
+\code{NA} in the output.}
 
 \item{type}{Character string specifying the output format. Options are:
 \itemize{
-  \item \code{"cat"} (default): Prints the angle as a formatted string
-    in DMS notation.
+  \item \code{"cat"} (default): Prints the angles in DMS notation, such
+    as \code{"+45\u00B030'15.12\""}, separated by spaces and followed by
+    a newline.
   \item \code{"mat"}: Returns a matrix with columns for sign, degrees,
     minutes, and seconds.
 }}
 
-\item{digit}{Integer specifying the number of digits to round the seconds
-to. Default is \code{5}.}
+\item{digit}{Whole number from 0 to 10: the number of decimal places of
+the seconds. Default is \code{5}.}
 }
 \value{
 When \code{type = "cat"}, prints the DMS string and returns
   \code{NULL} invisibly. When \code{type = "mat"}, returns a character
-  matrix with columns \code{SIGN}, \code{DEG}, \code{MIN}, and \code{SEC}.
+  matrix with one row per angle and columns \code{SIGN} (\code{"+"} or
+  \code{"-"}), \code{DEG} (degrees, 0 to 90), \code{MIN} (arcminutes, 0 to
+  59) and \code{SEC} (arcseconds, below 60). The row for an \code{NA}
+  angle is all \code{NA}.
 }
 \description{
 Converts a decimal degree angle to the Degrees-Minutes-Seconds (DMS) format
 commonly used in astronomy for expressing declination and other angles.
 }
+\details{
+The angle is rounded once, to the nearest \eqn{10^{-digit}}{10^-digit}
+arcsecond, and then split exactly into degrees, minutes and seconds, so the
+minutes and seconds are always below 60: \code{deg_to_dms(10.1)} gives 10
+degrees, 6 minutes and 0 seconds. Seconds are written in fixed notation
+without trailing zeros. The sign is \code{"-"} only when the angle is
+negative and still non-zero after rounding, so \code{deg_to_dms(-1e-9)}
+prints \code{+0} degrees.
+}
 \examples{
 deg_to_dms(45.5042)
+deg_to_dms(c(10.1, -0.5))
 deg_to_dms(-12.5, type = "mat")
 deg_to_dms(c(10.25, 45.5), type = "mat")
+
+# Paste the "mat" columns into strings to convert them back
+x <- deg_to_dms(c(-0.5, 45.5042), type = "mat")
+dms_to_deg(paste0(x[, "SIGN"], x[, "DEG"], "d", x[, "MIN"], "m",
+                  x[, "SEC"], "s"))
+}
+\seealso{
+\code{\link{dms_to_deg}} for the reverse conversion,
+  \code{\link{deg_to_hms}} for right ascension, and
+  \code{\link{deg_to_rad}}.
 }
